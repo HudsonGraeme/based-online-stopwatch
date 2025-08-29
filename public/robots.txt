@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://basedonlinestopwatch.com/sitemap.xml
+Sitemap: https://based-online-stopwatch.com/sitemap.xml

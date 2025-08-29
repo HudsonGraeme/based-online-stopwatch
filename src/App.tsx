@@ -107,11 +107,11 @@ function Navigation() {
           bg="rgba(10, 10, 10, 0.95)"
           borderColor="rgba(255, 255, 255, 0.1)"
           backdropFilter="blur(20px)"
-          maxW="600px"
-          w="600px"
+          maxW={{ base: "320px", sm: "400px", md: "600px" }}
+          w={{ base: "320px", sm: "400px", md: "600px" }}
         >
-          <PopoverBody p={4}>
-            <SimpleGrid columns={3} spacing={3}>
+          <PopoverBody p={{ base: 3, md: 4 }}>
+            <SimpleGrid columns={{ base: 2, sm: 3 }} spacing={3}>
               {navItems.map((item) => (
                 <Button
                   key={item.path}
@@ -129,10 +129,11 @@ function Navigation() {
                       : "transparent"
                   }
                   borderRadius="8px"
-                  p={3}
+                  p={{ base: 4, md: 3 }}
                   h="auto"
+                  minH={{ base: "60px", md: "auto" }}
                   fontWeight="600"
-                  fontSize="12px"
+                  fontSize={{ base: "11px", md: "12px" }}
                   letterSpacing="0.25px"
                   transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
                   _hover={{
@@ -143,8 +144,13 @@ function Navigation() {
                   onClick={() => navigate(item.path)}
                 >
                   <VStack spacing={1}>
-                    <Text fontSize="18px">{item.icon}</Text>
-                    <Text fontSize="11px" textAlign="center" lineHeight="1.2">
+                    <Text fontSize={{ base: "20px", md: "18px" }}>{item.icon}</Text>
+                    <Text 
+                      fontSize={{ base: "10px", md: "11px" }} 
+                      textAlign="center" 
+                      lineHeight="1.2"
+                      noOfLines={2}
+                    >
                       {t(item.name)}
                     </Text>
                   </VStack>
@@ -156,10 +162,11 @@ function Navigation() {
       </Popover>
 
       <Text
-        fontSize="sm"
+        fontSize={{ base: "xs", md: "sm" }}
         color="#6b7280"
         fontFamily="system-ui, -apple-system, sans-serif"
         opacity={0.7}
+        display={{ base: "none", sm: "block" }}
       >
         {t("Based Online Stopwatch")}
       </Text>
@@ -197,7 +204,7 @@ function App() {
       >
         <Navigation />
 
-        <Box p={8}>
+        <Box p={{ base: 4, md: 8 }}>
           <Routes>
             <Route
               path="/"
@@ -321,7 +328,12 @@ function App() {
           </Routes>
         </Box>
 
-        <HStack position="fixed" bottom="6" right="6" spacing={2}>
+        <HStack 
+          position="fixed" 
+          bottom={{ base: "4", md: "6" }} 
+          right={{ base: "4", md: "6" }} 
+          spacing={2}
+        >
           <Menu>
             <MenuButton
               as={Button}

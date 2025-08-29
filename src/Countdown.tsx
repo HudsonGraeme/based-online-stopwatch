@@ -50,28 +50,43 @@ const Countdown = () => {
   };
 
   return (
-    <Box textAlign="center">
+    <Box textAlign="center" px={{ base: 4, md: 0 }}>
       <Input
         value={formatTime(initialTime)}
         onChange={handleTimeChange}
-        size="lg"
+        size={{ base: "md", md: "lg" }}
         textAlign="center"
-        fontSize="6xl"
+        fontSize={{ base: "4xl", sm: "5xl", md: "6xl" }}
         fontFamily="monospace"
         fontWeight="bold"
-        mb="4"
+        mb={{ base: 6, md: 4 }}
         isDisabled={isRunning}
       />
-      <Text fontSize="9xl" fontFamily="monospace" fontWeight="bold">
+      <Text 
+        fontSize={{ base: "6xl", sm: "8xl", md: "9xl" }} 
+        fontFamily="monospace" 
+        fontWeight="bold"
+        mb={{ base: 6, md: 4 }}
+      >
         {formatTime(time)}
       </Text>
-      <Flex justifyContent="center" gap="4">
-        <Button onClick={handleReset} size="lg" disabled={time === initialTime}>
+      <Flex 
+        justifyContent="center" 
+        gap={{ base: 3, md: 4 }}
+        flexWrap="wrap"
+      >
+        <Button 
+          onClick={handleReset} 
+          size={{ base: "md", md: "lg" }}
+          minW={{ base: "80px", md: "auto" }}
+          disabled={time === initialTime}
+        >
           {t("Reset")}
         </Button>
         <Button
           onClick={handleStartStop}
-          size="lg"
+          size={{ base: "md", md: "lg" }}
+          minW={{ base: "80px", md: "auto" }}
           colorScheme={isRunning ? "red" : "green"}
         >
           {isRunning ? t("Stop") : t("Start")}
