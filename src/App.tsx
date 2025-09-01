@@ -201,10 +201,12 @@ function App() {
         bg="#0a0a0a"
         pt="80px"
         position="relative"
+        display="flex"
+        flexDirection="column"
       >
         <Navigation />
 
-        <Box p={{ base: 4, md: 8 }}>
+        <Box p={{ base: 4, md: 8 }} pb={{ base: 20, md: 8 }} flex="1">
           <Routes>
             <Route
               path="/"
@@ -417,6 +419,50 @@ function App() {
             {t(isFullscreen ? "Exit Fullscreen" : "Go Fullscreen")}
           </Button>
         </HStack>
+
+        {/* Footer */}
+        <Box
+          as="footer"
+          mt="auto"
+          py={4}
+          px={{ base: 4, md: 8 }}
+          mb={{ base: 16, md: 0 }}
+          borderTop="1px solid"
+          borderColor="rgba(255, 255, 255, 0.1)"
+          textAlign="center"
+        >
+          <Text color="rgba(255, 255, 255, 0.6)" fontSize="sm">
+            ☕{" "}
+            <a 
+              href="/faq.html" 
+              style={{ 
+                color: "#63b3ed", 
+                textDecoration: "none",
+                marginLeft: "8px",
+                marginRight: "8px" 
+              }}
+              onMouseOver={(e) => (e.target as HTMLAnchorElement).style.textDecoration = "underline"}
+              onMouseOut={(e) => (e.target as HTMLAnchorElement).style.textDecoration = "none"}
+            >
+              FAQ
+            </a>
+            •
+            <a 
+              href="https://github.com/yourusername/basedonlinestopwatch" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{ 
+                color: "#63b3ed", 
+                textDecoration: "none",
+                marginLeft: "8px" 
+              }}
+              onMouseOver={(e) => (e.target as HTMLAnchorElement).style.textDecoration = "underline"}
+              onMouseOut={(e) => (e.target as HTMLAnchorElement).style.textDecoration = "none"}
+            >
+              Open Source
+            </a>
+          </Text>
+        </Box>
       </Box>
     </ChakraProvider>
   );
