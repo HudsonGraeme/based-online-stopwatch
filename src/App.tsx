@@ -186,10 +186,6 @@ function App() {
     isFullscreenEnabled
   );
 
-  const toggle = () => {
-    setIsFullscreenEnabled(!isFullscreenEnabled);
-  };
-
   return (
     <ChakraProvider theme={theme}>
       <SEOHead />
@@ -330,138 +326,149 @@ function App() {
           </Routes>
         </Box>
 
-        <HStack 
-          position="fixed" 
-          bottom={{ base: "4", md: "6" }} 
-          right={{ base: "4", md: "6" }} 
-          spacing={2}
-        >
-          <Menu>
-            <MenuButton
-              as={Button}
-              size="sm"
-              variant="ghost"
-              color="#6b7280"
-              bg="rgba(255, 255, 255, 0.02)"
-              border="1px solid"
-              borderColor="rgba(255, 255, 255, 0.1)"
-              borderRadius="12px"
-              px={4}
-              py={2}
-              fontWeight="600"
-              fontSize="14px"
-              letterSpacing="0.25px"
-              transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
-              _hover={{
-                color: "#ffffff",
-                bg: "rgba(255, 255, 255, 0.08)",
-                borderColor: "rgba(255, 255, 255, 0.3)",
-                transform: "translateY(-1px)",
-                boxShadow: "0 4px 12px rgba(255, 255, 255, 0.15)",
-              }}
-              _active={{
-                bg: "rgba(255, 255, 255, 0.12)",
-                transform: "translateY(0)",
-                boxShadow: "0 2px 8px rgba(255, 255, 255, 0.2)",
-              }}
-            >
-              {currentLanguage.flag} {t("Language")}
-            </MenuButton>
-            <MenuList
-              bg="rgba(10, 10, 10, 0.95)"
-              borderColor="rgba(255, 255, 255, 0.1)"
-              backdropFilter="blur(20px)"
-            >
-              {supportedLanguages.map((lang) => (
-                <MenuItem
-                  key={lang.code}
-                  onClick={() => changeLanguage(lang.code)}
-                  bg="transparent"
-                  color="#f9fafb"
-                  _hover={{
-                    bg: "rgba(255, 255, 255, 0.05)"
-                  }}
-                >
-                  {lang.flag} {lang.name}
-                </MenuItem>
-              ))}
-            </MenuList>
-          </Menu>
-          
-          <Button
-            onClick={toggle}
-            size="sm"
-            variant="ghost"
-            color="#6b7280"
-            bg="rgba(255, 255, 255, 0.02)"
-            border="1px solid"
-            borderColor="rgba(255, 255, 255, 0.1)"
-            borderRadius="12px"
-            px={4}
-            py={2}
-            fontWeight="600"
-            fontSize="14px"
-            letterSpacing="0.25px"
-            transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
-            _hover={{
-              color: "#ffffff",
-              bg: "rgba(255, 255, 255, 0.08)",
-              borderColor: "rgba(255, 255, 255, 0.3)",
-              transform: "translateY(-1px)",
-              boxShadow: "0 4px 12px rgba(255, 255, 255, 0.15)",
-            }}
-            _active={{
-              bg: "rgba(255, 255, 255, 0.12)",
-              transform: "translateY(0)",
-              boxShadow: "0 2px 8px rgba(255, 255, 255, 0.2)",
-            }}
-          >
-            {t(isFullscreen ? "Exit Fullscreen" : "Go Fullscreen")}
-          </Button>
-        </HStack>
 
         {/* Footer */}
         <Box
           as="footer"
-          mt="auto"
-          py={4}
+          position="fixed"
+          bottom="0"
+          left="0"
+          right="0"
+          py={{ base: 2, md: 4 }}
           px={{ base: 4, md: 8 }}
-          mb={{ base: 16, md: 0 }}
+          bg="rgba(10, 10, 10, 0.95)"
+          backdropFilter="blur(20px)"
           borderTop="1px solid"
           borderColor="rgba(255, 255, 255, 0.1)"
-          textAlign="center"
+          zIndex={1000}
         >
-          <Text color="rgba(255, 255, 255, 0.6)" fontSize="sm">
-            ☕{" "}
-            <a 
-              href="/faq.html" 
-              style={{ 
-                color: "#63b3ed", 
-                textDecoration: "none",
-                marginLeft: "8px",
-                marginRight: "8px" 
-              }}
-              onMouseOver={(e) => (e.target as HTMLAnchorElement).style.textDecoration = "underline"}
-              onMouseOut={(e) => (e.target as HTMLAnchorElement).style.textDecoration = "none"}
-            >
-              FAQ
-            </a>
-            •
-            <a 
-              href="https://github.com/yourusername/basedonlinestopwatch" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              style={{ 
-                color: "#63b3ed", 
-                textDecoration: "none",
-                marginLeft: "8px" 
-              }}
-              onMouseOver={(e) => (e.target as HTMLAnchorElement).style.textDecoration = "underline"}
-              onMouseOut={(e) => (e.target as HTMLAnchorElement).style.textDecoration = "none"}
-            >
-              Open Source
-            </a>
-          </Text>
+          <Flex 
+            alignItems="center"
+            w="full"
+            maxW={{ base: "full", md: "none" }}
+            mx={{ base: "auto", md: 0 }}
+          >
+            {/* Left side - Coffee emoji and FAQ/Open Source */}
+            <HStack spacing={8} flex="1">
+              <Text color="rgba(255, 255, 255, 0.6)" fontSize="lg">
+                ☕
+              </Text>
+              
+              {/* FAQ and Open Source (hidden on mobile) */}
+              <HStack spacing={4} display={{ base: "none", md: "flex" }}>
+                <a 
+                  href="/faq.html" 
+                  style={{ 
+                    color: "rgba(255, 255, 255, 0.8)", 
+                    textDecoration: "none",
+                    fontSize: "14px" 
+                  }}
+                  onMouseOver={(e) => (e.target as HTMLAnchorElement).style.textDecoration = "underline"}
+                  onMouseOut={(e) => (e.target as HTMLAnchorElement).style.textDecoration = "none"}
+                >
+                  FAQ
+                </a>
+                <Text color="rgba(255, 255, 255, 0.6)" fontSize="sm">•</Text>
+                <a 
+                  href="https://github.com/yourusername/basedonlinestopwatch" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  style={{ 
+                    color: "rgba(255, 255, 255, 0.8)", 
+                    textDecoration: "none",
+                    fontSize: "14px" 
+                  }}
+                  onMouseOver={(e) => (e.target as HTMLAnchorElement).style.textDecoration = "underline"}
+                  onMouseOut={(e) => (e.target as HTMLAnchorElement).style.textDecoration = "none"}
+                >
+                  Open Source
+                </a>
+              </HStack>
+            </HStack>
+            
+            {/* Right side - Language and Fullscreen controls */}
+            <HStack spacing={2}>
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  size="sm"
+                  bg="rgba(255, 255, 255, 0.03)"
+                  color="#f9fafb"
+                  border="1px solid rgba(255, 255, 255, 0.1)"
+                  borderRadius="6px"
+                  px={{ base: 2, md: 3 }}
+                  py={2}
+                  minW="auto"
+                  fontWeight="500"
+                  fontSize="13px"
+                  transition="all 0.2s"
+                  _hover={{
+                    bg: "rgba(255, 255, 255, 0.08)",
+                    borderColor: "rgba(255, 255, 255, 0.2)",
+                  }}
+                  _active={{
+                    bg: "rgba(255, 255, 255, 0.12)",
+                  }}
+                >
+                  <Box display={{ base: "block", md: "none" }}>
+                    🌍
+                  </Box>
+                  <Box display={{ base: "none", md: "flex" }} alignItems="center" gap={1}>
+                    {currentLanguage.flag} {t("Language")}
+                  </Box>
+                </MenuButton>
+                <MenuList
+                  bg="rgba(10, 10, 10, 0.95)"
+                  borderColor="rgba(255, 255, 255, 0.1)"
+                  backdropFilter="blur(20px)"
+                >
+                  {supportedLanguages.map((lang) => (
+                    <MenuItem
+                      key={lang.code}
+                      onClick={() => changeLanguage(lang.code)}
+                      bg="transparent"
+                      color="#f9fafb"
+                      fontSize="sm"
+                      _hover={{
+                        bg: "rgba(255, 255, 255, 0.05)"
+                      }}
+                    >
+                      {lang.flag} {lang.name}
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </Menu>
+              
+              <Button
+                size="sm"
+                bg="rgba(255, 255, 255, 0.03)"
+                color="#f9fafb"
+                border="1px solid rgba(255, 255, 255, 0.1)"
+                borderRadius="6px"
+                px={{ base: 2, md: 3 }}
+                py={2}
+                minW="auto"
+                fontWeight="500"
+                fontSize="13px"
+                onClick={() => setIsFullscreenEnabled(!isFullscreenEnabled)}
+                transition="all 0.2s"
+                _hover={{
+                  bg: "rgba(255, 255, 255, 0.08)",
+                  borderColor: "rgba(255, 255, 255, 0.2)",
+                }}
+                _active={{
+                  bg: "rgba(255, 255, 255, 0.12)",
+                }}
+              >
+                <Box display={{ base: "block", md: "none" }}>
+                  {isFullscreen ? "🗙" : "⛶"}
+                </Box>
+                <Box display={{ base: "none", md: "block" }}>
+                  {t(isFullscreen ? "Exit Fullscreen" : "Go Fullscreen")}
+                </Box>
+              </Button>
+            </HStack>
+          </Flex>
         </Box>
       </Box>
     </ChakraProvider>

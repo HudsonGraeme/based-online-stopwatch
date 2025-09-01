@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, Input } from "@chakra-ui/react";
 import { format } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -12,6 +12,7 @@ const Countdown = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [selectedPosition, setSelectedPosition] = useState(-1);
   const timerRef = useRef<number | null>(null);
+  const hiddenInputRef = useRef<HTMLInputElement>(null);
   const { showNotification, requestPermission } = useNotifications();
   const { isFlashing, startAlarm, stopAlarm } = useTimerEffects();
   const [hasRequestedPermission, setHasRequestedPermission] = useState(false);
@@ -74,6 +75,11 @@ const Countdown = () => {
   const handleCharacterClick = (position: number) => {
     if (!isRunning && position !== 2) { // Don't allow clicking on colon
       setSelectedPosition(position);
+      
+      // Focus hidden input on mobile to trigger numeric keyboard
+      if (hiddenInputRef.current && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        hiddenInputRef.current.focus();
+      }
     }
   };
 
@@ -211,6 +217,17 @@ const Countdown = () => {
       }}
     >
       <Box mb={{ base: 6, md: 4 }}>
+        {/* Hidden input for mobile numeric keyboard */}
+        <Input
+          ref={hiddenInputRef}
+          position="absolute"
+          left="-9999px"
+          opacity={0}
+          inputMode="numeric"
+          pattern="[0-9]*"
+          onKeyDown={handleKeyDown}
+          onBlur={() => setSelectedPosition(-1)}
+        />
         {renderEditableTime(time)}
         {!isRunning && (
           <Text 
