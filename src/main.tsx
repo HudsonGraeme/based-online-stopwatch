@@ -9,6 +9,16 @@ import ErrorPage from "./ErrorPage.tsx";
 import { initI18n } from "./i18n.ts";
 import "./index.css";
 
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js')
+    .then((registration) => {
+      console.log('SW registered: ', registration);
+    })
+    .catch((registrationError) => {
+      console.log('SW registration failed: ', registrationError);
+    });
+}
+
 const router = createBrowserRouter([
   {
     path: "*",
