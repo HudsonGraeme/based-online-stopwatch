@@ -38,6 +38,7 @@ function Navigation() {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   const navItems = [
     { name: "Stopwatch", path: "/", icon: "⏱️" },
@@ -78,7 +79,7 @@ function Navigation() {
       justifyContent="space-between"
       alignItems="center"
     >
-      <Popover placement="bottom-start">
+      <Popover placement="bottom-start" isOpen={isPopoverOpen} onClose={() => setIsPopoverOpen(false)}>
         <PopoverTrigger>
           <Button
             variant="ghost"
@@ -99,6 +100,7 @@ function Navigation() {
             }}
             leftIcon={<Text fontSize="16px">{currentItem.icon}</Text>}
             rightIcon={<Text fontSize="12px">▼</Text>}
+            onClick={() => setIsPopoverOpen(!isPopoverOpen)}
           >
             {t(currentItem.name)}
           </Button>
@@ -141,7 +143,10 @@ function Navigation() {
                     bg: "rgba(255, 255, 255, 0.05)",
                     transform: "translateY(-1px)",
                   }}
-                  onClick={() => navigate(item.path)}
+                  onClick={() => {
+                    navigate(item.path);
+                    setIsPopoverOpen(false);
+                  }}
                 >
                   <VStack spacing={1}>
                     <Text fontSize={{ base: "20px", md: "18px" }}>{item.icon}</Text>
