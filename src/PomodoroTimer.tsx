@@ -78,12 +78,12 @@ const PomodoroTimer = () => {
       
       // Show notification
       const phaseMessages = {
-        work: nextPhase === 'longBreak' ? 'Great job! Time for a long break!' : 'Work session complete! Time for a short break!',
-        shortBreak: 'Break over! Ready for another work session?',
-        longBreak: 'Long break over! Ready to start fresh?'
+        work: nextPhase === 'longBreak' ? t('Great job! Time for a long break!') : t('Work session complete! Time for a short break!'),
+        shortBreak: t('Break over! Ready for another work session?'),
+        longBreak: t('Long break over! Ready to start fresh?')
       };
       
-      showNotification('Pomodoro Phase Complete!', {
+      showNotification(t('Pomodoro Phase Complete!'), {
         body: phaseMessages[prev.phase],
         tag: 'pomodoro-complete',
       });
@@ -164,9 +164,9 @@ const PomodoroTimer = () => {
 
   const getPhaseLabel = (phase: PomodoroPhase) => {
     switch (phase) {
-      case 'work': return 'Focus Time';
-      case 'shortBreak': return 'Short Break';
-      case 'longBreak': return 'Long Break';
+      case 'work': return t('Focus Time');
+      case 'shortBreak': return t('Short Break');
+      case 'longBreak': return t('Long Break');
     }
   };
 
@@ -197,7 +197,7 @@ const PomodoroTimer = () => {
         {/* Phase Header */}
         <VStack spacing={2}>
           <Text fontSize="2xl" fontWeight="700" color="white">
-            Pomodoro Timer
+            {t('Pomodoro Timer')}
           </Text>
           <Badge 
             colorScheme={session.phase === 'work' ? 'red' : session.phase === 'shortBreak' ? 'green' : 'blue'}
@@ -251,7 +251,7 @@ const PomodoroTimer = () => {
                 {completedWorkSessions}
               </Text>
               <Text fontSize="sm" color="#9ca3af">
-                Completed Sessions
+                {t('Completed Sessions')}
               </Text>
             </VStack>
             <VStack spacing={1}>
@@ -259,7 +259,7 @@ const PomodoroTimer = () => {
                 {session.totalCycles - (completedWorkSessions % session.totalCycles)}
               </Text>
               <Text fontSize="sm" color="#9ca3af">
-                Until Long Break
+                {t('Until Long Break')}
               </Text>
             </VStack>
           </HStack>
@@ -277,7 +277,7 @@ const PomodoroTimer = () => {
             minW={{ base: "80px", md: "auto" }}
             disabled={session.timeRemaining === POMODORO_TIMES[session.phase] && !session.isRunning}
           >
-            Reset
+            {t('Reset')}
           </Button>
           <Button
             onClick={handleStartStop}
@@ -285,7 +285,7 @@ const PomodoroTimer = () => {
             minW={{ base: "100px", md: "auto" }}
             colorScheme={session.isRunning ? "red" : "green"}
           >
-            {session.isRunning ? "Pause" : session.timeRemaining <= 0 ? "Continue" : "Start"}
+            {session.isRunning ? t('Pause') : session.timeRemaining <= 0 ? t('Continue') : t('Start')}
           </Button>
           <Button
             onClick={handleSkipPhase}
@@ -294,7 +294,7 @@ const PomodoroTimer = () => {
             variant="outline"
             disabled={!session.isRunning && session.timeRemaining === POMODORO_TIMES[session.phase]}
           >
-            Skip
+            {t('Skip')}
           </Button>
         </Flex>
 
@@ -306,14 +306,14 @@ const PomodoroTimer = () => {
             textAlign="center"
             px={4}
           >
-            Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!
+            {t('Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!')}
           </Text>
           <Text 
             fontSize={{ base: "xs", md: "sm" }}
             color="gray.500"
             textAlign="center"
           >
-            Space: Start/Pause • R: Reset • S: Skip Phase
+            {t('Space: Start/Pause')} • {t('R: Reset')} • {t('S: Skip Phase')}
           </Text>
         </VStack>
       </VStack>

@@ -8,6 +8,7 @@ const resources = {
       // Navigation
       "Stopwatch": "Stopwatch",
       "Countdown": "Countdown",
+      "Pomodoro": "Pomodoro",
       "Race Timers": "Race Timers",
       "Classroom Timers": "Classroom Timers",
       "Holiday Timers": "Holiday Timers",
@@ -36,7 +37,27 @@ const resources = {
       // Timer specific
       "Based Online Stopwatch": "Based Online Stopwatch",
       "Based Online Stopwatch - Free Online Timer & Stopwatch Tools": "Based Online Stopwatch - Free Online Timer & Stopwatch Tools",
-      "Free online stopwatch, countdown timer, and time tracking tools. Perfect for classrooms, presentations, races, and productivity. No ads, no downloads required.": "Free online stopwatch, countdown timer, and time tracking tools. Perfect for classrooms, presentations, races, and productivity. No ads, no downloads required."
+      "Free online stopwatch, countdown timer, and time tracking tools. Perfect for classrooms, presentations, races, and productivity. No ads, no downloads required.": "Free online stopwatch, countdown timer, and time tracking tools. Perfect for classrooms, presentations, races, and productivity. No ads, no downloads required.",
+      
+      // Pomodoro specific
+      "Pomodoro Timer": "Pomodoro Timer",
+      "Focus Time": "Focus Time",
+      "Short Break": "Short Break",
+      "Long Break": "Long Break",
+      "Pause": "Pause",
+      "Continue": "Continue",
+      "Skip": "Skip",
+      "Completed Sessions": "Completed Sessions",
+      "Until Long Break": "Until Long Break",
+      "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!",
+      "Space: Start/Pause": "Space: Start/Pause",
+      "R: Reset": "R: Reset",
+      "S: Skip Phase": "S: Skip Phase",
+      "Great job! Time for a long break!": "Great job! Time for a long break!",
+      "Work session complete! Time for a short break!": "Work session complete! Time for a short break!",
+      "Break over! Ready for another work session?": "Break over! Ready for another work session?",
+      "Long break over! Ready to start fresh?": "Long break over! Ready to start fresh?",
+      "Pomodoro Phase Complete!": "Pomodoro Phase Complete!"
     }
   },
   es: {
@@ -44,6 +65,7 @@ const resources = {
       // Navigation
       "Stopwatch": "Cronómetro",
       "Countdown": "Cuenta Regresiva",
+      "Pomodoro": "Pomodoro",
       "Race Timers": "Cronómetros de Carrera",
       "Classroom Timers": "Cronómetros de Aula",
       "Holiday Timers": "Cronómetros de Vacaciones",
@@ -70,7 +92,27 @@ const resources = {
       "Coming soon...": "Próximamente...",
       
       // Timer specific
-      "Based Online Stopwatch": "Cronómetro Online Basado"
+      "Based Online Stopwatch": "Cronómetro Online Basado",
+      
+      // Pomodoro specific
+      "Pomodoro Timer": "Temporizador Pomodoro",
+      "Focus Time": "Tiempo de Enfoque",
+      "Short Break": "Descanso Corto",
+      "Long Break": "Descanso Largo",
+      "Pause": "Pausar",
+      "Continue": "Continuar",
+      "Skip": "Saltar",
+      "Completed Sessions": "Sesiones Completadas",
+      "Until Long Break": "Hasta Descanso Largo",
+      "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "Trabaja por 25 minutos, luego toma un descanso de 5 minutos. ¡Después de 4 sesiones de trabajo, disfruta de un descanso largo de 15 minutos!",
+      "Space: Start/Pause": "Espacio: Iniciar/Pausar",
+      "R: Reset": "R: Reiniciar",
+      "S: Skip Phase": "S: Saltar Fase",
+      "Great job! Time for a long break!": "¡Buen trabajo! ¡Hora de un descanso largo!",
+      "Work session complete! Time for a short break!": "¡Sesión de trabajo completa! ¡Hora de un descanso corto!",
+      "Break over! Ready for another work session?": "¡Descanso terminado! ¿Listo para otra sesión de trabajo?",
+      "Long break over! Ready to start fresh?": "¡Descanso largo terminado! ¿Listo para empezar de nuevo?",
+      "Pomodoro Phase Complete!": "¡Fase Pomodoro Completa!"
     }
   },
   fr: {
@@ -78,6 +120,7 @@ const resources = {
       // Navigation
       "Stopwatch": "Chronomètre",
       "Countdown": "Compte à Rebours",
+      "Pomodoro": "Pomodoro",
       "Race Timers": "Chronos de Course",
       "Classroom Timers": "Chronos de Classe",
       "Holiday Timers": "Chronos de Vacances",
@@ -104,7 +147,27 @@ const resources = {
       "Coming soon...": "Bientôt disponible...",
       
       // Timer specific
-      "Based Online Stopwatch": "Chronomètre Online Basé"
+      "Based Online Stopwatch": "Chronomètre Online Basé",
+      
+      // Pomodoro specific
+      "Pomodoro Timer": "Minuteur Pomodoro",
+      "Focus Time": "Temps de Concentration",
+      "Short Break": "Pause Courte",
+      "Long Break": "Pause Longue",
+      "Pause": "Pause",
+      "Continue": "Continuer",
+      "Skip": "Passer",
+      "Completed Sessions": "Sessions Complétées",
+      "Until Long Break": "Jusqu'à la Pause Longue",
+      "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "Travaillez pendant 25 minutes, puis prenez une pause de 5 minutes. Après 4 sessions de travail, profitez d'une pause longue de 15 minutes!",
+      "Space: Start/Pause": "Espace: Démarrer/Pause",
+      "R: Reset": "R: Réinitialiser",
+      "S: Skip Phase": "S: Passer la Phase",
+      "Great job! Time for a long break!": "Bon travail! C'est l'heure de la pause longue!",
+      "Work session complete! Time for a short break!": "Session de travail terminée! C'est l'heure de la pause courte!",
+      "Break over! Ready for another work session?": "Pause terminée! Prêt pour une autre session de travail?",
+      "Long break over! Ready to start fresh?": "Pause longue terminée! Prêt à recommencer?",
+      "Pomodoro Phase Complete!": "Phase Pomodoro Complète!"
     }
   },
   de: {
@@ -112,6 +175,7 @@ const resources = {
       // Navigation
       "Stopwatch": "Stoppuhr",
       "Countdown": "Countdown",
+      "Pomodoro": "Pomodoro",
       "Race Timers": "Rennzeiten",
       "Classroom Timers": "Klassenzeiten",
       "Holiday Timers": "Feiertagszeiten",
@@ -138,7 +202,27 @@ const resources = {
       "Coming soon...": "Demnächst...",
       
       // Timer specific
-      "Based Online Stopwatch": "Based Online Stoppuhr"
+      "Based Online Stopwatch": "Based Online Stoppuhr",
+      
+      // Pomodoro specific
+      "Pomodoro Timer": "Pomodoro-Timer",
+      "Focus Time": "Fokuszeit",
+      "Short Break": "Kurze Pause",
+      "Long Break": "Lange Pause",
+      "Pause": "Pause",
+      "Continue": "Fortsetzen",
+      "Skip": "Überspringen",
+      "Completed Sessions": "Abgeschlossene Sitzungen",
+      "Until Long Break": "Bis zur Langen Pause",
+      "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "Arbeite 25 Minuten, dann mache 5 Minuten Pause. Nach 4 Arbeitssitzungen genieße eine 15-minütige lange Pause!",
+      "Space: Start/Pause": "Leertaste: Start/Pause",
+      "R: Reset": "R: Zurücksetzen",
+      "S: Skip Phase": "S: Phase Überspringen",
+      "Great job! Time for a long break!": "Großartig! Zeit für eine lange Pause!",
+      "Work session complete! Time for a short break!": "Arbeitssitzung abgeschlossen! Zeit für eine kurze Pause!",
+      "Break over! Ready for another work session?": "Pause vorbei! Bereit für eine weitere Arbeitssitzung?",
+      "Long break over! Ready to start fresh?": "Lange Pause vorbei! Bereit für einen Neustart?",
+      "Pomodoro Phase Complete!": "Pomodoro-Phase Abgeschlossen!"
     }
   },
   it: {
@@ -146,6 +230,7 @@ const resources = {
       // Navigation
       "Stopwatch": "Cronometro",
       "Countdown": "Conto alla Rovescia",
+      "Pomodoro": "Pomodoro",
       "Race Timers": "Timer di Gara",
       "Classroom Timers": "Timer per Aula",
       "Holiday Timers": "Timer per Vacanze",
@@ -172,7 +257,27 @@ const resources = {
       "Coming soon...": "Prossimamente...",
       
       // Timer specific
-      "Based Online Stopwatch": "Cronometro Online Basato"
+      "Based Online Stopwatch": "Cronometro Online Basato",
+      
+      // Pomodoro specific
+      "Pomodoro Timer": "Timer Pomodoro",
+      "Focus Time": "Tempo di Focus",
+      "Short Break": "Pausa Breve",
+      "Long Break": "Pausa Lunga",
+      "Pause": "Pausa",
+      "Continue": "Continua",
+      "Skip": "Salta",
+      "Completed Sessions": "Sessioni Completate",
+      "Until Long Break": "Fino alla Pausa Lunga",
+      "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "Lavora per 25 minuti, poi fai una pausa di 5 minuti. Dopo 4 sessioni di lavoro, goditi una pausa lunga di 15 minuti!",
+      "Space: Start/Pause": "Spazio: Avvia/Pausa",
+      "R: Reset": "R: Reimposta",
+      "S: Skip Phase": "S: Salta Fase",
+      "Great job! Time for a long break!": "Ottimo lavoro! È ora di una pausa lunga!",
+      "Work session complete! Time for a short break!": "Sessione di lavoro completata! È ora di una pausa breve!",
+      "Break over! Ready for another work session?": "Pausa finita! Pronto per un'altra sessione di lavoro?",
+      "Long break over! Ready to start fresh?": "Pausa lunga finita! Pronto per ricominciare?",
+      "Pomodoro Phase Complete!": "Fase Pomodoro Completata!"
     }
   },
   pt: {
@@ -180,6 +285,7 @@ const resources = {
       // Navigation
       "Stopwatch": "Cronômetro",
       "Countdown": "Contagem Regressiva",
+      "Pomodoro": "Pomodoro",
       "Race Timers": "Cronômetros de Corrida",
       "Classroom Timers": "Cronômetros de Aula",
       "Holiday Timers": "Cronômetros de Feriado",
@@ -206,7 +312,27 @@ const resources = {
       "Coming soon...": "Em breve...",
       
       // Timer specific
-      "Based Online Stopwatch": "Cronômetro Online Baseado"
+      "Based Online Stopwatch": "Cronômetro Online Baseado",
+      
+      // Pomodoro specific
+      "Pomodoro Timer": "Temporizador Pomodoro",
+      "Focus Time": "Tempo de Foco",
+      "Short Break": "Pausa Curta",
+      "Long Break": "Pausa Longa",
+      "Pause": "Pausar",
+      "Continue": "Continuar",
+      "Skip": "Pular",
+      "Completed Sessions": "Sessões Concluídas",
+      "Until Long Break": "Até a Pausa Longa",
+      "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "Trabalhe por 25 minutos, depois faça uma pausa de 5 minutos. Após 4 sessões de trabalho, aproveite uma pausa longa de 15 minutos!",
+      "Space: Start/Pause": "Espaço: Iniciar/Pausar",
+      "R: Reset": "R: Resetar",
+      "S: Skip Phase": "S: Pular Fase",
+      "Great job! Time for a long break!": "Ótimo trabalho! Hora de uma pausa longa!",
+      "Work session complete! Time for a short break!": "Sessão de trabalho concluída! Hora de uma pausa curta!",
+      "Break over! Ready for another work session?": "Pausa terminada! Pronto para outra sessão de trabalho?",
+      "Long break over! Ready to start fresh?": "Pausa longa terminada! Pronto para recomeçar?",
+      "Pomodoro Phase Complete!": "Fase Pomodoro Concluída!"
     }
   },
   zh: {
@@ -214,6 +340,7 @@ const resources = {
       // Navigation
       "Stopwatch": "秒表",
       "Countdown": "倒计时",
+      "Pomodoro": "番茄钟",
       "Race Timers": "比赛计时器",
       "Classroom Timers": "课堂计时器",
       "Holiday Timers": "节日计时器",
@@ -240,7 +367,27 @@ const resources = {
       "Coming soon...": "即将推出...",
       
       // Timer specific
-      "Based Online Stopwatch": "基础在线秒表"
+      "Based Online Stopwatch": "基础在线秒表",
+      
+      // Pomodoro specific
+      "Pomodoro Timer": "番茄工作法计时器",
+      "Focus Time": "专注时间",
+      "Short Break": "短休息",
+      "Long Break": "长休息",
+      "Pause": "暂停",
+      "Continue": "继续",
+      "Skip": "跳过",
+      "Completed Sessions": "已完成会话",
+      "Until Long Break": "距离长休息",
+      "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "工作25分钟，然后休息5分钟。4个工作会话后，享受15分钟的长休息！",
+      "Space: Start/Pause": "空格键：开始/暂停",
+      "R: Reset": "R：重置",
+      "S: Skip Phase": "S：跳过阶段",
+      "Great job! Time for a long break!": "做得好！该长休息了！",
+      "Work session complete! Time for a short break!": "工作会话完成！该短休息了！",
+      "Break over! Ready for another work session?": "休息结束！准备好另一个工作会话了吗？",
+      "Long break over! Ready to start fresh?": "长休息结束！准备好重新开始了吗？",
+      "Pomodoro Phase Complete!": "番茄钟阶段完成！"
     }
   },
   ja: {
@@ -248,6 +395,7 @@ const resources = {
       // Navigation
       "Stopwatch": "ストップウォッチ",
       "Countdown": "カウントダウン",
+      "Pomodoro": "ポモドーロ",
       "Race Timers": "レースタイマー",
       "Classroom Timers": "教室タイマー",
       "Holiday Timers": "休日タイマー",
@@ -274,7 +422,27 @@ const resources = {
       "Coming soon...": "近日公開...",
       
       // Timer specific
-      "Based Online Stopwatch": "ベースオンラインストップウォッチ"
+      "Based Online Stopwatch": "ベースオンラインストップウォッチ",
+      
+      // Pomodoro specific
+      "Pomodoro Timer": "ポモドーロタイマー",
+      "Focus Time": "集中タイム",
+      "Short Break": "小休憩",
+      "Long Break": "長休憩",
+      "Pause": "一時停止",
+      "Continue": "続ける",
+      "Skip": "スキップ",
+      "Completed Sessions": "完了セッション",
+      "Until Long Break": "長休憩まで",
+      "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "25分間作業して、5分間休憩します。4回の作業セッションの後は、15分間の長休憩をお楽しみください！",
+      "Space: Start/Pause": "スペース：開始/一時停止",
+      "R: Reset": "R：リセット",
+      "S: Skip Phase": "S：フェーズをスキップ",
+      "Great job! Time for a long break!": "素晴らしい！長休憩の時間です！",
+      "Work session complete! Time for a short break!": "作業セッション完了！小休憩の時間です！",
+      "Break over! Ready for another work session?": "休憩終了！次の作業セッションの準備はできましたか？",
+      "Long break over! Ready to start fresh?": "長休憩終了！新たに始める準備はできましたか？",
+      "Pomodoro Phase Complete!": "ポモドーロフェーズ完了！"
     }
   },
   ko: {
@@ -282,6 +450,7 @@ const resources = {
       // Navigation
       "Stopwatch": "스톱워치",
       "Countdown": "카운트다운",
+      "Pomodoro": "포모도로",
       "Race Timers": "경주 타이머",
       "Classroom Timers": "교실 타이머",
       "Holiday Timers": "휴일 타이머",
@@ -308,7 +477,27 @@ const resources = {
       "Coming soon...": "곧 출시...",
       
       // Timer specific
-      "Based Online Stopwatch": "베이스 온라인 스톱워치"
+      "Based Online Stopwatch": "베이스 온라인 스톱워치",
+      
+      // Pomodoro specific
+      "Pomodoro Timer": "포모도로 타이머",
+      "Focus Time": "집중 시간",
+      "Short Break": "짧은 휴식",
+      "Long Break": "긴 휴식",
+      "Pause": "일시정지",
+      "Continue": "계속",
+      "Skip": "건너뛰기",
+      "Completed Sessions": "완료된 세션",
+      "Until Long Break": "긴 휴식까지",
+      "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "25분 동안 일하고 5분 동안 휴식하세요. 4번의 작업 세션 후에는 15분의 긴 휴식을 즐겨보세요!",
+      "Space: Start/Pause": "스페이스: 시작/일시정지",
+      "R: Reset": "R: 재설정",
+      "S: Skip Phase": "S: 단계 건너뛰기",
+      "Great job! Time for a long break!": "훌륭해요! 긴 휴식 시간입니다!",
+      "Work session complete! Time for a short break!": "작업 세션 완료! 짧은 휴식 시간입니다!",
+      "Break over! Ready for another work session?": "휴식 끝! 다른 작업 세션을 준비하셨나요?",
+      "Long break over! Ready to start fresh?": "긴 휴식 끝! 새롭게 시작할 준비가 되셨나요?",
+      "Pomodoro Phase Complete!": "포모도로 단계 완료!"
     }
   },
   ru: {
@@ -316,6 +505,7 @@ const resources = {
       // Navigation
       "Stopwatch": "Секундомер",
       "Countdown": "Обратный отсчет",
+      "Pomodoro": "Помодоро",
       "Race Timers": "Гоночные таймеры",
       "Classroom Timers": "Классные таймеры",
       "Holiday Timers": "Праздничные таймеры",
@@ -342,7 +532,27 @@ const resources = {
       "Coming soon...": "Скоро...",
       
       // Timer specific
-      "Based Online Stopwatch": "Базовый онлайн секундомер"
+      "Based Online Stopwatch": "Базовый онлайн секундомер",
+      
+      // Pomodoro specific
+      "Pomodoro Timer": "Таймер Помодоро",
+      "Focus Time": "Время фокуса",
+      "Short Break": "Короткий перерыв",
+      "Long Break": "Длинный перерыв",
+      "Pause": "Пауза",
+      "Continue": "Продолжить",
+      "Skip": "Пропустить",
+      "Completed Sessions": "Завершенные сессии",
+      "Until Long Break": "До длинного перерыва",
+      "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "Работайте 25 минут, затем сделайте 5-минутный перерыв. После 4 рабочих сессий насладитесь 15-минутным длинным перерывом!",
+      "Space: Start/Pause": "Пробел: Пуск/Пауза",
+      "R: Reset": "R: Сброс",
+      "S: Skip Phase": "S: Пропустить фазу",
+      "Great job! Time for a long break!": "Отлично! Время длинного перерыва!",
+      "Work session complete! Time for a short break!": "Рабочая сессия завершена! Время короткого перерыва!",
+      "Break over! Ready for another work session?": "Перерыв окончен! Готовы к новой рабочей сессии?",
+      "Long break over! Ready to start fresh?": "Длинный перерыв окончен! Готовы начать заново?",
+      "Pomodoro Phase Complete!": "Фаза Помодоро завершена!"
     }
   },
   ar: {
@@ -350,6 +560,7 @@ const resources = {
       // Navigation
       "Stopwatch": "ساعة إيقاف",
       "Countdown": "العد التنازلي",
+      "Pomodoro": "بومودورو",
       "Race Timers": "مؤقتات السباق",
       "Classroom Timers": "مؤقتات الفصل",
       "Holiday Timers": "مؤقتات العطلة",
@@ -376,7 +587,27 @@ const resources = {
       "Coming soon...": "قريباً...",
       
       // Timer specific
-      "Based Online Stopwatch": "ساعة الإيقاف الأساسية"
+      "Based Online Stopwatch": "ساعة الإيقاف الأساسية",
+      
+      // Pomodoro specific
+      "Pomodoro Timer": "مؤقت بومودورو",
+      "Focus Time": "وقت التركيز",
+      "Short Break": "استراحة قصيرة",
+      "Long Break": "استراحة طويلة",
+      "Pause": "إيقاف مؤقت",
+      "Continue": "متابعة",
+      "Skip": "تخطي",
+      "Completed Sessions": "الجلسات المنجزة",
+      "Until Long Break": "حتى الاستراحة الطويلة",
+      "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "اعمل لمدة 25 دقيقة، ثم خذ استراحة 5 دقائق. بعد 4 جلسات عمل، استمتع باستراحة طويلة لمدة 15 دقيقة!",
+      "Space: Start/Pause": "مسافة: بدء/إيقاف مؤقت",
+      "R: Reset": "R: إعادة تعيين",
+      "S: Skip Phase": "S: تخطي المرحلة",
+      "Great job! Time for a long break!": "عمل رائع! حان وقت الاستراحة الطويلة!",
+      "Work session complete! Time for a short break!": "جلسة العمل مكتملة! حان وقت الاستراحة القصيرة!",
+      "Break over! Ready for another work session?": "انتهت الاستراحة! هل أنت مستعد لجلسة عمل أخرى؟",
+      "Long break over! Ready to start fresh?": "انتهت الاستراحة الطويلة! هل أنت مستعد للبدء من جديد؟",
+      "Pomodoro Phase Complete!": "اكتملت مرحلة بومودورو!"
     }
   },
   hi: {
@@ -384,6 +615,7 @@ const resources = {
       // Navigation
       "Stopwatch": "स्टॉपवॉच",
       "Countdown": "काउंटडाउन",
+      "Pomodoro": "पोमोडोरो",
       "Race Timers": "रेस टाइमर",
       "Classroom Timers": "कक्षा टाइमर",
       "Holiday Timers": "छुट्टी टाइमर",
@@ -410,7 +642,27 @@ const resources = {
       "Coming soon...": "जल्द आ रहा है...",
       
       // Timer specific
-      "Based Online Stopwatch": "आधारित ऑनलाइन स्टॉपवॉच"
+      "Based Online Stopwatch": "आधारित ऑनलाइन स्टॉपवॉच",
+      
+      // Pomodoro specific
+      "Pomodoro Timer": "पोमोडोरो टाइमर",
+      "Focus Time": "फोकस टाइम",
+      "Short Break": "छोटा ब्रेक",
+      "Long Break": "लंबा ब्रेक",
+      "Pause": "रोकें",
+      "Continue": "जारी रखें",
+      "Skip": "छोडें",
+      "Completed Sessions": "पूरे सेशन",
+      "Until Long Break": "लंबे ब्रेक तक",
+      "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "25 मिनट काम करें, फिर 5 मिनट का ब्रेक लें। 4 काम के सेशन के बाद 15 मिनट के लंबे ब्रेक का आनंद लें!",
+      "Space: Start/Pause": "स्पेस: शुरू/रोकें",
+      "R: Reset": "R: रीसेट",
+      "S: Skip Phase": "S: चरण छोडें",
+      "Great job! Time for a long break!": "बहुत बढ़िया! लंबे ब्रेक का समय!",
+      "Work session complete! Time for a short break!": "काम का सेशन पूरा! छोटे ब्रेक का समय!",
+      "Break over! Ready for another work session?": "ब्रेक खत्म! दूसरे काम के सेशन के लिए तैयार?",
+      "Long break over! Ready to start fresh?": "लंबा ब्रेक खत्म! नई शुरुआत के लिए तैयार?",
+      "Pomodoro Phase Complete!": "पोमोडोरो चरण पूरा!"
     }
   }
 };
