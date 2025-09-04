@@ -771,9 +771,20 @@ const initI18n = async () => {
     console.error('Error loading saved language:', error);
   }
 
-  const detectedLanguage = navigator.language.split('-')[0];
+  // Enhanced language detection
+  const browserLanguages = navigator.languages || [navigator.language];
   const supportedLanguages = Object.keys(resources);
-  const defaultLanguage = supportedLanguages.includes(detectedLanguage) ? detectedLanguage : 'en';
+  
+  let detectedLanguage = 'en';
+  for (const lang of browserLanguages) {
+    const baseLanguage = lang.split('-')[0];
+    if (supportedLanguages.includes(baseLanguage)) {
+      detectedLanguage = baseLanguage;
+      break;
+    }
+  }
+  
+  const defaultLanguage = detectedLanguage;
 
   return i18n
     .use(initReactI18next)

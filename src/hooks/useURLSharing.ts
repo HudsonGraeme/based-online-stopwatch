@@ -9,7 +9,7 @@ interface TimerConfig {
   message?: string;
 }
 
-export const useURLSharing = (timerType: string) => {
+export const useURLSharing = (_timerType: string) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [config, setConfig] = useState<TimerConfig>({});
   const [hasLoadedFromURL, setHasLoadedFromURL] = useState(false);
@@ -17,7 +17,7 @@ export const useURLSharing = (timerType: string) => {
   // Load config from URL on mount
   useEffect(() => {
     const urlConfig: TimerConfig = {};
-    
+
     if (searchParams.has('time')) {
       const timeParam = searchParams.get('time');
       if (timeParam) {
@@ -57,7 +57,7 @@ export const useURLSharing = (timerType: string) => {
 
   const shareTimer = (config: TimerConfig) => {
     const params = new URLSearchParams();
-    
+
     if (config.initialTime) {
       // Share as minutes for readability (e.g., 5m instead of 300000)
       const minutes = config.initialTime / 60000;
@@ -90,13 +90,13 @@ export const useURLSharing = (timerType: string) => {
     // Generate shareable URL
     const url = new URL(window.location.href);
     url.search = params.toString();
-    
+
     return url.toString();
   };
 
   const copyToClipboard = async (config: TimerConfig) => {
     const url = shareTimer(config);
-    
+
     try {
       await navigator.clipboard.writeText(url);
       return true;
@@ -134,7 +134,7 @@ export const useURLSharing = (timerType: string) => {
 // Helper function to parse time strings like "5m", "300s", "300000ms"
 const parseTimeString = (timeStr: string): number => {
   const num = parseFloat(timeStr);
-  
+
   if (timeStr.endsWith('ms')) {
     return num;
   } else if (timeStr.endsWith('s')) {
