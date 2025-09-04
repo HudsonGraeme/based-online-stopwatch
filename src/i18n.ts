@@ -1,6 +1,6 @@
 import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
 import localforage from 'localforage';
+import { initReactI18next } from 'react-i18next';
 
 const resources = {
   en: {
@@ -21,7 +21,7 @@ const resources = {
       "Group Generators": "Group Generators",
       "Presentation Timers": "Presentation Timers",
       "Tally Counters": "Tally Counters",
-      
+
       // Common
       "Start": "Start",
       "Stop": "Stop",
@@ -35,12 +35,19 @@ const resources = {
       "Coming soon...": "Coming soon...",
       "FAQ": "FAQ",
       "Open Source": "Open Source",
-      
+
+      // Keyboard shortcuts
+      "Space: Start/Stop": "Space: Start/Stop",
+      "R: Reset": "R: Reset",
+      "L: Lap": "L: Lap",
+      "Esc: Deselect": "Esc: Deselect",
+      "Click digits to edit": "Click digits to edit",
+
       // Timer specific
       "Based Online Stopwatch": "Based Online Stopwatch",
       "Based Online Stopwatch - Free Online Timer & Stopwatch Tools": "Based Online Stopwatch - Free Online Timer & Stopwatch Tools",
       "Free online stopwatch, countdown timer, and time tracking tools. Perfect for classrooms, presentations, races, and productivity. No ads, no downloads required.": "Free online stopwatch, countdown timer, and time tracking tools. Perfect for classrooms, presentations, races, and productivity. No ads, no downloads required.",
-      
+
       // Pomodoro specific
       "Pomodoro Timer": "Pomodoro Timer",
       "Focus Time": "Focus Time",
@@ -53,7 +60,6 @@ const resources = {
       "Until Long Break": "Until Long Break",
       "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!",
       "Space: Start/Pause": "Space: Start/Pause",
-      "R: Reset": "R: Reset",
       "S: Skip Phase": "S: Skip Phase",
       "Great job! Time for a long break!": "Great job! Time for a long break!",
       "Work session complete! Time for a short break!": "Work session complete! Time for a short break!",
@@ -80,7 +86,7 @@ const resources = {
       "Group Generators": "Generador de Grupos",
       "Presentation Timers": "Cronómetros de Presentación",
       "Tally Counters": "Contadores",
-      
+
       // Common
       "Start": "Iniciar",
       "Stop": "Detener",
@@ -94,10 +100,17 @@ const resources = {
       "Coming soon...": "Próximamente...",
       "FAQ": "Preguntas Frecuentes",
       "Open Source": "Código Abierto",
-      
+
+      // Keyboard shortcuts
+      "Space: Start/Stop": "Espacio: Iniciar/Detener",
+      "R: Reset": "R: Reiniciar",
+      "L: Lap": "L: Vuelta",
+      "Esc: Deselect": "Esc: Deseleccionar",
+      "Click digits to edit": "Haz clic en los dígitos para editar",
+
       // Timer specific
       "Based Online Stopwatch": "Cronómetro Online Basado",
-      
+
       // Pomodoro specific
       "Pomodoro Timer": "Temporizador Pomodoro",
       "Focus Time": "Tiempo de Enfoque",
@@ -110,7 +123,6 @@ const resources = {
       "Until Long Break": "Hasta Descanso Largo",
       "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "Trabaja por 25 minutos, luego toma un descanso de 5 minutos. ¡Después de 4 sesiones de trabajo, disfruta de un descanso largo de 15 minutos!",
       "Space: Start/Pause": "Espacio: Iniciar/Pausar",
-      "R: Reset": "R: Reiniciar",
       "S: Skip Phase": "S: Saltar Fase",
       "Great job! Time for a long break!": "¡Buen trabajo! ¡Hora de un descanso largo!",
       "Work session complete! Time for a short break!": "¡Sesión de trabajo completa! ¡Hora de un descanso corto!",
@@ -137,7 +149,7 @@ const resources = {
       "Group Generators": "Générateur de Groupes",
       "Presentation Timers": "Chronos de Présentation",
       "Tally Counters": "Compteurs",
-      
+
       // Common
       "Start": "Commencer",
       "Stop": "Arrêter",
@@ -151,10 +163,17 @@ const resources = {
       "Coming soon...": "Bientôt disponible...",
       "FAQ": "FAQ",
       "Open Source": "Open Source",
-      
+
+      // Keyboard shortcuts
+      "Space: Start/Stop": "Espace: Démarrer/Arrêter",
+      "R: Reset": "R: Réinitialiser",
+      "L: Lap": "L: Tour",
+      "Esc: Deselect": "Esc: Désélectionner",
+      "Click digits to edit": "Cliquez sur les chiffres pour modifier",
+
       // Timer specific
       "Based Online Stopwatch": "Chronomètre Online Basé",
-      
+
       // Pomodoro specific
       "Pomodoro Timer": "Minuteur Pomodoro",
       "Focus Time": "Temps de Concentration",
@@ -167,7 +186,6 @@ const resources = {
       "Until Long Break": "Jusqu'à la Pause Longue",
       "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "Travaillez pendant 25 minutes, puis prenez une pause de 5 minutes. Après 4 sessions de travail, profitez d'une pause longue de 15 minutes!",
       "Space: Start/Pause": "Espace: Démarrer/Pause",
-      "R: Reset": "R: Réinitialiser",
       "S: Skip Phase": "S: Passer la Phase",
       "Great job! Time for a long break!": "Bon travail! C'est l'heure de la pause longue!",
       "Work session complete! Time for a short break!": "Session de travail terminée! C'est l'heure de la pause courte!",
@@ -194,7 +212,7 @@ const resources = {
       "Group Generators": "Gruppengenerator",
       "Presentation Timers": "Präsentationszeiten",
       "Tally Counters": "Zähler",
-      
+
       // Common
       "Start": "Start",
       "Stop": "Stop",
@@ -208,10 +226,17 @@ const resources = {
       "Coming soon...": "Demnächst...",
       "FAQ": "FAQ",
       "Open Source": "Open Source",
-      
+
+      // Keyboard shortcuts
+      "Space: Start/Stop": "Leertaste: Start/Stop",
+      "R: Reset": "R: Zurücksetzen",
+      "L: Lap": "L: Runde",
+      "Esc: Deselect": "Esc: Abwählen",
+      "Click digits to edit": "Klicken Sie auf Ziffern zum Bearbeiten",
+
       // Timer specific
       "Based Online Stopwatch": "Based Online Stoppuhr",
-      
+
       // Pomodoro specific
       "Pomodoro Timer": "Pomodoro-Timer",
       "Focus Time": "Fokuszeit",
@@ -224,7 +249,6 @@ const resources = {
       "Until Long Break": "Bis zur Langen Pause",
       "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "Arbeite 25 Minuten, dann mache 5 Minuten Pause. Nach 4 Arbeitssitzungen genieße eine 15-minütige lange Pause!",
       "Space: Start/Pause": "Leertaste: Start/Pause",
-      "R: Reset": "R: Zurücksetzen",
       "S: Skip Phase": "S: Phase Überspringen",
       "Great job! Time for a long break!": "Großartig! Zeit für eine lange Pause!",
       "Work session complete! Time for a short break!": "Arbeitssitzung abgeschlossen! Zeit für eine kurze Pause!",
@@ -251,7 +275,7 @@ const resources = {
       "Group Generators": "Generatore di Gruppi",
       "Presentation Timers": "Timer per Presentazioni",
       "Tally Counters": "Contatori",
-      
+
       // Common
       "Start": "Avvia",
       "Stop": "Stop",
@@ -265,10 +289,17 @@ const resources = {
       "Coming soon...": "Prossimamente...",
       "FAQ": "FAQ",
       "Open Source": "Open Source",
-      
+
+      // Keyboard shortcuts
+      "Space: Start/Stop": "Spazio: Avvia/Stop",
+      "R: Reset": "R: Reimposta",
+      "L: Lap": "L: Giro",
+      "Esc: Deselect": "Esc: Deseleziona",
+      "Click digits to edit": "Clicca sui numeri per modificare",
+
       // Timer specific
       "Based Online Stopwatch": "Cronometro Online Basato",
-      
+
       // Pomodoro specific
       "Pomodoro Timer": "Timer Pomodoro",
       "Focus Time": "Tempo di Focus",
@@ -281,7 +312,6 @@ const resources = {
       "Until Long Break": "Fino alla Pausa Lunga",
       "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "Lavora per 25 minuti, poi fai una pausa di 5 minuti. Dopo 4 sessioni di lavoro, goditi una pausa lunga di 15 minuti!",
       "Space: Start/Pause": "Spazio: Avvia/Pausa",
-      "R: Reset": "R: Reimposta",
       "S: Skip Phase": "S: Salta Fase",
       "Great job! Time for a long break!": "Ottimo lavoro! È ora di una pausa lunga!",
       "Work session complete! Time for a short break!": "Sessione di lavoro completata! È ora di una pausa breve!",
@@ -308,7 +338,7 @@ const resources = {
       "Group Generators": "Gerador de Grupos",
       "Presentation Timers": "Cronômetros de Apresentação",
       "Tally Counters": "Contadores",
-      
+
       // Common
       "Start": "Iniciar",
       "Stop": "Parar",
@@ -322,10 +352,17 @@ const resources = {
       "Coming soon...": "Em breve...",
       "FAQ": "Perguntas Frequentes",
       "Open Source": "Código Aberto",
-      
+
+      // Keyboard shortcuts
+      "Space: Start/Stop": "Espaço: Iniciar/Parar",
+      "R: Reset": "R: Resetar",
+      "L: Lap": "L: Volta",
+      "Esc: Deselect": "Esc: Desselecionar",
+      "Click digits to edit": "Clique nos dígitos para editar",
+
       // Timer specific
       "Based Online Stopwatch": "Cronômetro Online Baseado",
-      
+
       // Pomodoro specific
       "Pomodoro Timer": "Temporizador Pomodoro",
       "Focus Time": "Tempo de Foco",
@@ -338,7 +375,6 @@ const resources = {
       "Until Long Break": "Até a Pausa Longa",
       "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "Trabalhe por 25 minutos, depois faça uma pausa de 5 minutos. Após 4 sessões de trabalho, aproveite uma pausa longa de 15 minutos!",
       "Space: Start/Pause": "Espaço: Iniciar/Pausar",
-      "R: Reset": "R: Resetar",
       "S: Skip Phase": "S: Pular Fase",
       "Great job! Time for a long break!": "Ótimo trabalho! Hora de uma pausa longa!",
       "Work session complete! Time for a short break!": "Sessão de trabalho concluída! Hora de uma pausa curta!",
@@ -365,7 +401,7 @@ const resources = {
       "Group Generators": "组生成器",
       "Presentation Timers": "演示计时器",
       "Tally Counters": "计数器",
-      
+
       // Common
       "Start": "开始",
       "Stop": "停止",
@@ -379,10 +415,17 @@ const resources = {
       "Coming soon...": "即将推出...",
       "FAQ": "常见问题",
       "Open Source": "开源",
-      
+
+      // Keyboard shortcuts
+      "Space: Start/Stop": "空格键: 开始/停止",
+      "R: Reset": "R: 重置",
+      "L: Lap": "L: 计圈",
+      "Esc: Deselect": "Esc: 取消选择",
+      "Click digits to edit": "点击数字进行编辑",
+
       // Timer specific
       "Based Online Stopwatch": "基础在线秒表",
-      
+
       // Pomodoro specific
       "Pomodoro Timer": "番茄工作法计时器",
       "Focus Time": "专注时间",
@@ -395,7 +438,6 @@ const resources = {
       "Until Long Break": "距离长休息",
       "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "工作25分钟，然后休息5分钟。4个工作会话后，享受15分钟的长休息！",
       "Space: Start/Pause": "空格键：开始/暂停",
-      "R: Reset": "R：重置",
       "S: Skip Phase": "S：跳过阶段",
       "Great job! Time for a long break!": "做得好！该长休息了！",
       "Work session complete! Time for a short break!": "工作会话完成！该短休息了！",
@@ -422,7 +464,7 @@ const resources = {
       "Group Generators": "グループ生成器",
       "Presentation Timers": "プレゼンタイマー",
       "Tally Counters": "カウンター",
-      
+
       // Common
       "Start": "開始",
       "Stop": "停止",
@@ -436,10 +478,17 @@ const resources = {
       "Coming soon...": "近日公開...",
       "FAQ": "よくある質問",
       "Open Source": "オープンソース",
-      
+
+      // Keyboard shortcuts
+      "Space: Start/Stop": "スペース: 開始/停止",
+      "R: Reset": "R: リセット",
+      "L: Lap": "L: ラップ",
+      "Esc: Deselect": "Esc: 選択解除",
+      "Click digits to edit": "数字をクリックして編集",
+
       // Timer specific
       "Based Online Stopwatch": "ベースオンラインストップウォッチ",
-      
+
       // Pomodoro specific
       "Pomodoro Timer": "ポモドーロタイマー",
       "Focus Time": "集中タイム",
@@ -452,7 +501,6 @@ const resources = {
       "Until Long Break": "長休憩まで",
       "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "25分間作業して、5分間休憩します。4回の作業セッションの後は、15分間の長休憩をお楽しみください！",
       "Space: Start/Pause": "スペース：開始/一時停止",
-      "R: Reset": "R：リセット",
       "S: Skip Phase": "S：フェーズをスキップ",
       "Great job! Time for a long break!": "素晴らしい！長休憩の時間です！",
       "Work session complete! Time for a short break!": "作業セッション完了！小休憩の時間です！",
@@ -479,7 +527,7 @@ const resources = {
       "Group Generators": "그룹 생성기",
       "Presentation Timers": "프레젠테이션 타이머",
       "Tally Counters": "카운터",
-      
+
       // Common
       "Start": "시작",
       "Stop": "정지",
@@ -493,10 +541,17 @@ const resources = {
       "Coming soon...": "곧 출시...",
       "FAQ": "자주 묻는 질문",
       "Open Source": "오픈소스",
-      
+
+      // Keyboard shortcuts
+      "Space: Start/Stop": "스페이스: 시작/정지",
+      "R: Reset": "R: 리셋",
+      "L: Lap": "L: 랩",
+      "Esc: Deselect": "Esc: 선택 해제",
+      "Click digits to edit": "숫자를 클릭하여 편집",
+
       // Timer specific
       "Based Online Stopwatch": "베이스 온라인 스톱워치",
-      
+
       // Pomodoro specific
       "Pomodoro Timer": "포모도로 타이머",
       "Focus Time": "집중 시간",
@@ -509,7 +564,6 @@ const resources = {
       "Until Long Break": "긴 휴식까지",
       "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "25분 동안 일하고 5분 동안 휴식하세요. 4번의 작업 세션 후에는 15분의 긴 휴식을 즐겨보세요!",
       "Space: Start/Pause": "스페이스: 시작/일시정지",
-      "R: Reset": "R: 재설정",
       "S: Skip Phase": "S: 단계 건너뛰기",
       "Great job! Time for a long break!": "훌륭해요! 긴 휴식 시간입니다!",
       "Work session complete! Time for a short break!": "작업 세션 완료! 짧은 휴식 시간입니다!",
@@ -536,7 +590,7 @@ const resources = {
       "Group Generators": "Генератор групп",
       "Presentation Timers": "Презентационные таймеры",
       "Tally Counters": "Счетчики",
-      
+
       // Common
       "Start": "Старт",
       "Stop": "Стоп",
@@ -550,10 +604,17 @@ const resources = {
       "Coming soon...": "Скоро...",
       "FAQ": "Часто задаваемые вопросы",
       "Open Source": "Открытый исходный код",
-      
+
+      // Keyboard shortcuts
+      "Space: Start/Stop": "Пробел: Пуск/Остановка",
+      "R: Reset": "R: Сброс",
+      "L: Lap": "L: Круг",
+      "Esc: Deselect": "Esc: Отмена выбора",
+      "Click digits to edit": "Нажмите на цифры для редактирования",
+
       // Timer specific
       "Based Online Stopwatch": "Базовый онлайн секундомер",
-      
+
       // Pomodoro specific
       "Pomodoro Timer": "Таймер Помодоро",
       "Focus Time": "Время фокуса",
@@ -566,7 +627,6 @@ const resources = {
       "Until Long Break": "До длинного перерыва",
       "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "Работайте 25 минут, затем сделайте 5-минутный перерыв. После 4 рабочих сессий насладитесь 15-минутным длинным перерывом!",
       "Space: Start/Pause": "Пробел: Пуск/Пауза",
-      "R: Reset": "R: Сброс",
       "S: Skip Phase": "S: Пропустить фазу",
       "Great job! Time for a long break!": "Отлично! Время длинного перерыва!",
       "Work session complete! Time for a short break!": "Рабочая сессия завершена! Время короткого перерыва!",
@@ -593,7 +653,7 @@ const resources = {
       "Group Generators": "مولد المجموعات",
       "Presentation Timers": "مؤقتات العرض",
       "Tally Counters": "العدادات",
-      
+
       // Common
       "Start": "ابدأ",
       "Stop": "توقف",
@@ -607,10 +667,17 @@ const resources = {
       "Coming soon...": "قريباً...",
       "FAQ": "الأسئلة الشائعة",
       "Open Source": "مفتوح المصدر",
-      
+
+      // Keyboard shortcuts
+      "Space: Start/Stop": "مسافة: بدء/إيقاف",
+      "R: Reset": "R: إعادة تعيين",
+      "L: Lap": "L: لفة",
+      "Esc: Deselect": "Esc: إلغاء التحديد",
+      "Click digits to edit": "انقر على الأرقام للتحرير",
+
       // Timer specific
       "Based Online Stopwatch": "ساعة الإيقاف الأساسية",
-      
+
       // Pomodoro specific
       "Pomodoro Timer": "مؤقت بومودورو",
       "Focus Time": "وقت التركيز",
@@ -623,7 +690,6 @@ const resources = {
       "Until Long Break": "حتى الاستراحة الطويلة",
       "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "اعمل لمدة 25 دقيقة، ثم خذ استراحة 5 دقائق. بعد 4 جلسات عمل، استمتع باستراحة طويلة لمدة 15 دقيقة!",
       "Space: Start/Pause": "مسافة: بدء/إيقاف مؤقت",
-      "R: Reset": "R: إعادة تعيين",
       "S: Skip Phase": "S: تخطي المرحلة",
       "Great job! Time for a long break!": "عمل رائع! حان وقت الاستراحة الطويلة!",
       "Work session complete! Time for a short break!": "جلسة العمل مكتملة! حان وقت الاستراحة القصيرة!",
@@ -650,7 +716,7 @@ const resources = {
       "Group Generators": "समूह जनरेटर",
       "Presentation Timers": "प्रस्तुति टाइमर",
       "Tally Counters": "काउंटर",
-      
+
       // Common
       "Start": "शुरू",
       "Stop": "रोकें",
@@ -664,10 +730,17 @@ const resources = {
       "Coming soon...": "जल्द आ रहा है...",
       "FAQ": "अक्सर पूछे जाने वाले प्रश्न",
       "Open Source": "ओपन सोर्स",
-      
+
+      // Keyboard shortcuts
+      "Space: Start/Stop": "स्पेस: शुरू/बंद",
+      "R: Reset": "R: रीसेट",
+      "L: Lap": "L: लैप",
+      "Esc: Deselect": "Esc: चयन हटाएं",
+      "Click digits to edit": "संपादित करने के लिए अंकों पर क्लिक करें",
+
       // Timer specific
       "Based Online Stopwatch": "आधारित ऑनलाइन स्टॉपवॉच",
-      
+
       // Pomodoro specific
       "Pomodoro Timer": "पोमोडोरो टाइमर",
       "Focus Time": "फोकस टाइम",
@@ -680,7 +753,6 @@ const resources = {
       "Until Long Break": "लंबे ब्रेक तक",
       "Work for 25 minutes, then take a 5-minute break. After 4 work sessions, enjoy a 15-minute long break!": "25 मिनट काम करें, फिर 5 मिनट का ब्रेक लें। 4 काम के सेशन के बाद 15 मिनट के लंबे ब्रेक का आनंद लें!",
       "Space: Start/Pause": "स्पेस: शुरू/रोकें",
-      "R: Reset": "R: रीसेट",
       "S: Skip Phase": "S: चरण छोडें",
       "Great job! Time for a long break!": "बहुत बढ़िया! लंबे ब्रेक का समय!",
       "Work session complete! Time for a short break!": "काम का सेशन पूरा! छोटे ब्रेक का समय!",
@@ -702,7 +774,7 @@ const initI18n = async () => {
   const detectedLanguage = navigator.language.split('-')[0];
   const supportedLanguages = Object.keys(resources);
   const defaultLanguage = supportedLanguages.includes(detectedLanguage) ? detectedLanguage : 'en';
-  
+
   return i18n
     .use(initReactI18next)
     .init({

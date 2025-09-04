@@ -143,7 +143,7 @@ const Stopwatch = () => {
           mt={4}
           textAlign="center"
         >
-          Space: Start/Stop • R: Reset • L: Lap
+          {t("Space: Start/Stop")} • {t("R: Reset")} • {t("L: Lap")}
         </Text>
       </Box>
     </Box>
