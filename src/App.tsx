@@ -383,7 +383,7 @@ function App() {
                   onMouseOver={(e) => (e.target as HTMLAnchorElement).style.textDecoration = "underline"}
                   onMouseOut={(e) => (e.target as HTMLAnchorElement).style.textDecoration = "none"}
                 >
-                  FAQ
+                  {t("FAQ")}
                 </a>
                 <Text color="rgba(255, 255, 255, 0.6)" fontSize="sm">•</Text>
                 <a 
@@ -398,7 +398,7 @@ function App() {
                   onMouseOver={(e) => (e.target as HTMLAnchorElement).style.textDecoration = "underline"}
                   onMouseOut={(e) => (e.target as HTMLAnchorElement).style.textDecoration = "none"}
                 >
-                  Open Source
+                  {t("Open Source")}
                 </a>
               </HStack>
             </HStack>

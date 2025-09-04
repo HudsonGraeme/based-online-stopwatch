@@ -33,6 +33,8 @@ const resources = {
       "Exit Fullscreen": "Exit Fullscreen",
       "Language": "Language",
       "Coming soon...": "Coming soon...",
+      "FAQ": "FAQ",
+      "Open Source": "Open Source",
       
       // Timer specific
       "Based Online Stopwatch": "Based Online Stopwatch",
@@ -90,6 +92,8 @@ const resources = {
       "Exit Fullscreen": "Salir de Pantalla Completa",
       "Language": "Idioma",
       "Coming soon...": "Próximamente...",
+      "FAQ": "Preguntas Frecuentes",
+      "Open Source": "Código Abierto",
       
       // Timer specific
       "Based Online Stopwatch": "Cronómetro Online Basado",
@@ -145,6 +149,8 @@ const resources = {
       "Exit Fullscreen": "Quitter Plein Écran",
       "Language": "Langue",
       "Coming soon...": "Bientôt disponible...",
+      "FAQ": "FAQ",
+      "Open Source": "Open Source",
       
       // Timer specific
       "Based Online Stopwatch": "Chronomètre Online Basé",
@@ -200,6 +206,8 @@ const resources = {
       "Exit Fullscreen": "Vollbild beenden",
       "Language": "Sprache",
       "Coming soon...": "Demnächst...",
+      "FAQ": "FAQ",
+      "Open Source": "Open Source",
       
       // Timer specific
       "Based Online Stopwatch": "Based Online Stoppuhr",
@@ -255,6 +263,8 @@ const resources = {
       "Exit Fullscreen": "Esci da Schermo Intero",
       "Language": "Lingua",
       "Coming soon...": "Prossimamente...",
+      "FAQ": "FAQ",
+      "Open Source": "Open Source",
       
       // Timer specific
       "Based Online Stopwatch": "Cronometro Online Basato",
@@ -310,6 +320,8 @@ const resources = {
       "Exit Fullscreen": "Sair da Tela Cheia",
       "Language": "Idioma",
       "Coming soon...": "Em breve...",
+      "FAQ": "Perguntas Frequentes",
+      "Open Source": "Código Aberto",
       
       // Timer specific
       "Based Online Stopwatch": "Cronômetro Online Baseado",
@@ -365,6 +377,8 @@ const resources = {
       "Exit Fullscreen": "退出全屏",
       "Language": "语言",
       "Coming soon...": "即将推出...",
+      "FAQ": "常见问题",
+      "Open Source": "开源",
       
       // Timer specific
       "Based Online Stopwatch": "基础在线秒表",
@@ -420,6 +434,8 @@ const resources = {
       "Exit Fullscreen": "フルスクリーン終了",
       "Language": "言語",
       "Coming soon...": "近日公開...",
+      "FAQ": "よくある質問",
+      "Open Source": "オープンソース",
       
       // Timer specific
       "Based Online Stopwatch": "ベースオンラインストップウォッチ",
@@ -475,6 +491,8 @@ const resources = {
       "Exit Fullscreen": "전체화면 종료",
       "Language": "언어",
       "Coming soon...": "곧 출시...",
+      "FAQ": "자주 묻는 질문",
+      "Open Source": "오픈소스",
       
       // Timer specific
       "Based Online Stopwatch": "베이스 온라인 스톱워치",
@@ -530,6 +548,8 @@ const resources = {
       "Exit Fullscreen": "Выйти из полноэкранного режима",
       "Language": "Язык",
       "Coming soon...": "Скоро...",
+      "FAQ": "Часто задаваемые вопросы",
+      "Open Source": "Открытый исходный код",
       
       // Timer specific
       "Based Online Stopwatch": "Базовый онлайн секундомер",
@@ -585,6 +605,8 @@ const resources = {
       "Exit Fullscreen": "خروج من الشاشة الكاملة",
       "Language": "اللغة",
       "Coming soon...": "قريباً...",
+      "FAQ": "الأسئلة الشائعة",
+      "Open Source": "مفتوح المصدر",
       
       // Timer specific
       "Based Online Stopwatch": "ساعة الإيقاف الأساسية",
@@ -640,6 +662,8 @@ const resources = {
       "Exit Fullscreen": "पूर्ण स्क्रीन से बाहर निकलें",
       "Language": "भाषा",
       "Coming soon...": "जल्द आ रहा है...",
+      "FAQ": "अक्सर पूछे जाने वाले प्रश्न",
+      "Open Source": "ओपन सोर्स",
       
       // Timer specific
       "Based Online Stopwatch": "आधारित ऑनलाइन स्टॉपवॉच",
