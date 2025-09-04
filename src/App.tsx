@@ -32,6 +32,7 @@ import RandomNamePickers from "./RandomNamePickers";
 import RandomNumberGenerators from "./RandomNumberGenerators";
 import Stopwatch from "./Stopwatch";
 import TallyCounters from "./TallyCounters";
+import PomodoroTimer from "./PomodoroTimer";
 
 
 function Navigation() {
@@ -43,6 +44,7 @@ function Navigation() {
   const navItems = [
     { name: "Stopwatch", path: "/", icon: "⏱️" },
     { name: "Countdown", path: "/countdown", icon: "⏳" },
+    { name: "Pomodoro", path: "/pomodoro", icon: "🍅" },
     { name: "Race Timers", path: "/race-timers", icon: "🏁" },
     { name: "Classroom Timers", path: "/classroom-timers", icon: "📚" },
     { name: "Holiday Timers", path: "/holiday-timers", icon: "🎄" },
@@ -184,6 +186,11 @@ function App() {
   const [isFullscreenEnabled, setIsFullscreenEnabled] = useState(false);
   const { t, i18n } = useTranslation();
   
+  // Detect if running as installed app
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
+                       (window.navigator as any).standalone || 
+                       document.referrer.includes('android-app://');
+  
   const currentLanguage = supportedLanguages.find(lang => lang.code === i18n.language) || supportedLanguages[0];
 
   const isFullscreen = useFullscreen(
@@ -217,6 +224,11 @@ function App() {
             <Route
               path="/countdown"
               element={<Countdown />}
+              errorElement={<ErrorPage />}
+            />
+            <Route
+              path="/pomodoro"
+              element={<PomodoroTimer />}
               errorElement={<ErrorPage />}
             />
             <Route
@@ -444,34 +456,36 @@ function App() {
                 </MenuList>
               </Menu>
               
-              <Button
-                size="sm"
-                bg="rgba(255, 255, 255, 0.03)"
-                color="#f9fafb"
-                border="1px solid rgba(255, 255, 255, 0.1)"
-                borderRadius="6px"
-                px={{ base: 2, md: 3 }}
-                py={2}
-                minW="auto"
-                fontWeight="500"
-                fontSize="13px"
-                onClick={() => setIsFullscreenEnabled(!isFullscreenEnabled)}
-                transition="all 0.2s"
-                _hover={{
-                  bg: "rgba(255, 255, 255, 0.08)",
-                  borderColor: "rgba(255, 255, 255, 0.2)",
-                }}
-                _active={{
-                  bg: "rgba(255, 255, 255, 0.12)",
-                }}
-              >
-                <Box display={{ base: "block", md: "none" }}>
-                  {isFullscreen ? "🗙" : "⛶"}
-                </Box>
-                <Box display={{ base: "none", md: "block" }}>
-                  {t(isFullscreen ? "Exit Fullscreen" : "Go Fullscreen")}
-                </Box>
-              </Button>
+              {!isStandalone && (
+                <Button
+                  size="sm"
+                  bg="rgba(255, 255, 255, 0.03)"
+                  color="#f9fafb"
+                  border="1px solid rgba(255, 255, 255, 0.1)"
+                  borderRadius="6px"
+                  px={{ base: 2, md: 3 }}
+                  py={2}
+                  minW="auto"
+                  fontWeight="500"
+                  fontSize="13px"
+                  onClick={() => setIsFullscreenEnabled(!isFullscreenEnabled)}
+                  transition="all 0.2s"
+                  _hover={{
+                    bg: "rgba(255, 255, 255, 0.08)",
+                    borderColor: "rgba(255, 255, 255, 0.2)",
+                  }}
+                  _active={{
+                    bg: "rgba(255, 255, 255, 0.12)",
+                  }}
+                >
+                  <Box display={{ base: "block", md: "none" }}>
+                    {isFullscreen ? "🗙" : "⛶"}
+                  </Box>
+                  <Box display={{ base: "none", md: "block" }}>
+                    {t(isFullscreen ? "Exit Fullscreen" : "Go Fullscreen")}
+                  </Box>
+                </Button>
+              )}
             </HStack>
           </Flex>
         </Box>

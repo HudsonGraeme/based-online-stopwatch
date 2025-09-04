@@ -2,6 +2,8 @@ import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { format } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useStopwatchPersistence } from "./hooks/usePersistence";
+import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 
 const Stopwatch = () => {
   const { t } = useTranslation();
@@ -9,6 +11,20 @@ const Stopwatch = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [laps, setLaps] = useState<number[]>([]);
   const timerRef = useRef<number | null>(null);
+  const { loadValue } = useStopwatchPersistence(time, laps, isRunning);
+
+  // Load persisted state on mount
+  useEffect(() => {
+    const loadState = async () => {
+      const saved = await loadValue();
+      if (saved) {
+        setTime(saved.time);
+        setLaps(saved.laps);
+        // Don't auto-resume running state for safety
+      }
+    };
+    loadState();
+  }, []);
 
   useEffect(() => {
     if (isRunning) {
@@ -39,6 +55,13 @@ const Stopwatch = () => {
   const handleLap = () => {
     setLaps([...laps, time]);
   };
+
+  // Keyboard shortcuts
+  useKeyboardShortcuts({
+    onStartStop: handleStartStop,
+    onReset: handleReset,
+    onLap: handleLap,
+  });
 
   const formatTime = (time: number) => {
     return format(new Date(time), "mm:ss.SS");
@@ -97,6 +120,16 @@ const Stopwatch = () => {
           </Flex>
         ))}
       </Box>
+      
+      {/* Keyboard shortcuts hint */}
+      <Text 
+        fontSize={{ base: "xs", md: "sm" }}
+        color="gray.500"
+        mt={4}
+        textAlign="center"
+      >
+        Space: Start/Stop • R: Reset • L: Lap
+      </Text>
     </Box>
   );
 };
