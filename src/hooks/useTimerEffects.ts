@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef } from "react";
 
 export const useTimerEffects = () => {
   const [isFlashing, setIsFlashing] = useState(false);
@@ -7,10 +7,11 @@ export const useTimerEffects = () => {
   const flashTimeoutRef = useRef<number | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const activeOscillatorsRef = useRef<OscillatorNode[]>([]);
-  
+
   const getAudioContext = () => {
     if (!audioContextRef.current) {
-      audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+      audioContextRef.current = new (window.AudioContext ||
+        (window as any).webkitAudioContext)();
     }
     return audioContextRef.current;
   };
@@ -20,7 +21,7 @@ export const useTimerEffects = () => {
     if (flashTimeoutRef.current) {
       window.clearTimeout(flashTimeoutRef.current);
     }
-    
+
     setIsFlashing(true);
     flashTimeoutRef.current = window.setTimeout(() => {
       setIsFlashing(false);
@@ -29,11 +30,11 @@ export const useTimerEffects = () => {
   };
 
   const stopFlashing = () => {
-    console.log('Stopping flash');
+    console.log("Stopping flash");
     if (flashTimeoutRef.current) {
       window.clearTimeout(flashTimeoutRef.current);
       flashTimeoutRef.current = null;
-      console.log('Flash timeout cleared');
+      console.log("Flash timeout cleared");
     }
     setIsFlashing(false);
   };
@@ -41,30 +42,30 @@ export const useTimerEffects = () => {
   const playSound = () => {
     try {
       const audio = getAudioContext();
-      if (audio.state === 'suspended') {
+      if (audio.state === "suspended") {
         audio.resume();
       }
-      
+
       const oscillator = audio.createOscillator();
       const gainNode = audio.createGain();
-      
+
       // Track active oscillators
       activeOscillatorsRef.current.push(oscillator);
-      
+
       oscillator.connect(gainNode);
       gainNode.connect(audio.destination);
-      
+
       // Simple clean beep
       oscillator.frequency.setValueAtTime(880, audio.currentTime); // A5 note
-      oscillator.type = 'sine';
-      
+      oscillator.type = "sine";
+
       gainNode.gain.setValueAtTime(0, audio.currentTime);
       gainNode.gain.linearRampToValueAtTime(0.2, audio.currentTime + 0.01);
       gainNode.gain.linearRampToValueAtTime(0, audio.currentTime + 0.3);
-      
+
       oscillator.start(audio.currentTime);
       oscillator.stop(audio.currentTime + 0.3);
-      
+
       // Clean up after sound finishes
       oscillator.onended = () => {
         const index = activeOscillatorsRef.current.indexOf(oscillator);
@@ -73,7 +74,7 @@ export const useTimerEffects = () => {
         }
       };
     } catch (error) {
-      console.error('Error playing sound:', error);
+      console.error("Error playing sound:", error);
     }
   };
 
@@ -86,61 +87,63 @@ export const useTimerEffects = () => {
   const startAlarmCycle = () => {
     // Play first cycle immediately
     playAlarmCycle();
-    
+
     // Set up repeating cycle
     const interval = window.setInterval(() => {
       playAlarmCycle();
     }, 1000);
-    
+
     alarmIntervalRef.current = interval;
   };
 
   const stopAlarmCycle = () => {
-    console.log('Stopping alarm cycle, interval:', alarmIntervalRef.current);
+    console.log("Stopping alarm cycle, interval:", alarmIntervalRef.current);
     if (alarmIntervalRef.current) {
       window.clearInterval(alarmIntervalRef.current);
       alarmIntervalRef.current = null;
-      console.log('Alarm interval cleared');
+      console.log("Alarm interval cleared");
     }
   };
 
   const startAlarm = () => {
-    console.log('Starting alarm, current alarming state:', isAlarming);
-    
+    console.log("Starting alarm, current alarming state:", isAlarming);
+
     // Prevent multiple alarms from starting
     if (isAlarming || alarmIntervalRef.current) {
-      console.log('Alarm already active, ignoring start request');
+      console.log("Alarm already active, ignoring start request");
       return;
     }
-    
+
     // Stop any active sounds
-    activeOscillatorsRef.current.forEach(osc => {
-      try { osc.stop(); } catch (e) {}
+    activeOscillatorsRef.current.forEach((osc) => {
+      try {
+        osc.stop();
+      } catch (e) {}
     });
     activeOscillatorsRef.current = [];
-    
+
     // Clear any flash timeout
     if (flashTimeoutRef.current) {
       window.clearTimeout(flashTimeoutRef.current);
       flashTimeoutRef.current = null;
     }
-    
+
     setIsAlarming(true);
     setIsFlashing(false);
-    
+
     // Start immediately
     startAlarmCycle();
   };
 
   const stopAlarm = () => {
-    console.log('Stopping alarm');
+    console.log("Stopping alarm");
     setIsAlarming(false);
-    
+
     stopAlarmCycle();
     stopFlashing();
-    
+
     // Stop all currently playing sounds immediately
-    activeOscillatorsRef.current.forEach(oscillator => {
+    activeOscillatorsRef.current.forEach((oscillator) => {
       try {
         oscillator.stop();
       } catch (e) {
@@ -148,8 +151,8 @@ export const useTimerEffects = () => {
       }
     });
     activeOscillatorsRef.current = [];
-    
-    console.log('All sounds stopped');
+
+    console.log("All sounds stopped");
   };
 
   return {

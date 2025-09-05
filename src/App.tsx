@@ -4,6 +4,7 @@ import {
   ChakraProvider,
   Flex,
   HStack,
+  IconButton,
   Menu,
   MenuButton,
   MenuItem,
@@ -14,9 +15,10 @@ import {
   PopoverTrigger,
   SimpleGrid,
   Text,
+  useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Route, Routes, useLocation, useNavigate } from "react-router";
 import { useFullscreen } from "react-use";
@@ -33,7 +35,10 @@ import RandomNumberGenerators from "./RandomNumberGenerators";
 import Stopwatch from "./Stopwatch";
 import TallyCounters from "./TallyCounters";
 import PomodoroTimer from "./PomodoroTimer";
-
+import {
+  SettingsModal,
+  initializeBackground,
+} from "./components/SettingsModal";
 
 function Navigation() {
   const navigate = useNavigate();
@@ -63,7 +68,8 @@ function Navigation() {
     { name: "Tally Counters", path: "/tally-counters", icon: "🔢" },
   ];
 
-  const currentItem = navItems.find(item => item.path === location.pathname) || navItems[0];
+  const currentItem =
+    navItems.find((item) => item.path === location.pathname) || navItems[0];
 
   return (
     <Flex
@@ -81,7 +87,11 @@ function Navigation() {
       justifyContent="space-between"
       alignItems="center"
     >
-      <Popover placement="bottom-start" isOpen={isPopoverOpen} onClose={() => setIsPopoverOpen(false)}>
+      <Popover
+        placement="bottom-start"
+        isOpen={isPopoverOpen}
+        onClose={() => setIsPopoverOpen(false)}
+      >
         <PopoverTrigger>
           <Button
             variant="ghost"
@@ -120,13 +130,17 @@ function Navigation() {
                 <Button
                   key={item.path}
                   variant="ghost"
-                  color={location.pathname === item.path ? "#ffffff" : "#9ca3af"}
+                  color={
+                    location.pathname === item.path ? "#ffffff" : "#9ca3af"
+                  }
                   bg={
                     location.pathname === item.path
                       ? "rgba(255, 255, 255, 0.08)"
                       : "transparent"
                   }
-                  border={location.pathname === item.path ? "1px solid" : "none"}
+                  border={
+                    location.pathname === item.path ? "1px solid" : "none"
+                  }
                   borderColor={
                     location.pathname === item.path
                       ? "rgba(255, 255, 255, 0.2)"
@@ -151,10 +165,12 @@ function Navigation() {
                   }}
                 >
                   <VStack spacing={1}>
-                    <Text fontSize={{ base: "20px", md: "18px" }}>{item.icon}</Text>
-                    <Text 
-                      fontSize={{ base: "10px", md: "11px" }} 
-                      textAlign="center" 
+                    <Text fontSize={{ base: "20px", md: "18px" }}>
+                      {item.icon}
+                    </Text>
+                    <Text
+                      fontSize={{ base: "10px", md: "11px" }}
+                      textAlign="center"
                       lineHeight="1.2"
                       noOfLines={2}
                     >
@@ -185,13 +201,25 @@ function App() {
   const ref = useRef<HTMLDivElement>(null);
   const [isFullscreenEnabled, setIsFullscreenEnabled] = useState(false);
   const { t, i18n } = useTranslation();
-  
+  const {
+    isOpen: isSettingsOpen,
+    onOpen: onSettingsOpen,
+    onClose: onSettingsClose,
+  } = useDisclosure();
+
   // Detect if running as installed app
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
-                       (window.navigator as any).standalone || 
-                       document.referrer.includes('android-app://');
-  
-  const currentLanguage = supportedLanguages.find(lang => lang.code === i18n.language) || supportedLanguages[0];
+  const isStandalone =
+    window.matchMedia("(display-mode: standalone)").matches ||
+    (window.navigator as any).standalone ||
+    document.referrer.includes("android-app://");
+
+  const currentLanguage =
+    supportedLanguages.find((lang) => lang.code === i18n.language) ||
+    supportedLanguages[0];
+
+  useEffect(() => {
+    initializeBackground();
+  }, []);
 
   const isFullscreen = useFullscreen(
     ref as React.RefObject<Element>,
@@ -211,6 +239,7 @@ function App() {
         position="relative"
         display="flex"
         flexDirection="column"
+        data-theme="app-container"
       >
         <Navigation />
 
@@ -343,7 +372,6 @@ function App() {
           </Routes>
         </Box>
 
-
         {/* Footer */}
         <Box
           as="footer"
@@ -359,7 +387,7 @@ function App() {
           borderColor="rgba(255, 255, 255, 0.1)"
           zIndex={1000}
         >
-          <Flex 
+          <Flex
             alignItems="center"
             w="full"
             maxW={{ base: "full", md: "none" }}
@@ -370,41 +398,79 @@ function App() {
               <Text color="rgba(255, 255, 255, 0.6)" fontSize="lg">
                 ☕
               </Text>
-              
+
               {/* FAQ and Open Source (hidden on mobile) */}
               <HStack spacing={4} display={{ base: "none", md: "flex" }}>
-                <a 
-                  href="/faq.html" 
-                  style={{ 
-                    color: "rgba(255, 255, 255, 0.8)", 
+                <a
+                  href="/faq.html"
+                  style={{
+                    color: "rgba(255, 255, 255, 0.8)",
                     textDecoration: "none",
-                    fontSize: "14px" 
+                    fontSize: "14px",
                   }}
-                  onMouseOver={(e) => (e.target as HTMLAnchorElement).style.textDecoration = "underline"}
-                  onMouseOut={(e) => (e.target as HTMLAnchorElement).style.textDecoration = "none"}
+                  onMouseOver={(e) =>
+                    ((e.target as HTMLAnchorElement).style.textDecoration =
+                      "underline")
+                  }
+                  onMouseOut={(e) =>
+                    ((e.target as HTMLAnchorElement).style.textDecoration =
+                      "none")
+                  }
                 >
                   {t("FAQ")}
                 </a>
-                <Text color="rgba(255, 255, 255, 0.6)" fontSize="sm">•</Text>
-                <a 
-                  href="https://github.com/yourusername/basedonlinestopwatch" 
-                  target="_blank" 
+                <Text color="rgba(255, 255, 255, 0.6)" fontSize="sm">
+                  •
+                </Text>
+                <a
+                  href="https://github.com/yourusername/basedonlinestopwatch"
+                  target="_blank"
                   rel="noopener noreferrer"
-                  style={{ 
-                    color: "rgba(255, 255, 255, 0.8)", 
+                  style={{
+                    color: "rgba(255, 255, 255, 0.8)",
                     textDecoration: "none",
-                    fontSize: "14px" 
+                    fontSize: "14px",
                   }}
-                  onMouseOver={(e) => (e.target as HTMLAnchorElement).style.textDecoration = "underline"}
-                  onMouseOut={(e) => (e.target as HTMLAnchorElement).style.textDecoration = "none"}
+                  onMouseOver={(e) =>
+                    ((e.target as HTMLAnchorElement).style.textDecoration =
+                      "underline")
+                  }
+                  onMouseOut={(e) =>
+                    ((e.target as HTMLAnchorElement).style.textDecoration =
+                      "none")
+                  }
                 >
                   {t("Open Source")}
                 </a>
               </HStack>
             </HStack>
-            
-            {/* Right side - Language and Fullscreen controls */}
+
+            {/* Right side - Settings, Language and Fullscreen controls */}
             <HStack spacing={2}>
+              <IconButton
+                aria-label="Settings"
+                icon={<Text fontSize="16px">⚙️</Text>}
+                size="sm"
+                bg="rgba(255, 255, 255, 0.03)"
+                color="#f9fafb"
+                border="1px solid rgba(255, 255, 255, 0.1)"
+                borderRadius="6px"
+                px={2}
+                py={2}
+                minW="auto"
+                fontWeight="500"
+                onClick={onSettingsOpen}
+                transition="all 0.2s"
+                _hover={{
+                  bg: "rgba(255, 255, 255, 0.08)",
+                  borderColor: "rgba(255, 255, 255, 0.2)",
+                  transform: "rotate(90deg)",
+                }}
+                _active={{
+                  bg: "rgba(255, 255, 255, 0.12)",
+                }}
+              />
+
               <Menu>
                 <MenuButton
                   as={Button}
@@ -427,10 +493,12 @@ function App() {
                     bg: "rgba(255, 255, 255, 0.12)",
                   }}
                 >
-                  <Box display={{ base: "block", md: "none" }}>
-                    🌍
-                  </Box>
-                  <Box display={{ base: "none", md: "flex" }} alignItems="center" gap={1}>
+                  <Box display={{ base: "block", md: "none" }}>🌍</Box>
+                  <Box
+                    display={{ base: "none", md: "flex" }}
+                    alignItems="center"
+                    gap={1}
+                  >
                     {currentLanguage.flag} {t("Language")}
                   </Box>
                 </MenuButton>
@@ -447,7 +515,7 @@ function App() {
                       color="#f9fafb"
                       fontSize="sm"
                       _hover={{
-                        bg: "rgba(255, 255, 255, 0.05)"
+                        bg: "rgba(255, 255, 255, 0.05)",
                       }}
                     >
                       {lang.flag} {lang.name}
@@ -455,7 +523,7 @@ function App() {
                   ))}
                 </MenuList>
               </Menu>
-              
+
               {!isStandalone && (
                 <Button
                   size="sm"
@@ -489,6 +557,8 @@ function App() {
             </HStack>
           </Flex>
         </Box>
+
+        <SettingsModal isOpen={isSettingsOpen} onClose={onSettingsClose} />
       </Box>
     </ChakraProvider>
   );

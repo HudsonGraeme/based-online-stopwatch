@@ -154,8 +154,8 @@ function RaceTimers() {
                     lane.isFinished
                       ? "#10b981"
                       : lane.isRunning
-                      ? "#3b82f6"
-                      : "#6b7280"
+                        ? "#3b82f6"
+                        : "#6b7280"
                   }
                   fontFamily="monospace"
                 >

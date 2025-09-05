@@ -166,7 +166,6 @@ const Countdown = () => {
     }
   };
 
-
   const playTickSound = () => {
     if (tickEachSecond) {
       const audioContext = new (window.AudioContext ||
@@ -208,7 +207,7 @@ const Countdown = () => {
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     const key = e.key;
-    
+
     // Always handle Escape to deselect
     if (key === "Escape") {
       e.preventDefault();
@@ -216,7 +215,7 @@ const Countdown = () => {
       setSelectedPosition(-1);
       return;
     }
-    
+
     // Handle Space and R when no digit is selected
     if (selectedPosition === -1) {
       if (key === " ") {
@@ -232,7 +231,7 @@ const Countdown = () => {
         return;
       }
     }
-    
+
     if (isRunning || selectedPosition === -1) return;
 
     if (key >= "0" && key <= "9") {
@@ -348,7 +347,7 @@ const Countdown = () => {
       px={{ base: 4, md: 0 }}
       onClick={(e) => {
         // Deselect digit if clicking outside the time display
-        if ((e.target as HTMLElement).closest('.time-display') === null) {
+        if ((e.target as HTMLElement).closest(".time-display") === null) {
           setSelectedPosition(-1);
         }
       }}
@@ -417,7 +416,8 @@ const Countdown = () => {
           {renderEditableTime(time)}
           {!isRunning && (
             <Text fontSize={{ base: "sm", md: "md" }} color="gray.500" mt={2}>
-              {t("Click digits to edit")} • {t("Space: Start/Stop")} • {t("R: Reset")} • {t("Esc: Deselect")}
+              {t("Click digits to edit")} • {t("Space: Start/Stop")} •{" "}
+              {t("R: Reset")} • {t("Esc: Deselect")}
             </Text>
           )}
         </Box>
@@ -461,8 +461,8 @@ const Countdown = () => {
           size={{ base: "full", sm: "md" }}
         >
           <ModalOverlay bg="blackAlpha.800" backdropFilter="blur(4px)" />
-          <ModalContent 
-            bg="gray.900" 
+          <ModalContent
+            bg="gray.900"
             color="white"
             mx={{ base: 0, sm: 4 }}
             my={{ base: 0, sm: 4 }}
@@ -471,8 +471,8 @@ const Countdown = () => {
             borderTop={{ base: "1px solid", sm: "none" }}
             borderColor="whiteAlpha.200"
           >
-            <ModalHeader 
-              fontSize="lg" 
+            <ModalHeader
+              fontSize="lg"
               fontWeight="600"
               pb={3}
               borderBottom="1px solid"

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 interface KeyboardShortcuts {
   onStartStop?: () => void;
@@ -13,14 +13,17 @@ export const useKeyboardShortcuts = ({
   onReset,
   onLap,
   onSkip,
-  disabled = false
+  disabled = false,
 }: KeyboardShortcuts) => {
   useEffect(() => {
     if (disabled) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       // Don't trigger shortcuts if user is typing in an input
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement
+      ) {
         return;
       }
 
@@ -30,29 +33,29 @@ export const useKeyboardShortcuts = ({
       }
 
       switch (e.code) {
-        case 'Space':
+        case "Space":
           e.preventDefault();
           onStartStop?.();
           break;
-        case 'KeyR':
+        case "KeyR":
           e.preventDefault();
           onReset?.();
           break;
-        case 'KeyL':
+        case "KeyL":
           e.preventDefault();
           onLap?.();
           break;
-        case 'KeyS':
+        case "KeyS":
           e.preventDefault();
           onSkip?.();
           break;
-        case 'Escape':
+        case "Escape":
           // Let individual components handle escape (like countdown digit selection)
           break;
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onStartStop, onReset, onLap, onSkip, disabled]);
 };

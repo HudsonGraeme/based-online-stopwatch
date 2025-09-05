@@ -9,11 +9,11 @@ function NotFound() {
   };
 
   return (
-    <Box 
-      textAlign="center" 
-      display="flex" 
-      alignItems="center" 
-      justifyContent="center" 
+    <Box
+      textAlign="center"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
       minHeight="calc(100vh - 160px)"
     >
       <VStack spacing={8}>
@@ -26,7 +26,7 @@ function NotFound() {
         >
           404
         </Text>
-        
+
         <Button
           onClick={handleGoHome}
           bg="rgba(0, 0, 0, 0.4)"
@@ -39,10 +39,10 @@ function NotFound() {
           fontWeight="600"
           _hover={{
             bg: "rgba(0, 0, 0, 0.6)",
-            transform: "translateY(-1px)"
+            transform: "translateY(-1px)",
           }}
           _active={{
-            transform: "translateY(0)"
+            transform: "translateY(0)",
           }}
           transition="all 0.2s ease"
         >

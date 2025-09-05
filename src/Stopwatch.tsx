@@ -84,19 +84,15 @@ const Stopwatch = () => {
       }}
     >
       <Box maxW="600px" w="100%">
-        <Text 
-          fontSize={{ base: "5xl", sm: "7xl", md: "8xl" }} 
-          fontFamily="monospace" 
+        <Text
+          fontSize={{ base: "5xl", sm: "7xl", md: "8xl" }}
+          fontFamily="monospace"
           fontWeight="bold"
           mb={{ base: 6, md: 4 }}
         >
           {formatTime(time)}
         </Text>
-        <Flex 
-          justifyContent="center" 
-          gap={{ base: 3, md: 4 }}
-          flexWrap="wrap"
-        >
+        <Flex justifyContent="center" gap={{ base: 3, md: 4 }} flexWrap="wrap">
           <Button
             onClick={handleReset}
             size={{ base: "md", md: "lg" }}
@@ -113,8 +109,8 @@ const Stopwatch = () => {
           >
             {isRunning ? t("Stop") : t("Start")}
           </Button>
-          <Button 
-            onClick={handleLap} 
+          <Button
+            onClick={handleLap}
             size={{ base: "md", md: "lg" }}
             minW={{ base: "80px", md: "auto" }}
             disabled={!isRunning}
@@ -122,7 +118,12 @@ const Stopwatch = () => {
             {t("Lap")}
           </Button>
         </Flex>
-        <Box mt={{ base: 6, md: 8 }} maxHeight="200px" overflowY="auto" px={{ base: 2, md: 0 }}>
+        <Box
+          mt={{ base: 6, md: 8 }}
+          maxHeight="200px"
+          overflowY="auto"
+          px={{ base: 2, md: 0 }}
+        >
           {laps.map((lap, index) => (
             <Flex
               key={index}
@@ -130,14 +131,18 @@ const Stopwatch = () => {
               p={{ base: 3, md: 2 }}
               borderBottom="1px solid #4a5568"
             >
-              <Text fontSize={{ base: "sm", md: "md" }}>{t("Lap")} {index + 1}</Text>
-              <Text fontFamily="monospace" fontSize={{ base: "sm", md: "md" }}>{formatTime(lap)}</Text>
+              <Text fontSize={{ base: "sm", md: "md" }}>
+                {t("Lap")} {index + 1}
+              </Text>
+              <Text fontFamily="monospace" fontSize={{ base: "sm", md: "md" }}>
+                {formatTime(lap)}
+              </Text>
             </Flex>
           ))}
         </Box>
-        
+
         {/* Keyboard shortcuts hint */}
-        <Text 
+        <Text
           fontSize={{ base: "xs", md: "sm" }}
           color="gray.500"
           mt={4}
