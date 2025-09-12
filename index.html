@@ -30,11 +30,67 @@
       name="description"
       content="Free online stopwatch, countdown timer, and time tracking tools. Perfect for classrooms, presentations, races, and productivity. No ads, no downloads required."
     />
+    
+    <!-- Language-specific meta descriptions -->
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const lang = urlParams.get('lang') || 'en';
+      
+      const descriptions = {
+        'en': 'Free online stopwatch, countdown timer, and time tracking tools. Perfect for classrooms, presentations, races, and productivity. No ads, no downloads required.',
+        'es': 'Cronómetro en línea gratuito, temporizador de cuenta regresiva y herramientas de seguimiento del tiempo. Perfecto para aulas, presentaciones, carreras y productividad. Sin anuncios, sin descargas requeridas.',
+        'fr': 'Chronomètre en ligne gratuit, minuterie en compte à rebours et outils de suivi du temps. Parfait pour les salles de classe, les présentations, les courses et la productivité. Pas de publicité, pas de téléchargement requis.',
+        'de': 'Kostenloser Online-Stoppuhr, Countdown-Timer und Zeitverfolgungstools. Perfekt für Klassenzimmer, Präsentationen, Rennen und Produktivität. Keine Werbung, kein Download erforderlich.',
+        'it': 'Cronometro online gratuito, timer conto alla rovescia e strumenti di tracciamento del tempo. Perfetto per aule, presentazioni, gare e produttività. Nessuna pubblicità, nessun download richiesto.',
+        'pt': 'Cronômetro online gratuito, temporizador de contagem regressiva e ferramentas de rastreamento de tempo. Perfeito para salas de aula, apresentações, corridas e produtividade. Sem anúncios, sem downloads necessários.',
+        'zh': '免费在线秒表、倒计时计时器和时间跟踪工具。完美适用于课堂、演示、比赛和生产力。无广告，无需下载。',
+        'ja': '無料オンラインチャイム、カウントダウンタイマー、および時間追跡ツール。教室、プレゼンテーション、レース、生産性に最適。広告なし、ダウンロード不要。',
+        'ko': '무료 온라인 스톱워치, 카운트다운 타이머, 시간 추적 도구. 교실, 프레젠테이션, 경주, 생산성에 완벽합니다. 광고 없음, 다운로드 불필요.',
+        'ru': 'Бесплатный онлайн секундомер, таймер обратного отсчета и инструменты отслеживания времени. Идеально для классов, презентаций, гонок и продуктивности. Без рекламы, без загрузок.',
+        'ar': 'ساعة إيقاف مجانية عبر الإنترنت، مؤقت عد تنازلي وأدوات تتبع الوقت. مثالي للفصول الدراسية، العروض التقديمية، السباقات والإنتاجية. لا إعلانات، لا تنزيلات مطلوبة.',
+        'hi': 'मुफ्त ऑनलाइन स्टॉपवॉच, काउंटडाउन टाइमर, और समय ट्रैकिंग टूल्स। कक्षाओं, प्रस्तुतियों, दौड़ और उत्पादकता के लिए परफेक्ट। कोई विज्ञापन नहीं, कोई डाउनलोड की जरूरत नहीं।'
+      };
+      
+      const titles = {
+        'en': 'Based Online Stopwatch - Free Online Timer & Stopwatch Tools',
+        'es': 'Cronómetro Online Basado - Herramientas Gratuitas de Temporizador y Cronómetro',
+        'fr': 'Chronomètre Online Basé - Outils Gratuits de Minuteur et Chronomètre',
+        'de': 'Based Online Stoppuhr - Kostenlose Online-Timer & Stoppuhr-Tools',
+        'it': 'Cronometro Online Based - Strumenti Timer e Cronometro Gratuiti',
+        'pt': 'Cronômetro Online Based - Ferramentas Gratuitas de Timer e Cronômetro',
+        'zh': 'Based在线秒表 - 免费在线计时器和秒表工具',
+        'ja': 'Based オンラインストップウォッチ - 無料オンラインタイマー＆ストップウォッチツール',
+        'ko': 'Based 온라인 스톱워치 - 무료 온라인 타이머 및 스톱워치 도구',
+        'ru': 'Based Онлайн Секундомер - Бесплатные Онлайн Таймер и Инструменты Секундомера',
+        'ar': 'ساعة الإيقاف Based Online - أدوات مؤقت وساعة إيقاف مجانية عبر الإنترنت',
+        'hi': 'Based ऑनलाइन स्टॉपवॉच - मुफ्त ऑनलाइन टाइमर और स्टॉपवॉच टूल्स'
+      };
+      
+      // Update title and description
+      document.title = titles[lang] || titles['en'];
+      document.querySelector('meta[name="description"]').content = descriptions[lang] || descriptions['en'];
+      document.documentElement.lang = lang;
+    </script>
     <meta
       name="keywords"
       content="online stopwatch, free timer, countdown timer, online timer, web stopwatch, classroom timer, exam timer, presentation timer, race timer, productivity timer"
     />
     <link rel="canonical" href="https://based-online-stopwatch.com/" />
+    
+    <!-- Hreflang tags for internationalization -->
+    <link rel="alternate" hreflang="en" href="https://based-online-stopwatch.com/" />
+    <link rel="alternate" hreflang="es" href="https://based-online-stopwatch.com/?lang=es" />
+    <link rel="alternate" hreflang="fr" href="https://based-online-stopwatch.com/?lang=fr" />
+    <link rel="alternate" hreflang="de" href="https://based-online-stopwatch.com/?lang=de" />
+    <link rel="alternate" hreflang="it" href="https://based-online-stopwatch.com/?lang=it" />
+    <link rel="alternate" hreflang="pt" href="https://based-online-stopwatch.com/?lang=pt" />
+    <link rel="alternate" hreflang="zh" href="https://based-online-stopwatch.com/?lang=zh" />
+    <link rel="alternate" hreflang="ja" href="https://based-online-stopwatch.com/?lang=ja" />
+    <link rel="alternate" hreflang="ko" href="https://based-online-stopwatch.com/?lang=ko" />
+    <link rel="alternate" hreflang="ru" href="https://based-online-stopwatch.com/?lang=ru" />
+    <link rel="alternate" hreflang="ar" href="https://based-online-stopwatch.com/?lang=ar" />
+    <link rel="alternate" hreflang="hi" href="https://based-online-stopwatch.com/?lang=hi" />
+    <link rel="alternate" hreflang="x-default" href="https://based-online-stopwatch.com/" />
 
     <!-- Open Graph -->
     <meta

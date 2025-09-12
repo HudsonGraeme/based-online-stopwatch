@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { format } from "date-fns";
 import localforage from "localforage";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { useNotifications } from "./hooks/useNotifications";
@@ -136,14 +136,17 @@ const Countdown = () => {
     onReset: handleReset,
   });
 
-  const presetTimes = [
-    { label: "1 min", value: 1 * 60 * 1000 },
-    { label: "5 min", value: 5 * 60 * 1000 },
-    { label: "10 min", value: 10 * 60 * 1000 },
-    { label: "15 min", value: 15 * 60 * 1000 },
-    { label: "25 min", value: 25 * 60 * 1000 },
-    { label: "30 min", value: 30 * 60 * 1000 },
-  ];
+  const presetTimes = useMemo(
+    () => [
+      { label: t("countdown.preset.1min"), value: 1 * 60 * 1000 },
+      { label: t("countdown.preset.5min"), value: 5 * 60 * 1000 },
+      { label: t("countdown.preset.10min"), value: 10 * 60 * 1000 },
+      { label: t("countdown.preset.15min"), value: 15 * 60 * 1000 },
+      { label: t("countdown.preset.25min"), value: 25 * 60 * 1000 },
+      { label: t("countdown.preset.30min"), value: 30 * 60 * 1000 },
+    ],
+    [t]
+  );
 
   const handlePresetClick = (presetValue: number) => {
     if (!isRunning) {

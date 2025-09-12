@@ -56,6 +56,16 @@ const resources = {
       "Failed to update background": "Failed to update background",
       "Background deleted": "Background deleted",
       "Failed to delete background": "Failed to delete background",
+      // Countdown
+      "countdown.preset.1min": "1 min",
+      "countdown.preset.5min": "5 min",
+      "countdown.preset.10min": "10 min",
+      "countdown.preset.15min": "15 min",
+      "countdown.preset.25min": "25 min",
+      "countdown.preset.30min": "30 min",
+      "countdown.tickSound": "Tick Sound",
+      "countdown.tickSoundDesc": "Play a sound every second",
+      "countdown.notification.complete": "Your countdown timer has finished.",
 
       // Keyboard shortcuts
       "Space: Start/Stop": "Space: Start/Stop",
@@ -93,6 +103,51 @@ const resources = {
       "Long break over! Ready to start fresh?":
         "Long break over! Ready to start fresh?",
       "Pomodoro Phase Complete!": "Pomodoro Phase Complete!",
+      // Clocks
+      worldClocks: "World Clocks",
+      description: "Keep track of time across different time zones",
+      addClock: "Add Clock",
+      noClocksAdded: "No clocks added yet",
+      addFirstClock: "Add Your First Clock",
+      quickAddPopular: "Quick Add Popular Cities",
+      addNewClock: "Add New Clock",
+      chooseTimezone: "Choose a timezone to add to your world clocks",
+      selectTimezone: "Select a timezone",
+      cancel: "Cancel",
+      format12Hour: "12H",
+      format24Hour: "24H",
+      morning: "Morning",
+      afternoon: "Afternoon",
+      evening: "Evening",
+      night: "Night",
+      unknown: "Unknown",
+      removeClock: "Remove clock",
+      utc: "UTC",
+      // City names
+      "city.utc": "UTC",
+      "city.ny": "New York",
+      "city.la": "Los Angeles",
+      "city.london": "London",
+      "city.paris": "Paris",
+      "city.berlin": "Berlin",
+      "city.moscow": "Moscow",
+      "city.dubai": "Dubai",
+      "city.mumbai": "Mumbai",
+      "city.singapore": "Singapore",
+      "city.tokyo": "Tokyo",
+      "city.sydney": "Sydney",
+      "city.auckland": "Auckland",
+      "city.toronto": "Toronto",
+      "city.vancouver": "Vancouver",
+      "city.mexico": "Mexico City",
+      "city.sao_paulo": "São Paulo",
+      "city.buenos_aires": "Buenos Aires",
+      "city.cairo": "Cairo",
+      "city.lagos": "Lagos",
+      "city.cape_town": "Cape Town",
+      "city.bangkok": "Bangkok",
+      "city.seoul": "Seoul",
+      "city.beijing": "Beijing",
     },
   },
   es: {
@@ -150,6 +205,17 @@ const resources = {
       "Failed to update background": "Falló al actualizar fondo",
       "Background deleted": "Fondo eliminado",
       "Failed to delete background": "Falló al eliminar fondo",
+      // Countdown
+      "countdown.preset.1min": "1 min",
+      "countdown.preset.5min": "5 min",
+      "countdown.preset.10min": "10 min",
+      "countdown.preset.15min": "15 min",
+      "countdown.preset.25min": "25 min",
+      "countdown.preset.30min": "30 min",
+      "countdown.tickSound": "Sonido de tic",
+      "countdown.tickSoundDesc": "Reproducir un sonido cada segundo",
+      "countdown.notification.complete":
+        "Tu temporizador de cuenta regresiva ha terminado.",
 
       // Keyboard shortcuts
       "Space: Start/Stop": "Espacio: Iniciar/Detener",
@@ -160,6 +226,10 @@ const resources = {
 
       // Timer specific
       "Based Online Stopwatch": "Cronómetro Online Basado",
+      "Based Online Stopwatch - Free Online Timer & Stopwatch Tools":
+        "Cronómetro Online Basado - Herramientas Gratuitas de Temporizador y Cronómetro",
+      "Free online stopwatch, countdown timer, and time tracking tools. Perfect for classrooms, presentations, races, and productivity. No ads, no downloads required.":
+        "Cronómetro en línea gratuito, temporizador de cuenta regresiva y herramientas de seguimiento del tiempo. Perfecto para aulas, presentaciones, carreras y productividad. Sin anuncios, sin descargas requeridas.",
 
       // Pomodoro specific
       "Pomodoro Timer": "Temporizador Pomodoro",
@@ -184,6 +254,52 @@ const resources = {
       "Long break over! Ready to start fresh?":
         "¡Descanso largo terminado! ¿Listo para empezar de nuevo?",
       "Pomodoro Phase Complete!": "¡Fase Pomodoro Completa!",
+      // Clocks
+      worldClocks: "Relojes Mundiales",
+      description: "Mantén el control del tiempo en diferentes zonas horarias",
+      addClock: "Añadir Reloj",
+      noClocksAdded: "No se han añadido relojes todavía",
+      addFirstClock: "Añade tu primer reloj",
+      quickAddPopular: "Añadir ciudades populares rápidamente",
+      addNewClock: "Añadir nuevo reloj",
+      chooseTimezone:
+        "Elige una zona horaria para añadir a tus relojes mundiales",
+      selectTimezone: "Seleccionar zona horaria",
+      cancel: "Cancelar",
+      format12Hour: "12H",
+      format24Hour: "24H",
+      morning: "Mañana",
+      afternoon: "Tarde",
+      evening: "Tarde",
+      night: "Noche",
+      unknown: "Desconocido",
+      removeClock: "Eliminar reloj",
+      utc: "UTC",
+      // City names
+      "city.utc": "UTC",
+      "city.ny": "Nueva York",
+      "city.la": "Los Ángeles",
+      "city.london": "Londres",
+      "city.paris": "París",
+      "city.berlin": "Berlín",
+      "city.moscow": "Moscú",
+      "city.dubai": "Dubái",
+      "city.mumbai": "Mumbai",
+      "city.singapore": "Singapur",
+      "city.tokyo": "Tokio",
+      "city.sydney": "Sídney",
+      "city.auckland": "Auckland",
+      "city.toronto": "Toronto",
+      "city.vancouver": "Vancouver",
+      "city.mexico": "Ciudad de México",
+      "city.sao_paulo": "São Paulo",
+      "city.buenos_aires": "Buenos Aires",
+      "city.cairo": "El Cairo",
+      "city.lagos": "Lagos",
+      "city.cape_town": "Ciudad del Cabo",
+      "city.bangkok": "Bangkok",
+      "city.seoul": "Seúl",
+      "city.beijing": "Pekín",
     },
   },
   fr: {
@@ -242,6 +358,14 @@ const resources = {
       "Background deleted": "Fond supprimé",
       "Failed to delete background": "Échec de suppression du fond",
 
+      // Countdown
+      "countdown.preset.1min": "1 min",
+      "countdown.preset.5min": "5 min",
+      "countdown.preset.10min": "10 min",
+      "countdown.preset.15min": "15 min",
+      "countdown.preset.25min": "25 min",
+      "countdown.preset.30min": "30 min",
+
       // Keyboard shortcuts
       "Space: Start/Stop": "Espace: Démarrer/Arrêter",
       "R: Reset": "R: Réinitialiser",
@@ -251,6 +375,10 @@ const resources = {
 
       // Timer specific
       "Based Online Stopwatch": "Chronomètre Online Basé",
+      "Based Online Stopwatch - Free Online Timer & Stopwatch Tools":
+        "Chronomètre Online Basé - Outils Gratuits de Minuteur et Chronomètre",
+      "Free online stopwatch, countdown timer, and time tracking tools. Perfect for classrooms, presentations, races, and productivity. No ads, no downloads required.":
+        "Chronomètre en ligne gratuit, minuterie en compte à rebours et outils de suivi du temps. Parfait pour les salles de classe, les présentations, les courses et la productivité. Pas de publicité, pas de téléchargement requis.",
 
       // Pomodoro specific
       "Pomodoro Timer": "Minuteur Pomodoro",
@@ -275,6 +403,52 @@ const resources = {
       "Long break over! Ready to start fresh?":
         "Pause longue terminée! Prêt à recommencer?",
       "Pomodoro Phase Complete!": "Phase Pomodoro Complète!",
+      // Clocks
+      worldClocks: "Horloges Mondiales",
+      description: "Suivez l'heure dans différentes fuseaux horaires",
+      addClock: "Ajouter une Horloge",
+      noClocksAdded: "Aucune horloge ajoutée",
+      addFirstClock: "Ajoutez votre première horloge",
+      quickAddPopular: "Ajouter rapidement des villes populaires",
+      addNewClock: "Ajouter une nouvelle horloge",
+      chooseTimezone:
+        "Choisissez un fuseau horaire à ajouter à vos horloges mondiales",
+      selectTimezone: "Sélectionner un fuseau horaire",
+      cancel: "Annuler",
+      format12Hour: "12H",
+      format24Hour: "24H",
+      morning: "Matin",
+      afternoon: "Après-midi",
+      evening: "Soir",
+      night: "Nuit",
+      unknown: "Inconnu",
+      removeClock: "Supprimer l'horloge",
+      utc: "UTC",
+      // City names
+      "city.utc": "UTC",
+      "city.ny": "New York",
+      "city.la": "Los Angeles",
+      "city.london": "Londres",
+      "city.paris": "Paris",
+      "city.berlin": "Berlin",
+      "city.moscow": "Moscou",
+      "city.dubai": "Dubaï",
+      "city.mumbai": "Mumbai",
+      "city.singapore": "Singapour",
+      "city.tokyo": "Tokyo",
+      "city.sydney": "Sydney",
+      "city.auckland": "Auckland",
+      "city.toronto": "Toronto",
+      "city.vancouver": "Vancouver",
+      "city.mexico": "Mexico",
+      "city.sao_paulo": "São Paulo",
+      "city.buenos_aires": "Buenos Aires",
+      "city.cairo": "Le Caire",
+      "city.lagos": "Lagos",
+      "city.cape_town": "Le Cap",
+      "city.bangkok": "Bangkok",
+      "city.seoul": "Séoul",
+      "city.beijing": "Pékin",
     },
   },
   de: {
@@ -333,6 +507,14 @@ const resources = {
       "Background deleted": "Hintergrund gelöscht",
       "Failed to delete background": "Hintergrund konnte nicht gelöscht werden",
 
+      // Countdown
+      "countdown.preset.1min": "1 Min",
+      "countdown.preset.5min": "5 Min",
+      "countdown.preset.10min": "10 Min",
+      "countdown.preset.15min": "15 Min",
+      "countdown.preset.25min": "25 Min",
+      "countdown.preset.30min": "30 Min",
+
       // Keyboard shortcuts
       "Space: Start/Stop": "Leertaste: Start/Stop",
       "R: Reset": "R: Zurücksetzen",
@@ -342,6 +524,10 @@ const resources = {
 
       // Timer specific
       "Based Online Stopwatch": "Based Online Stoppuhr",
+      "Based Online Stopwatch - Free Online Timer & Stopwatch Tools":
+        "Based Online Stoppuhr - Kostenlose Online-Timer & Stoppuhr-Tools",
+      "Free online stopwatch, countdown timer, and time tracking tools. Perfect for classrooms, presentations, races, and productivity. No ads, no downloads required.":
+        "Kostenloser Online-Stoppuhr, Countdown-Timer und Zeitverfolgungstools. Perfekt für Klassenzimmer, Präsentationen, Rennen und Produktivität. Keine Werbung, kein Download erforderlich.",
 
       // Pomodoro specific
       "Pomodoro Timer": "Pomodoro-Timer",
@@ -366,6 +552,51 @@ const resources = {
       "Long break over! Ready to start fresh?":
         "Lange Pause vorbei! Bereit für einen Neustart?",
       "Pomodoro Phase Complete!": "Pomodoro-Phase Abgeschlossen!",
+      // Clocks
+      worldClocks: "Weltuhren",
+      description: "Halten Sie die Zeit in verschiedenen Zeitzonen im Blick",
+      addClock: "Uhr hinzufügen",
+      noClocksAdded: "Noch keine Uhren hinzugefügt",
+      addFirstClock: "Fügen Sie Ihre erste Uhr hinzu",
+      quickAddPopular: "Beliebte Städte schnell hinzufügen",
+      addNewClock: "Neue Uhr hinzufügen",
+      chooseTimezone: "Wählen Sie eine Zeitzone für Ihre Weltuhren aus",
+      selectTimezone: "Zeitzone auswählen",
+      cancel: "Abbrechen",
+      format12Hour: "12H",
+      format24Hour: "24H",
+      morning: "Morgen",
+      afternoon: "Nachmittag",
+      evening: "Abend",
+      night: "Nacht",
+      unknown: "Unbekannt",
+      removeClock: "Uhr entfernen",
+      utc: "UTC",
+      // City names
+      "city.utc": "UTC",
+      "city.ny": "New York",
+      "city.la": "Los Angeles",
+      "city.london": "London",
+      "city.paris": "Paris",
+      "city.berlin": "Berlin",
+      "city.moscow": "Moskau",
+      "city.dubai": "Dubai",
+      "city.mumbai": "Mumbai",
+      "city.singapore": "Singapur",
+      "city.tokyo": "Tokyo",
+      "city.sydney": "Sydney",
+      "city.auckland": "Auckland",
+      "city.toronto": "Toronto",
+      "city.vancouver": "Vancouver",
+      "city.mexico": "Mexiko-Stadt",
+      "city.sao_paulo": "São Paulo",
+      "city.buenos_aires": "Buenos Aires",
+      "city.cairo": "Kairo",
+      "city.lagos": "Lagos",
+      "city.cape_town": "Kapstadt",
+      "city.bangkok": "Bangkok",
+      "city.seoul": "Seoul",
+      "city.beijing": "Peking",
     },
   },
   it: {
@@ -424,6 +655,14 @@ const resources = {
       "Background deleted": "Sfondo eliminato",
       "Failed to delete background": "Impossibile eliminare lo sfondo",
 
+      // Countdown
+      "countdown.preset.1min": "1 min",
+      "countdown.preset.5min": "5 min",
+      "countdown.preset.10min": "10 min",
+      "countdown.preset.15min": "15 min",
+      "countdown.preset.25min": "25 min",
+      "countdown.preset.30min": "30 min",
+
       // Keyboard shortcuts
       "Space: Start/Stop": "Spazio: Avvia/Stop",
       "R: Reset": "R: Reimposta",
@@ -433,6 +672,10 @@ const resources = {
 
       // Timer specific
       "Based Online Stopwatch": "Cronometro Online Basato",
+      "Based Online Stopwatch - Free Online Timer & Stopwatch Tools":
+        "Cronometro Online Basato - Strumenti Gratuiti per Timer e Cronometro Online",
+      "Free online stopwatch, countdown timer, and time tracking tools. Perfect for classrooms, presentations, races, and productivity. No ads, no downloads required.":
+        "Cronometro online gratuito, timer conto alla rovescia e strumenti di tracciamento del tempo. Perfetto per aule, presentazioni, gare e produttività. Nessuna pubblicità, nessun download richiesto.",
 
       // Pomodoro specific
       "Pomodoro Timer": "Timer Pomodoro",
@@ -457,6 +700,52 @@ const resources = {
       "Long break over! Ready to start fresh?":
         "Pausa lunga finita! Pronto per ricominciare?",
       "Pomodoro Phase Complete!": "Fase Pomodoro Completata!",
+      // Clocks
+      worldClocks: "Orologi Mondiali",
+      description: "Tieni traccia del tempo in diverse zone orarie",
+      addClock: "Aggiungi Orologio",
+      noClocksAdded: "Nessun orologio aggiunto",
+      addFirstClock: "Aggiungi il tuo primo orologio",
+      quickAddPopular: "Aggiungi rapidamente città popolari",
+      addNewClock: "Aggiungi nuovo orologio",
+      chooseTimezone:
+        "Scegli un fuso orario da aggiungere ai tuoi orologi mondiali",
+      selectTimezone: "Seleziona fuso orario",
+      cancel: "Annulla",
+      format12Hour: "12H",
+      format24Hour: "24H",
+      morning: "Mattina",
+      afternoon: "Pomeriggio",
+      evening: "Sera",
+      night: "Notte",
+      unknown: "Sconosciuto",
+      removeClock: "Rimuovi orologio",
+      utc: "UTC",
+      // City names
+      "city.utc": "UTC",
+      "city.ny": "New York",
+      "city.la": "Los Angeles",
+      "city.london": "Londra",
+      "city.paris": "Parigi",
+      "city.berlin": "Berlino",
+      "city.moscow": "Mosca",
+      "city.dubai": "Dubai",
+      "city.mumbai": "Mumbai",
+      "city.singapore": "Singapore",
+      "city.tokyo": "Tokyo",
+      "city.sydney": "Sydney",
+      "city.auckland": "Auckland",
+      "city.toronto": "Toronto",
+      "city.vancouver": "Vancouver",
+      "city.mexico": "Città del Messico",
+      "city.sao_paulo": "São Paulo",
+      "city.buenos_aires": "Buenos Aires",
+      "city.cairo": "Il Cairo",
+      "city.lagos": "Lagos",
+      "city.cape_town": "Città del Capo",
+      "city.bangkok": "Bangkok",
+      "city.seoul": "Seoul",
+      "city.beijing": "Pechino",
     },
   },
   pt: {
@@ -515,6 +804,14 @@ const resources = {
       "Background deleted": "Fundo excluído",
       "Failed to delete background": "Falha ao excluir fundo",
 
+      // Countdown
+      "countdown.preset.1min": "1 min",
+      "countdown.preset.5min": "5 min",
+      "countdown.preset.10min": "10 min",
+      "countdown.preset.15min": "15 min",
+      "countdown.preset.25min": "25 min",
+      "countdown.preset.30min": "30 min",
+
       // Keyboard shortcuts
       "Space: Start/Stop": "Espaço: Iniciar/Parar",
       "R: Reset": "R: Resetar",
@@ -524,6 +821,10 @@ const resources = {
 
       // Timer specific
       "Based Online Stopwatch": "Cronômetro Online Baseado",
+      "Based Online Stopwatch - Free Online Timer & Stopwatch Tools":
+        "Cronômetro Online Baseado - Ferramentas Gratuitas de Temporizador e Cronômetro Online",
+      "Free online stopwatch, countdown timer, and time tracking tools. Perfect for classrooms, presentations, races, and productivity. No ads, no downloads required.":
+        "Cronômetro online gratuito, temporizador de contagem regressiva e ferramentas de rastreamento de tempo. Perfeito para salas de aula, apresentações, corridas e produtividade. Sem anúncios, sem downloads necessários.",
 
       // Pomodoro specific
       "Pomodoro Timer": "Temporizador Pomodoro",
@@ -548,6 +849,52 @@ const resources = {
       "Long break over! Ready to start fresh?":
         "Pausa longa terminada! Pronto para recomeçar?",
       "Pomodoro Phase Complete!": "Fase Pomodoro Concluída!",
+      // Clocks
+      worldClocks: "Relógios Mundiais",
+      description: "Acompanhe o tempo em diferentes fusos horários",
+      addClock: "Adicionar Relógio",
+      noClocksAdded: "Nenhum relógio adicionado ainda",
+      addFirstClock: "Adicione seu primeiro relógio",
+      quickAddPopular: "Adicionar cidades populares rapidamente",
+      addNewClock: "Adicionar novo relógio",
+      chooseTimezone:
+        "Escolha um fuso horário para adicionar aos seus relógios mundiais",
+      selectTimezone: "Selecionar fuso horário",
+      cancel: "Cancelar",
+      format12Hour: "12H",
+      format24Hour: "24H",
+      morning: "Manhã",
+      afternoon: "Tarde",
+      evening: "Noite",
+      night: "Noite",
+      unknown: "Desconhecido",
+      removeClock: "Remover relógio",
+      utc: "UTC",
+      // City names
+      "city.utc": "UTC",
+      "city.ny": "Nova York",
+      "city.la": "Los Angeles",
+      "city.london": "Londres",
+      "city.paris": "Paris",
+      "city.berlin": "Berlim",
+      "city.moscow": "Moscou",
+      "city.dubai": "Dubai",
+      "city.mumbai": "Mumbai",
+      "city.singapore": "Singapura",
+      "city.tokyo": "Tóquio",
+      "city.sydney": "Sydney",
+      "city.auckland": "Auckland",
+      "city.toronto": "Toronto",
+      "city.vancouver": "Vancouver",
+      "city.mexico": "Cidade do México",
+      "city.sao_paulo": "São Paulo",
+      "city.buenos_aires": "Buenos Aires",
+      "city.cairo": "Cairo",
+      "city.lagos": "Lagos",
+      "city.cape_town": "Cidade do Cabo",
+      "city.bangkok": "Bangkok",
+      "city.seoul": "Seul",
+      "city.beijing": "Pequim",
     },
   },
   zh: {
@@ -604,6 +951,14 @@ const resources = {
       "Background deleted": "背景已删除",
       "Failed to delete background": "背景删除失败",
 
+      // Countdown
+      "countdown.preset.1min": "1分钟",
+      "countdown.preset.5min": "5分钟",
+      "countdown.preset.10min": "10分钟",
+      "countdown.preset.15min": "15分钟",
+      "countdown.preset.25min": "25分钟",
+      "countdown.preset.30min": "30分钟",
+
       // Keyboard shortcuts
       "Space: Start/Stop": "空格键: 开始/停止",
       "R: Reset": "R: 重置",
@@ -613,6 +968,10 @@ const resources = {
 
       // Timer specific
       "Based Online Stopwatch": "基础在线秒表",
+      "Based Online Stopwatch - Free Online Timer & Stopwatch Tools":
+        "基础在线秒表 - 免费在线计时器和秒表工具",
+      "Free online stopwatch, countdown timer, and time tracking tools. Perfect for classrooms, presentations, races, and productivity. No ads, no downloads required.":
+        "免费在线秒表、倒计时计时器和时间跟踪工具。完美适用于课堂、演示、比赛和生产力。无广告，无需下载。",
 
       // Pomodoro specific
       "Pomodoro Timer": "番茄工作法计时器",
@@ -636,6 +995,51 @@ const resources = {
       "Long break over! Ready to start fresh?":
         "长休息结束！准备好重新开始了吗？",
       "Pomodoro Phase Complete!": "番茄钟阶段完成！",
+      // Clocks
+      worldClocks: "世界时钟",
+      description: "跟踪不同时区的时钟",
+      addClock: "添加时钟",
+      noClocksAdded: "尚未添加时钟",
+      addFirstClock: "添加你的第一个时钟",
+      quickAddPopular: "快速添加热门城市",
+      addNewClock: "添加新时钟",
+      chooseTimezone: "选择要添加到世界时钟的时区",
+      selectTimezone: "选择时区",
+      cancel: "取消",
+      format12Hour: "12小时",
+      format24Hour: "24小时",
+      morning: "早晨",
+      afternoon: "下午",
+      evening: "傍晚",
+      night: "夜晚",
+      unknown: "未知",
+      removeClock: "移除时钟",
+      utc: "UTC",
+      // City names
+      "city.utc": "UTC",
+      "city.ny": "纽约",
+      "city.la": "洛杉矶",
+      "city.london": "伦敦",
+      "city.paris": "巴黎",
+      "city.berlin": "柏林",
+      "city.moscow": "莫斯科",
+      "city.dubai": "迪拜",
+      "city.mumbai": "孟买",
+      "city.singapore": "新加坡",
+      "city.tokyo": "东京",
+      "city.sydney": "悉尼",
+      "city.auckland": "奥克兰",
+      "city.toronto": "多伦多",
+      "city.vancouver": "温哥华",
+      "city.mexico": "墨西哥城",
+      "city.sao_paulo": "圣保罗",
+      "city.buenos_aires": "布宜诺斯艾利斯",
+      "city.cairo": "开罗",
+      "city.lagos": "拉各斯",
+      "city.cape_town": "开普敦",
+      "city.bangkok": "曼谷",
+      "city.seoul": "首尔",
+      "city.beijing": "北京",
     },
   },
   ja: {
@@ -694,6 +1098,14 @@ const resources = {
       "Background deleted": "背景が削除されました",
       "Failed to delete background": "背景の削除に失敗しました",
 
+      // Countdown
+      "countdown.preset.1min": "1分",
+      "countdown.preset.5min": "5分",
+      "countdown.preset.10min": "10分",
+      "countdown.preset.15min": "15分",
+      "countdown.preset.25min": "25分",
+      "countdown.preset.30min": "30分",
+
       // Keyboard shortcuts
       "Space: Start/Stop": "スペース: 開始/停止",
       "R: Reset": "R: リセット",
@@ -703,6 +1115,10 @@ const resources = {
 
       // Timer specific
       "Based Online Stopwatch": "ベースオンラインストップウォッチ",
+      "Based Online Stopwatch - Free Online Timer & Stopwatch Tools":
+        "ベースオンラインストップウォッチ - 無料オンラインチャイム & ストップウォッチツール",
+      "Free online stopwatch, countdown timer, and time tracking tools. Perfect for classrooms, presentations, races, and productivity. No ads, no downloads required.":
+        "無料オンラインチャイム、カウントダウンタイマー、および時間追跡ツール。教室、プレゼンテーション、レース、生産性に最適。広告なし、ダウンロード不要。",
 
       // Pomodoro specific
       "Pomodoro Timer": "ポモドーロタイマー",
@@ -726,6 +1142,51 @@ const resources = {
       "Long break over! Ready to start fresh?":
         "長休憩終了！新たに始める準備はできましたか？",
       "Pomodoro Phase Complete!": "ポモドーロフェーズ完了！",
+      // Clocks
+      worldClocks: "世界時計",
+      description: "異なるタイムゾーンの時間を追跡",
+      addClock: "時計を追加",
+      noClocksAdded: "時計が追加されていません",
+      addFirstClock: "最初の時計を追加",
+      quickAddPopular: "人気の都市を素早く追加",
+      addNewClock: "新しい時計を追加",
+      chooseTimezone: "世界時計に追加するタイムゾーンを選択",
+      selectTimezone: "タイムゾーンを選択",
+      cancel: "キャンセル",
+      format12Hour: "12H",
+      format24Hour: "24H",
+      morning: "朝",
+      afternoon: "午後",
+      evening: "夕方",
+      night: "夜",
+      unknown: "不明",
+      removeClock: "時計を削除",
+      utc: "UTC",
+      // City names
+      "city.utc": "UTC",
+      "city.ny": "ニューヨーク",
+      "city.la": "ロサンゼルス",
+      "city.london": "ロンドン",
+      "city.paris": "パリ",
+      "city.berlin": "ベルリン",
+      "city.moscow": "モスクワ",
+      "city.dubai": "ドバイ",
+      "city.mumbai": "ムンバイ",
+      "city.singapore": "シンガポール",
+      "city.tokyo": "東京",
+      "city.sydney": "シドニー",
+      "city.auckland": "オークランド",
+      "city.toronto": "トロント",
+      "city.vancouver": "バンクーバー",
+      "city.mexico": "メキシコシティ",
+      "city.sao_paulo": "サンパウロ",
+      "city.buenos_aires": "ブエノスアイレス",
+      "city.cairo": "カイロ",
+      "city.lagos": "ラゴス",
+      "city.cape_town": "ケープタウン",
+      "city.bangkok": "バンコク",
+      "city.seoul": "ソウル",
+      "city.beijing": "北京",
     },
   },
   ko: {
@@ -783,6 +1244,14 @@ const resources = {
       "Background deleted": "배경이 삭제되었습니다",
       "Failed to delete background": "배경 삭제에 실패했습니다",
 
+      // Countdown
+      "countdown.preset.1min": "1분",
+      "countdown.preset.5min": "5분",
+      "countdown.preset.10min": "10분",
+      "countdown.preset.15min": "15분",
+      "countdown.preset.25min": "25분",
+      "countdown.preset.30min": "30분",
+
       // Keyboard shortcuts
       "Space: Start/Stop": "스페이스: 시작/정지",
       "R: Reset": "R: 리셋",
@@ -792,6 +1261,10 @@ const resources = {
 
       // Timer specific
       "Based Online Stopwatch": "베이스 온라인 스톱워치",
+      "Based Online Stopwatch - Free Online Timer & Stopwatch Tools":
+        "베이스 온라인 스톱워치 - 무료 온라인 타이머 & 스톱워치 도구",
+      "Free online stopwatch, countdown timer, and time tracking tools. Perfect for classrooms, presentations, races, and productivity. No ads, no downloads required.":
+        "무료 온라인 스톱워치, 카운트다운 타이머, 시간 추적 도구. 교실, 프레젠테이션, 경주, 생산성에 완벽합니다. 광고 없음, 다운로드 불필요.",
 
       // Pomodoro specific
       "Pomodoro Timer": "포모도로 타이머",
@@ -815,6 +1288,51 @@ const resources = {
       "Long break over! Ready to start fresh?":
         "긴 휴식 끝! 새롭게 시작할 준비가 되셨나요?",
       "Pomodoro Phase Complete!": "포모도로 단계 완료!",
+      // Clocks
+      worldClocks: "세계 시계",
+      description: "다양한 시간대에서 시간을 추적하세요",
+      addClock: "시계 추가",
+      noClocksAdded: "아직 시계가 추가되지 않았습니다",
+      addFirstClock: "첫 번째 시계 추가",
+      quickAddPopular: "인기 도시 빠르게 추가",
+      addNewClock: "새 시계 추가",
+      chooseTimezone: "세계 시계에 추가할 시간대를 선택하세요",
+      selectTimezone: "시간대 선택",
+      cancel: "취소",
+      format12Hour: "12H",
+      format24Hour: "24H",
+      morning: "아침",
+      afternoon: "오후",
+      evening: "저녁",
+      night: "밤",
+      unknown: "알 수 없음",
+      removeClock: "시계 제거",
+      utc: "UTC",
+      // City names
+      "city.utc": "UTC",
+      "city.ny": "뉴욕",
+      "city.la": "로스앤젤레스",
+      "city.london": "런던",
+      "city.paris": "파리",
+      "city.berlin": "베를린",
+      "city.moscow": "모스크바",
+      "city.dubai": "두바이",
+      "city.mumbai": "뭄바이",
+      "city.singapore": "싱가포르",
+      "city.tokyo": "도쿄",
+      "city.sydney": "시드니",
+      "city.auckland": "오클랜드",
+      "city.toronto": "토론토",
+      "city.vancouver": "밴쿠버",
+      "city.mexico": "멕시코시티",
+      "city.sao_paulo": "상파울루",
+      "city.buenos_aires": "부에노스아이레스",
+      "city.cairo": "카이로",
+      "city.lagos": "라고스",
+      "city.cape_town": "케이프타운",
+      "city.bangkok": "방콕",
+      "city.seoul": "서울",
+      "city.beijing": "베이징",
     },
   },
   ru: {
@@ -873,6 +1391,14 @@ const resources = {
       "Background deleted": "Фон удален",
       "Failed to delete background": "Не удалось удалить фон",
 
+      // Countdown
+      "countdown.preset.1min": "1 мин",
+      "countdown.preset.5min": "5 мин",
+      "countdown.preset.10min": "10 мин",
+      "countdown.preset.15min": "15 мин",
+      "countdown.preset.25min": "25 мин",
+      "countdown.preset.30min": "30 мин",
+
       // Keyboard shortcuts
       "Space: Start/Stop": "Пробел: Пуск/Остановка",
       "R: Reset": "R: Сброс",
@@ -882,6 +1408,10 @@ const resources = {
 
       // Timer specific
       "Based Online Stopwatch": "Базовый онлайн секундомер",
+      "Based Online Stopwatch - Free Online Timer & Stopwatch Tools":
+        "Базовый онлайн секундомер - Бесплатные онлайн таймеры и секундомеры",
+      "Free online stopwatch, countdown timer, and time tracking tools. Perfect for classrooms, presentations, races, and productivity. No ads, no downloads required.":
+        "Бесплатный онлайн секундомер, таймер обратного отсчета и инструменты отслеживания времени. Идеально для классов, презентаций, гонок и продуктивности. Без рекламы, без загрузок.",
 
       // Pomodoro specific
       "Pomodoro Timer": "Таймер Помодоро",
@@ -905,6 +1435,51 @@ const resources = {
       "Long break over! Ready to start fresh?":
         "Длинный перерыв окончен! Готовы начать заново?",
       "Pomodoro Phase Complete!": "Фаза Помодоро завершена!",
+      // Clocks
+      worldClocks: "Мировые часы",
+      description: "Отслеживайте время в разных часовых поясах",
+      addClock: "Добавить часы",
+      noClocksAdded: "Часы еще не добавлены",
+      addFirstClock: "Добавьте свои первые часы",
+      quickAddPopular: "Быстро добавить популярные города",
+      addNewClock: "Добавить новые часы",
+      chooseTimezone: "Выберите часовой пояс для добавления в мировые часы",
+      selectTimezone: "Выбрать часовой пояс",
+      cancel: "Отмена",
+      format12Hour: "12Ч",
+      format24Hour: "24Ч",
+      morning: "Утро",
+      afternoon: "День",
+      evening: "Вечер",
+      night: "Ночь",
+      unknown: "Неизвестно",
+      removeClock: "Удалить часы",
+      utc: "UTC",
+      // City names
+      "city.utc": "UTC",
+      "city.ny": "Нью-Йорк",
+      "city.la": "Лос-Анджелес",
+      "city.london": "Лондон",
+      "city.paris": "Париж",
+      "city.berlin": "Берлин",
+      "city.moscow": "Москва",
+      "city.dubai": "Дубай",
+      "city.mumbai": "Мумбаи",
+      "city.singapore": "Сингапур",
+      "city.tokyo": "Токио",
+      "city.sydney": "Сидней",
+      "city.auckland": "Окленд",
+      "city.toronto": "Торонто",
+      "city.vancouver": "Ванкувер",
+      "city.mexico": "Мехико",
+      "city.sao_paulo": "Сан-Паулу",
+      "city.buenos_aires": "Буэнос-Айрес",
+      "city.cairo": "Каир",
+      "city.lagos": "Лагос",
+      "city.cape_town": "Кейптаун",
+      "city.bangkok": "Бангкок",
+      "city.seoul": "Сеул",
+      "city.beijing": "Пекин",
     },
   },
   ar: {
@@ -962,6 +1537,14 @@ const resources = {
       "Background deleted": "تم حذف الخلفية",
       "Failed to delete background": "فشل في حذف الخلفية",
 
+      // Countdown
+      "countdown.preset.1min": "1 دقيقة",
+      "countdown.preset.5min": "5 دقائق",
+      "countdown.preset.10min": "10 دقائق",
+      "countdown.preset.15min": "15 دقيقة",
+      "countdown.preset.25min": "25 دقيقة",
+      "countdown.preset.30min": "30 دقيقة",
+
       // Keyboard shortcuts
       "Space: Start/Stop": "مسافة: بدء/إيقاف",
       "R: Reset": "R: إعادة تعيين",
@@ -971,6 +1554,10 @@ const resources = {
 
       // Timer specific
       "Based Online Stopwatch": "ساعة الإيقاف الأساسية",
+      "Based Online Stopwatch - Free Online Timer & Stopwatch Tools":
+        "ساعة الإيقاف الأساسية عبر الإنترنت - أدوات مجانية للمؤقت والساعة الإيقاف",
+      "Free online stopwatch, countdown timer, and time tracking tools. Perfect for classrooms, presentations, races, and productivity. No ads, no downloads required.":
+        "ساعة إيقاف مجانية عبر الإنترنت، مؤقت عد تنازلي وأدوات تتبع الوقت. مثالي للفصول الدراسية، العروض التقديمية، السباقات والإنتاجية. لا إعلانات، لا تنزيلات مطلوبة.",
 
       // Pomodoro specific
       "Pomodoro Timer": "مؤقت بومودورو",
@@ -995,6 +1582,51 @@ const resources = {
       "Long break over! Ready to start fresh?":
         "انتهت الاستراحة الطويلة! هل أنت مستعد للبدء من جديد؟",
       "Pomodoro Phase Complete!": "اكتملت مرحلة بومودورو!",
+      // Clocks
+      worldClocks: "الساعات العالمية",
+      description: "تتبع الوقت عبر مناطق زمنية مختلفة",
+      addClock: "إضافة ساعة",
+      noClocksAdded: "لم يتم إضافة ساعات بعد",
+      addFirstClock: "أضف ساعتك الأولى",
+      quickAddPopular: "إضافة مدن شعبية بسرعة",
+      addNewClock: "إضافة ساعة جديدة",
+      chooseTimezone: "اختر منطقة زمنية لإضافتها إلى ساعاتك العالمية",
+      selectTimezone: "حدد المنطقة الزمنية",
+      cancel: "إلغاء",
+      format12Hour: "12س",
+      format24Hour: "24س",
+      morning: "صباح",
+      afternoon: "ظهر",
+      evening: "مساء",
+      night: "ليل",
+      unknown: "غير معروف",
+      removeClock: "إزالة الساعة",
+      utc: "UTC",
+      // City names
+      "city.utc": "UTC",
+      "city.ny": "نيويورك",
+      "city.la": "لوس أنجلوس",
+      "city.london": "لندن",
+      "city.paris": "باريس",
+      "city.berlin": "برلين",
+      "city.moscow": "موسكو",
+      "city.dubai": "دبي",
+      "city.mumbai": "مومباي",
+      "city.singapore": "سنغافورة",
+      "city.tokyo": "طوكيو",
+      "city.sydney": "سيدني",
+      "city.auckland": "أوكلاند",
+      "city.toronto": "تورونتو",
+      "city.vancouver": "فانكوفر",
+      "city.mexico": "مدينة مكسيكو",
+      "city.sao_paulo": "ساو باولو",
+      "city.buenos_aires": "بوينوس آيرس",
+      "city.cairo": "القاهرة",
+      "city.lagos": "لاغوس",
+      "city.cape_town": "كيب تاون",
+      "city.bangkok": "بانكوك",
+      "city.seoul": "سيول",
+      "city.beijing": "بكين",
     },
   },
   hi: {
@@ -1052,6 +1684,14 @@ const resources = {
       "Background deleted": "बैकग्राउंड डिलीट हो गया",
       "Failed to delete background": "बैकग्राउंड डिलीट करने में असफल",
 
+      // Countdown
+      "countdown.preset.1min": "1 मिनट",
+      "countdown.preset.5min": "5 मिनट",
+      "countdown.preset.10min": "10 मिनट",
+      "countdown.preset.15min": "15 मिनट",
+      "countdown.preset.25min": "25 मिनट",
+      "countdown.preset.30min": "30 मिनट",
+
       // Keyboard shortcuts
       "Space: Start/Stop": "स्पेस: शुरू/बंद",
       "R: Reset": "R: रीसेट",
@@ -1061,6 +1701,10 @@ const resources = {
 
       // Timer specific
       "Based Online Stopwatch": "आधारित ऑनलाइन स्टॉपवॉच",
+      "Based Online Stopwatch - Free Online Timer & Stopwatch Tools":
+        "आधारित ऑनलाइन स्टॉपवॉच - मुफ्त ऑनलाइन टाइमर और स्टॉपवॉच टूल्स",
+      "Free online stopwatch, countdown timer, and time tracking tools. Perfect for classrooms, presentations, races, and productivity. No ads, no downloads required.":
+        "मुफ्त ऑनलाइन स्टॉपवॉच, काउंटडाउन टाइमर, और समय ट्रैकिंग टूल्स। कक्षाओं, प्रस्तुतियों, दौड़ और उत्पादकता के लिए परफेक्ट। कोई विज्ञापन नहीं, कोई डाउनलोड की जरूरत नहीं।",
 
       // Pomodoro specific
       "Pomodoro Timer": "पोमोडोरो टाइमर",
@@ -1084,6 +1728,51 @@ const resources = {
       "Long break over! Ready to start fresh?":
         "लंबा ब्रेक खत्म! नई शुरुआत के लिए तैयार?",
       "Pomodoro Phase Complete!": "पोमोडोरो चरण पूरा!",
+      // Clocks
+      worldClocks: "विश्व घड़ियाँ",
+      description: "विभिन्न समय क्षेत्रों में समय ट्रैक करें",
+      addClock: "घड़ी जोड़ें",
+      noClocksAdded: "कोई घड़ी नहीं जोड़ी गई",
+      addFirstClock: "अपनी पहली घड़ी जोड़ें",
+      quickAddPopular: "लोकप्रिय शहरों को जल्दी जोड़ें",
+      addNewClock: "नई घड़ी जोड़ें",
+      chooseTimezone: "अपने विश्व घड़ियों में जोड़ने के लिए समय क्षेत्र चुनें",
+      selectTimezone: "समय क्षेत्र चुनें",
+      cancel: "रद्द करें",
+      format12Hour: "12घ",
+      format24Hour: "24घ",
+      morning: "सुबह",
+      afternoon: "दोपहर",
+      evening: "शाम",
+      night: "रात",
+      unknown: "अज्ञात",
+      removeClock: "घड़ी हटाएँ",
+      utc: "UTC",
+      // City names
+      "city.utc": "UTC",
+      "city.ny": "न्यूयॉर्क",
+      "city.la": "लॉस एंजिल्स",
+      "city.london": "लंदन",
+      "city.paris": "पेरिस",
+      "city.berlin": "बर्लिन",
+      "city.moscow": "मॉस्को",
+      "city.dubai": "दुबई",
+      "city.mumbai": "मुंबई",
+      "city.singapore": "सिंगापुर",
+      "city.tokyo": "टोक्यो",
+      "city.sydney": "सिडनी",
+      "city.auckland": "ऑकलैंड",
+      "city.toronto": "टोरंटो",
+      "city.vancouver": "वैंकूवर",
+      "city.mexico": "मेक्सिको सिटी",
+      "city.sao_paulo": "साओ पाउलो",
+      "city.buenos_aires": "ब्यूनस आयर्स",
+      "city.cairo": "काहिरा",
+      "city.lagos": "लागोस",
+      "city.cape_town": "केप टाउन",
+      "city.bangkok": "बैंकॉक",
+      "city.seoul": "सियोल",
+      "city.beijing": "बीजिंग",
     },
   },
 };

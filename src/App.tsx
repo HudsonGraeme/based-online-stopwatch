@@ -35,6 +35,10 @@ import RandomNumberGenerators from "./RandomNumberGenerators";
 import Stopwatch from "./Stopwatch";
 import TallyCounters from "./TallyCounters";
 import PomodoroTimer from "./PomodoroTimer";
+import ClassroomTimers from "./ClassroomTimers";
+import ExamTimers from "./ExamTimers";
+import PresentationTimers from "./PresentationTimers";
+import Clocks from "./Clocks";
 import {
   SettingsModal,
   initializeBackground,
@@ -267,14 +271,8 @@ function App() {
             />
             <Route
               path="/classroom-timers"
-              element={
-                <VStack spacing={4} align="center" py={20}>
-                  <Text fontSize="4xl" color="white">
-                    📚 {t("Classroom Timers")}
-                  </Text>
-                  <Text color="#9ca3af">{t("Coming soon...")}</Text>
-                </VStack>
-              }
+              element={<ClassroomTimers />}
+              errorElement={<ErrorPage />}
             />
             <Route
               path="/holiday-timers"
@@ -310,25 +308,13 @@ function App() {
             />
             <Route
               path="/clocks"
-              element={
-                <VStack spacing={4} align="center" py={20}>
-                  <Text fontSize="4xl" color="white">
-                    🕐 {t("Clocks")}
-                  </Text>
-                  <Text color="#9ca3af">{t("Coming soon...")}</Text>
-                </VStack>
-              }
+              element={<Clocks />}
+              errorElement={<ErrorPage />}
             />
             <Route
               path="/exam-timers"
-              element={
-                <VStack spacing={4} align="center" py={20}>
-                  <Text fontSize="4xl" color="white">
-                    📝 {t("Exam Timers")}
-                  </Text>
-                  <Text color="#9ca3af">{t("Coming soon...")}</Text>
-                </VStack>
-              }
+              element={<ExamTimers />}
+              errorElement={<ErrorPage />}
             />
             <Route
               path="/chance-games"
@@ -354,14 +340,8 @@ function App() {
             />
             <Route
               path="/presentation-timers"
-              element={
-                <VStack spacing={4} align="center" py={20}>
-                  <Text fontSize="4xl" color="white">
-                    📊 {t("Presentation Timers")}
-                  </Text>
-                  <Text color="#9ca3af">{t("Coming soon...")}</Text>
-                </VStack>
-              }
+              element={<PresentationTimers />}
+              errorElement={<ErrorPage />}
             />
             <Route
               path="/tally-counters"
