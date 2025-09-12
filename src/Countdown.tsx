@@ -437,7 +437,7 @@ const Countdown = () => {
               bg: "rgba(255, 255, 255, 0.1)",
             }}
           >
-            Settings
+            {t("Settings")}
           </Button>
         </Flex>
 
@@ -467,7 +467,7 @@ const Countdown = () => {
               borderBottom="1px solid"
               borderColor="whiteAlpha.100"
             >
-              Settings
+              {t("Settings")}
             </ModalHeader>
             <ModalCloseButton top={3} right={3} />
             <ModalBody py={5}>
@@ -490,10 +490,10 @@ const Countdown = () => {
                   <Flex justify="space-between" align="center">
                     <Box>
                       <Text fontSize="md" fontWeight="500" mb={1}>
-                        Tick Sound
+                        {t("countdown.tickSound")}
                       </Text>
                       <Text fontSize="sm" color="gray.400">
-                        Play a sound every second
+                        {t("countdown.tickSoundDesc")}
                       </Text>
                     </Box>
                     <Checkbox

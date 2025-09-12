@@ -212,8 +212,7 @@ const resources = {
       "countdown.preset.15min": "15 min",
       "countdown.preset.25min": "25 min",
       "countdown.preset.30min": "30 min",
-      "countdown.tickSound": "Sonido de tic",
-      "countdown.tickSoundDesc": "Reproducir un sonido cada segundo",
+
       "countdown.notification.complete":
         "Tu temporizador de cuenta regresiva ha terminado.",
 
@@ -223,6 +222,8 @@ const resources = {
       "L: Lap": "L: Vuelta",
       "Esc: Deselect": "Esc: Deseleccionar",
       "Click digits to edit": "Haz clic en los dígitos para editar",
+      "countdown.tickSound": "Sonido de Tic",
+      "countdown.tickSoundDesc": "Reproducir un sonido cada segundo",
 
       // Timer specific
       "Based Online Stopwatch": "Cronómetro Online Basado",
@@ -372,6 +373,8 @@ const resources = {
       "L: Lap": "L: Tour",
       "Esc: Deselect": "Esc: Désélectionner",
       "Click digits to edit": "Cliquez sur les chiffres pour modifier",
+      "countdown.tickSound": "Son de Tic",
+      "countdown.tickSoundDesc": "Jouer un son chaque seconde",
 
       // Timer specific
       "Based Online Stopwatch": "Chronomètre Online Basé",
@@ -521,6 +524,8 @@ const resources = {
       "L: Lap": "L: Runde",
       "Esc: Deselect": "Esc: Abwählen",
       "Click digits to edit": "Klicken Sie auf Ziffern zum Bearbeiten",
+      "countdown.tickSound": "Tick-Geräusch",
+      "countdown.tickSoundDesc": "Jede Sekunde einen Ton abspielen",
 
       // Timer specific
       "Based Online Stopwatch": "Based Online Stoppuhr",
@@ -669,6 +674,8 @@ const resources = {
       "L: Lap": "L: Giro",
       "Esc: Deselect": "Esc: Deseleziona",
       "Click digits to edit": "Clicca sui numeri per modificare",
+      "countdown.tickSound": "Suono del Tic",
+      "countdown.tickSoundDesc": "Riproduci un suono ogni secondo",
 
       // Timer specific
       "Based Online Stopwatch": "Cronometro Online Basato",
@@ -818,6 +825,8 @@ const resources = {
       "L: Lap": "L: Volta",
       "Esc: Deselect": "Esc: Desselecionar",
       "Click digits to edit": "Clique nos dígitos para editar",
+      "countdown.tickSound": "Som de Tic",
+      "countdown.tickSoundDesc": "Tocar um som a cada segundo",
 
       // Timer specific
       "Based Online Stopwatch": "Cronômetro Online Baseado",
@@ -965,6 +974,8 @@ const resources = {
       "L: Lap": "L: 计圈",
       "Esc: Deselect": "Esc: 取消选择",
       "Click digits to edit": "点击数字进行编辑",
+      "countdown.tickSound": "滴答声",
+      "countdown.tickSoundDesc": "每秒播放声音",
 
       // Timer specific
       "Based Online Stopwatch": "基础在线秒表",
@@ -1112,6 +1123,8 @@ const resources = {
       "L: Lap": "L: ラップ",
       "Esc: Deselect": "Esc: 選択解除",
       "Click digits to edit": "数字をクリックして編集",
+      "countdown.tickSound": "チック音",
+      "countdown.tickSoundDesc": "毎秒音を再生する",
 
       // Timer specific
       "Based Online Stopwatch": "ベースオンラインストップウォッチ",
@@ -1258,6 +1271,8 @@ const resources = {
       "L: Lap": "L: 랩",
       "Esc: Deselect": "Esc: 선택 해제",
       "Click digits to edit": "숫자를 클릭하여 편집",
+      "countdown.tickSound": "틱 사운드",
+      "countdown.tickSoundDesc": "매초마다 소리 재생",
 
       // Timer specific
       "Based Online Stopwatch": "베이스 온라인 스톱워치",
@@ -1405,6 +1420,8 @@ const resources = {
       "L: Lap": "L: Круг",
       "Esc: Deselect": "Esc: Отмена выбора",
       "Click digits to edit": "Нажмите на цифры для редактирования",
+      "countdown.tickSound": "Звук тика",
+      "countdown.tickSoundDesc": "Воспроизводить звук каждую секунду",
 
       // Timer specific
       "Based Online Stopwatch": "Базовый онлайн секундомер",
@@ -1551,6 +1568,8 @@ const resources = {
       "L: Lap": "L: لفة",
       "Esc: Deselect": "Esc: إلغاء التحديد",
       "Click digits to edit": "انقر على الأرقام للتحرير",
+      "countdown.tickSound": "صوت التكتكة",
+      "countdown.tickSoundDesc": "تشغيل صوت كل ثانية",
 
       // Timer specific
       "Based Online Stopwatch": "ساعة الإيقاف الأساسية",
@@ -1698,6 +1717,8 @@ const resources = {
       "L: Lap": "L: लैप",
       "Esc: Deselect": "Esc: चयन हटाएं",
       "Click digits to edit": "संपादित करने के लिए अंकों पर क्लिक करें",
+      "countdown.tickSound": "टिक की आवाज़",
+      "countdown.tickSoundDesc": "हर सेकंड एक आवाज़ बजाएं",
 
       // Timer specific
       "Based Online Stopwatch": "आधारित ऑनलाइन स्टॉपवॉच",
