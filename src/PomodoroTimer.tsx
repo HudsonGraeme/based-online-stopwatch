@@ -9,20 +9,19 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import { format } from "date-fns";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNotifications } from "./hooks/useNotifications";
 import { useTimerEffects } from "./hooks/useTimerEffects";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
+import { useWebWorkerTimer } from "./hooks/useWebWorkerTimer";
 
 type PomodoroPhase = "work" | "shortBreak" | "longBreak";
 
 interface PomodoroSession {
   phase: PomodoroPhase;
-  timeRemaining: number;
   cycleCount: number;
   totalCycles: number;
-  isRunning: boolean;
 }
 
 const POMODORO_TIMES = {
@@ -35,125 +34,125 @@ const PomodoroTimer = () => {
   const { t } = useTranslation();
   const [session, setSession] = useState<PomodoroSession>({
     phase: "work",
-    timeRemaining: POMODORO_TIMES.work,
     cycleCount: 0,
     totalCycles: 4, // 4 work sessions before long break
-    isRunning: false,
   });
-
-  const timerRef = useRef<number | null>(null);
   const { showNotification, requestPermission } = useNotifications();
   const { isFlashing, startAlarm, stopAlarm } = useTimerEffects();
   const [hasRequestedPermission, setHasRequestedPermission] = useState(false);
 
-  useEffect(() => {
-    if (session.isRunning && session.timeRemaining > 0) {
-      timerRef.current = window.setInterval(() => {
-        setSession((prev) => ({
-          ...prev,
-          timeRemaining: prev.timeRemaining - 1000,
-        }));
-      }, 1000);
-    } else if (timerRef.current) {
-      window.clearInterval(timerRef.current);
+  const {
+    isRunning,
+    value: timeRemaining,
+    start,
+    stop,
+    updateValue,
+    updateConfig,
+  } = useWebWorkerTimer({
+    type: "pomodoro",
+    timerId: "main-pomodoro",
+    config: {
+      initialValue: POMODORO_TIMES[session.phase],
+      phase: session.phase,
+      cycleCount: session.cycleCount,
+    },
+    onComplete: handlePhaseComplete,
+  });
 
-      if (session.timeRemaining <= 0 && session.isRunning) {
-        handlePhaseComplete();
-      }
-    }
-
-    return () => {
-      if (timerRef.current) {
-        window.clearInterval(timerRef.current);
-      }
-    };
-  }, [session.isRunning, session.timeRemaining]);
-
-  const handlePhaseComplete = () => {
+  function handlePhaseComplete() {
     // Start alarm to signal phase completion (will flash green for break, red for work)
     startAlarm();
 
-    setSession((prev) => {
-      let nextPhase: PomodoroPhase;
-      let nextCycleCount = prev.cycleCount;
+    let nextPhase: PomodoroPhase;
+    let nextCycleCount = session.cycleCount;
 
-      if (prev.phase === "work") {
-        nextCycleCount += 1;
-        // After 4 work sessions, take a long break
-        nextPhase =
-          nextCycleCount % prev.totalCycles === 0 ? "longBreak" : "shortBreak";
-      } else {
-        // After any break, go back to work
-        nextPhase = "work";
-      }
+    if (session.phase === "work") {
+      nextCycleCount += 1;
+      // After 4 work sessions, take a long break
+      nextPhase =
+        nextCycleCount % session.totalCycles === 0 ? "longBreak" : "shortBreak";
+    } else {
+      // After any break, go back to work
+      nextPhase = "work";
+    }
 
-      const nextTimeRemaining = POMODORO_TIMES[nextPhase];
+    const nextTimeRemaining = POMODORO_TIMES[nextPhase];
 
-      // Show notification
-      const phaseMessages = {
-        work:
-          nextPhase === "longBreak"
-            ? t("Great job! Time for a long break!")
-            : t("Work session complete! Time for a short break!"),
-        shortBreak: t("Break over! Ready for another work session?"),
-        longBreak: t("Long break over! Ready to start fresh?"),
-      };
+    // Show notification
+    const phaseMessages = {
+      work:
+        nextPhase === "longBreak"
+          ? t("Great job! Time for a long break!")
+          : t("Work session complete! Time for a short break!"),
+      shortBreak: t("Break over! Ready for another work session?"),
+      longBreak: t("Long break over! Ready to start fresh?"),
+    };
 
-      showNotification(t("Pomodoro Phase Complete!"), {
-        body: phaseMessages[prev.phase],
-        tag: "pomodoro-complete",
-      });
-
-      return {
-        ...prev,
-        phase: nextPhase,
-        timeRemaining: nextTimeRemaining,
-        cycleCount: nextCycleCount,
-        isRunning: false, // Pause between phases
-      };
+    showNotification(t("Pomodoro Phase Complete!"), {
+      body: phaseMessages[session.phase],
+      tag: "pomodoro-complete",
     });
-  };
+
+    setSession({
+      ...session,
+      phase: nextPhase,
+      cycleCount: nextCycleCount,
+    });
+
+    updateValue(nextTimeRemaining);
+    updateConfig({
+      initialValue: nextTimeRemaining,
+      phase: nextPhase,
+      cycleCount: nextCycleCount,
+    });
+  }
 
   const handleStartStop = async () => {
-    if (!session.isRunning && !hasRequestedPermission) {
+    if (!isRunning && !hasRequestedPermission) {
       await requestPermission();
       setHasRequestedPermission(true);
     }
 
     // Stop alarm when starting after a phase complete
-    if (!session.isRunning) {
+    if (!isRunning) {
       stopAlarm();
 
       // Flash red when starting work phase
-      if (
-        session.phase === "work" &&
-        session.timeRemaining === POMODORO_TIMES.work
-      ) {
+      if (session.phase === "work" && timeRemaining === POMODORO_TIMES.work) {
         startAlarm();
         setTimeout(() => stopAlarm(), 500); // Brief flash and beep
       }
     }
 
-    if (session.timeRemaining <= 0) {
+    if (timeRemaining <= 0) {
       return;
     }
 
-    setSession((prev) => ({ ...prev, isRunning: !prev.isRunning }));
+    if (isRunning) {
+      stop();
+    } else {
+      start();
+    }
   };
 
   const handleReset = () => {
     stopAlarm();
+    stop();
     setSession({
       phase: "work",
-      timeRemaining: POMODORO_TIMES.work,
       cycleCount: 0,
       totalCycles: 4,
-      isRunning: false,
+    });
+    updateValue(POMODORO_TIMES.work);
+    updateConfig({
+      initialValue: POMODORO_TIMES.work,
+      phase: "work",
+      cycleCount: 0,
     });
   };
 
   const handleSkipPhase = () => {
-    setSession((prev) => ({ ...prev, timeRemaining: 0 }));
+    updateValue(0);
   };
 
   // Keyboard shortcuts
@@ -195,7 +194,7 @@ const PomodoroTimer = () => {
   };
 
   const progressPercent =
-    ((POMODORO_TIMES[session.phase] - session.timeRemaining) /
+    ((POMODORO_TIMES[session.phase] - timeRemaining) /
       POMODORO_TIMES[session.phase]) *
     100;
   const completedWorkSessions =
@@ -280,7 +279,7 @@ const PomodoroTimer = () => {
               fontWeight="bold"
               color="white"
             >
-              {formatTime(session.timeRemaining)}
+              {formatTime(timeRemaining)}
             </Text>
           </Box>
         </Box>
@@ -319,8 +318,7 @@ const PomodoroTimer = () => {
             size={{ base: "md", md: "lg" }}
             minW={{ base: "80px", md: "auto" }}
             disabled={
-              session.timeRemaining === POMODORO_TIMES[session.phase] &&
-              !session.isRunning
+              timeRemaining === POMODORO_TIMES[session.phase] && !isRunning
             }
           >
             {t("Reset")}
@@ -329,11 +327,11 @@ const PomodoroTimer = () => {
             onClick={handleStartStop}
             size={{ base: "md", md: "lg" }}
             minW={{ base: "100px", md: "auto" }}
-            colorScheme={session.isRunning ? "red" : "green"}
+            colorScheme={isRunning ? "red" : "green"}
           >
-            {session.isRunning
+            {isRunning
               ? t("Pause")
-              : session.timeRemaining <= 0
+              : timeRemaining <= 0
                 ? t("Continue")
                 : t("Start")}
           </Button>
@@ -343,8 +341,7 @@ const PomodoroTimer = () => {
             minW={{ base: "80px", md: "auto" }}
             variant="outline"
             disabled={
-              !session.isRunning &&
-              session.timeRemaining === POMODORO_TIMES[session.phase]
+              !isRunning && timeRemaining === POMODORO_TIMES[session.phase]
             }
           >
             {t("Skip")}

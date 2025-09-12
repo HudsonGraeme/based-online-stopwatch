@@ -23,23 +23,44 @@ import { useNotifications } from "./hooks/useNotifications";
 import { useCountdownPersistence } from "./hooks/usePersistence";
 import { useTimerEffects } from "./hooks/useTimerEffects";
 import { useURLSharing } from "./hooks/useURLSharing";
+import { useWebWorkerTimer } from "./hooks/useWebWorkerTimer";
 
 const Countdown = () => {
   const { t } = useTranslation();
   const [initialTime, setInitialTime] = useState(300000); // 5 minutes
-  const [time, setTime] = useState(initialTime);
-  const [isRunning, setIsRunning] = useState(false);
   const [selectedPosition, setSelectedPosition] = useState(-1);
-  const timerRef = useRef<number | null>(null);
   const hiddenInputRef = useRef<HTMLInputElement>(null);
   const { showNotification, requestPermission } = useNotifications();
   const { isFlashing, startAlarm, stopAlarm } = useTimerEffects();
   const [hasRequestedPermission, setHasRequestedPermission] = useState(false);
-  const [hasTriggeredAlarm, setHasTriggeredAlarm] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [tickEachSecond, setTickEachSecond] = useState(false);
-  const { loadValue } = useCountdownPersistence(initialTime, time, isRunning);
+  const { loadValue } = useCountdownPersistence(initialTime, 0, false);
   const { config: urlConfig, hasLoadedFromURL } = useURLSharing("countdown");
+
+  const {
+    isRunning,
+    value: time,
+    start,
+    stop,
+    updateValue,
+  } = useWebWorkerTimer({
+    type: "countdown",
+    timerId: "main-countdown",
+    config: { initialValue: initialTime },
+    onComplete: () => {
+      startAlarm();
+      showNotification("Timer Complete!", {
+        body: "Your countdown timer has finished.",
+        tag: "timer-complete",
+      });
+    },
+    onTick: (value) => {
+      if (value > 0 && tickEachSecond) {
+        playTickSound();
+      }
+    },
+  });
 
   // Load persisted state on mount
   useEffect(() => {
@@ -47,8 +68,7 @@ const Countdown = () => {
       const saved = await loadValue();
       if (saved) {
         setInitialTime(saved.initialTime);
-        setTime(saved.time);
-        // Don't auto-resume running state for safety
+        updateValue(saved.time);
       }
     };
     loadState();
@@ -62,43 +82,10 @@ const Countdown = () => {
       urlConfig.initialTime !== initialTime
     ) {
       setInitialTime(urlConfig.initialTime);
-      setTime(urlConfig.initialTime);
-      setHasTriggeredAlarm(false);
+      updateValue(urlConfig.initialTime);
       stopAlarm();
     }
   }, [hasLoadedFromURL, urlConfig.initialTime]);
-
-  useEffect(() => {
-    if (isRunning && time > 0) {
-      timerRef.current = window.setInterval(() => {
-        setTime((prevTime) => {
-          const newTime = prevTime - 1000;
-          if (newTime > 0) {
-            playTickSound();
-          }
-          return newTime;
-        });
-      }, 1000);
-    } else if (timerRef.current) {
-      window.clearInterval(timerRef.current);
-      if (time <= 0 && !hasTriggeredAlarm) {
-        setIsRunning(false);
-        setHasTriggeredAlarm(true);
-        console.log("Timer completed - triggering alarm");
-        startAlarm();
-        showNotification("Timer Complete!", {
-          body: "Your countdown timer has finished.",
-          tag: "timer-complete",
-        });
-      }
-    }
-
-    return () => {
-      if (timerRef.current) {
-        window.clearInterval(timerRef.current);
-      }
-    };
-  }, [isRunning, time, startAlarm, showNotification, tickEachSecond]);
 
   useEffect(() => {
     if (isRunning) {
@@ -128,17 +115,19 @@ const Countdown = () => {
       await requestPermission();
       setHasRequestedPermission(true);
     }
-    setIsRunning(!isRunning);
+
+    if (isRunning) {
+      stop();
+    } else {
+      start();
+    }
   };
 
   const handleReset = () => {
-    console.log("Reset button clicked");
-    setIsRunning(false);
-    setTime(initialTime);
+    stop();
+    updateValue(initialTime);
     setSelectedPosition(-1);
-    setHasTriggeredAlarm(false); // Reset alarm trigger flag
-    stopAlarm(); // Always stop alarm on reset
-    console.log("Reset completed");
+    stopAlarm();
   };
 
   // Keyboard shortcuts
@@ -159,35 +148,32 @@ const Countdown = () => {
   const handlePresetClick = (presetValue: number) => {
     if (!isRunning) {
       setInitialTime(presetValue);
-      setTime(presetValue);
+      updateValue(presetValue);
       setSelectedPosition(-1);
-      setHasTriggeredAlarm(false);
       stopAlarm();
     }
   };
 
   const playTickSound = () => {
-    if (tickEachSecond) {
-      const audioContext = new (window.AudioContext ||
-        (window as any).webkitAudioContext)();
-      const oscillator = audioContext.createOscillator();
-      const gainNode = audioContext.createGain();
+    const audioContext = new (window.AudioContext ||
+      (window as any).webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
 
-      oscillator.connect(gainNode);
-      gainNode.connect(audioContext.destination);
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
 
-      oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-      oscillator.type = "square";
+    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+    oscillator.type = "square";
 
-      gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(
-        0.01,
-        audioContext.currentTime + 0.1
-      );
+    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(
+      0.01,
+      audioContext.currentTime + 0.1
+    );
 
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + 0.1);
-    }
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.1);
   };
 
   const handleCharacterClick = (position: number) => {
@@ -251,7 +237,7 @@ const Countdown = () => {
         if (minutes >= 0 && minutes <= 59 && seconds >= 0 && seconds <= 59) {
           const newTime = (minutes * 60 + seconds) * 1000;
           setInitialTime(newTime);
-          setTime(newTime);
+          updateValue(newTime);
 
           // Move to next editable position
           let nextPosition = selectedPosition + 1;
