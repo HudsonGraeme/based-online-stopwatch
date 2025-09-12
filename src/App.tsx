@@ -43,6 +43,8 @@ import {
   SettingsModal,
   initializeBackground,
 } from "./components/SettingsModal";
+import { useGlobalKeyboardShortcuts } from "./hooks/useGlobalKeyboardShortcuts";
+import HotkeyHelpModal from "./components/HotkeyHelpModal";
 
 function Navigation() {
   const navigate = useNavigate();
@@ -210,6 +212,17 @@ function App() {
     onOpen: onSettingsOpen,
     onClose: onSettingsClose,
   } = useDisclosure();
+  const {
+    isOpen: isHotkeyHelpOpen,
+    onOpen: onHotkeyHelpOpen,
+    onClose: onHotkeyHelpClose,
+  } = useDisclosure();
+
+  // Global keyboard shortcuts
+  useGlobalKeyboardShortcuts({
+    onShowHelp: onHotkeyHelpOpen,
+    onHideHelp: onHotkeyHelpClose,
+  });
 
   // Detect if running as installed app
   const isStandalone =
@@ -539,6 +552,10 @@ function App() {
         </Box>
 
         <SettingsModal isOpen={isSettingsOpen} onClose={onSettingsClose} />
+        <HotkeyHelpModal
+          isOpen={isHotkeyHelpOpen}
+          onClose={onHotkeyHelpClose}
+        />
       </Box>
     </ChakraProvider>
   );

@@ -405,8 +405,9 @@ const Countdown = () => {
           {renderEditableTime(time)}
           {!isRunning && (
             <Text fontSize={{ base: "sm", md: "md" }} color="gray.500" mt={2}>
-              {t("Click digits to edit")} • {t("Space: Start/Stop")} •{" "}
-              {t("R: Reset")} • {t("Esc: Deselect")}
+              {t("Click digits to edit")} • <kbd>Space</kbd> Start/Stop •{" "}
+              <kbd>R</kbd> Reset • <kbd>Esc</kbd> Deselect • <kbd>?</kbd> for
+              help
             </Text>
           )}
         </Box>

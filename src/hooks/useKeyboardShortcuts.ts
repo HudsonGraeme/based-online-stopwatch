@@ -46,6 +46,7 @@ export const useKeyboardShortcuts = ({
           onLap?.();
           break;
         case "KeyS":
+        case "Enter":
           e.preventDefault();
           onSkip?.();
           break;

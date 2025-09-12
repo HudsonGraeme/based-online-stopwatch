@@ -365,7 +365,8 @@ const PomodoroTimer = () => {
             color="gray.500"
             textAlign="center"
           >
-            {t("Space: Start/Pause")} • {t("R: Reset")} • {t("S: Skip Phase")}
+            <kbd>Space</kbd> Start/Pause • <kbd>R</kbd> Reset • <kbd>S</kbd>{" "}
+            Skip • <kbd>?</kbd> for help
           </Text>
         </VStack>
       </VStack>
