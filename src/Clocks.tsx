@@ -43,7 +43,7 @@ const Clocks = () => {
       id: "utc",
       name: "UTC",
       timezone: "UTC",
-      flag: "🌍",
+      flag: "W",
       utcOffset: "+00:00",
     },
     {
@@ -364,14 +364,14 @@ const Clocks = () => {
 
   const periods = useMemo(
     () => ({
-      morning: { period: t("morning"), icon: "🌅", color: "orange" as const },
+      morning: { period: t("morning"), icon: "M", color: "orange" as const },
       afternoon: {
         period: t("afternoon"),
-        icon: "☀️",
+        icon: "A",
         color: "yellow" as const,
       },
-      evening: { period: t("evening"), icon: "🌆", color: "purple" as const },
-      night: { period: t("night"), icon: "🌙", color: "blue" as const },
+      evening: { period: t("evening"), icon: "E", color: "purple" as const },
+      night: { period: t("night"), icon: "N", color: "blue" as const },
       unknown: { period: t("unknown"), icon: "🕐", color: "gray" as const },
     }),
     [t]

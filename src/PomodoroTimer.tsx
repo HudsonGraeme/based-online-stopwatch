@@ -3,18 +3,18 @@ import {
   Button,
   Flex,
   Text,
-  Progress,
   VStack,
   HStack,
   Badge,
 } from "@chakra-ui/react";
 import { format } from "date-fns";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useNotifications } from "./hooks/useNotifications";
 import { useTimerEffects } from "./hooks/useTimerEffects";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { useWebWorkerTimer } from "./hooks/useWebWorkerTimer";
+import { UniversalProgressIndicator } from "./components/UniversalProgressIndicator";
 
 type PomodoroPhase = "work" | "shortBreak" | "longBreak";
 
@@ -41,6 +41,60 @@ const PomodoroTimer = () => {
   const { isFlashing, startAlarm, stopAlarm } = useTimerEffects();
   const [hasRequestedPermission, setHasRequestedPermission] = useState(false);
 
+  // Define handlePhaseComplete function without the timer functions first
+  const handlePhaseCompleteLogic = useCallback(
+    (updateValueFn: any, updateConfigFn: any) => {
+      // Start alarm to signal phase completion (will flash green for break, red for work)
+      startAlarm();
+
+      let nextPhase: PomodoroPhase;
+      let nextCycleCount = session.cycleCount;
+
+      if (session.phase === "work") {
+        nextCycleCount += 1;
+        // After 4 work sessions, take a long break
+        nextPhase =
+          nextCycleCount % session.totalCycles === 0
+            ? "longBreak"
+            : "shortBreak";
+      } else {
+        // After any break, go back to work
+        nextPhase = "work";
+      }
+
+      const nextTimeRemaining = POMODORO_TIMES[nextPhase];
+
+      // Show notification
+      const phaseMessages = {
+        work:
+          nextPhase === "longBreak"
+            ? t("Great job! Time for a long break!")
+            : t("Work session complete! Time for a short break!"),
+        shortBreak: t("Break over! Ready for another work session?"),
+        longBreak: t("Long break over! Ready to start fresh?"),
+      };
+
+      showNotification(t("Pomodoro Phase Complete!"), {
+        body: phaseMessages[session.phase],
+        tag: "pomodoro-complete",
+      });
+
+      setSession({
+        ...session,
+        phase: nextPhase,
+        cycleCount: nextCycleCount,
+      });
+
+      updateValueFn(nextTimeRemaining);
+      updateConfigFn({
+        initialValue: nextTimeRemaining,
+        phase: nextPhase,
+        cycleCount: nextCycleCount,
+      });
+    },
+    [startAlarm, session, t, showNotification, setSession]
+  );
+
   const {
     isRunning,
     value: timeRemaining,
@@ -56,56 +110,8 @@ const PomodoroTimer = () => {
       phase: session.phase,
       cycleCount: session.cycleCount,
     },
-    onComplete: handlePhaseComplete,
+    onComplete: () => handlePhaseCompleteLogic(updateValue, updateConfig),
   });
-
-  function handlePhaseComplete() {
-    // Start alarm to signal phase completion (will flash green for break, red for work)
-    startAlarm();
-
-    let nextPhase: PomodoroPhase;
-    let nextCycleCount = session.cycleCount;
-
-    if (session.phase === "work") {
-      nextCycleCount += 1;
-      // After 4 work sessions, take a long break
-      nextPhase =
-        nextCycleCount % session.totalCycles === 0 ? "longBreak" : "shortBreak";
-    } else {
-      // After any break, go back to work
-      nextPhase = "work";
-    }
-
-    const nextTimeRemaining = POMODORO_TIMES[nextPhase];
-
-    // Show notification
-    const phaseMessages = {
-      work:
-        nextPhase === "longBreak"
-          ? t("Great job! Time for a long break!")
-          : t("Work session complete! Time for a short break!"),
-      shortBreak: t("Break over! Ready for another work session?"),
-      longBreak: t("Long break over! Ready to start fresh?"),
-    };
-
-    showNotification(t("Pomodoro Phase Complete!"), {
-      body: phaseMessages[session.phase],
-      tag: "pomodoro-complete",
-    });
-
-    setSession({
-      ...session,
-      phase: nextPhase,
-      cycleCount: nextCycleCount,
-    });
-
-    updateValue(nextTimeRemaining);
-    updateConfig({
-      initialValue: nextTimeRemaining,
-      phase: nextPhase,
-      cycleCount: nextCycleCount,
-    });
-  }
 
   const handleStartStop = async () => {
     if (!isRunning && !hasRequestedPermission) {
@@ -246,43 +252,26 @@ const PomodoroTimer = () => {
         </VStack>
 
         {/* Progress Ring */}
-        <Box position="relative" w="250px" h="250px">
-          <Progress
-            value={progressPercent}
-            colorScheme={
-              session.phase === "work"
-                ? "red"
-                : session.phase === "shortBreak"
-                  ? "green"
-                  : "blue"
-            }
-            size="lg"
-            borderRadius="full"
-            w="100%"
-            h="100%"
-            sx={{
-              "& > div": {
-                borderRadius: "full",
-              },
-            }}
-          />
-          <Box
-            position="absolute"
-            top="50%"
-            left="50%"
-            transform="translate(-50%, -50%)"
-            textAlign="center"
+        <UniversalProgressIndicator
+          progress={progressPercent}
+          size={250}
+          color={
+            session.phase === "work"
+              ? "red.500"
+              : session.phase === "shortBreak"
+                ? "green.500"
+                : "blue.500"
+          }
+        >
+          <Text
+            fontSize={{ base: "4xl", md: "5xl" }}
+            fontFamily="monospace"
+            fontWeight="bold"
+            color="white"
           >
-            <Text
-              fontSize={{ base: "4xl", md: "5xl" }}
-              fontFamily="monospace"
-              fontWeight="bold"
-              color="white"
-            >
-              {formatTime(timeRemaining)}
-            </Text>
-          </Box>
-        </Box>
+            {formatTime(timeRemaining)}
+          </Text>
+        </UniversalProgressIndicator>
 
         {/* Stats */}
         <VStack spacing={2}>

@@ -1,15 +1,13 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { format } from "date-fns";
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useStopwatchPersistence } from "./hooks/usePersistence";
+import { usePersisted } from "./hooks/usePersisted";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { useWebWorkerTimer } from "./hooks/useWebWorkerTimer";
 
 const Stopwatch = () => {
   const { t } = useTranslation();
-  const [laps, setLaps] = useState<number[]>([]);
-  const { loadValue } = useStopwatchPersistence(0, laps, false);
+  const [laps, setLaps] = usePersisted<number[]>("stopwatch-laps", []);
 
   const {
     isRunning,
@@ -17,24 +15,11 @@ const Stopwatch = () => {
     start,
     stop,
     reset: resetTimer,
-    updateValue,
   } = useWebWorkerTimer({
     type: "stopwatch",
     timerId: "main-stopwatch",
     config: { initialValue: 0 },
   });
-
-  // Load persisted state on mount
-  useEffect(() => {
-    const loadState = async () => {
-      const saved = await loadValue();
-      if (saved) {
-        updateValue(saved.time);
-        setLaps(saved.laps);
-      }
-    };
-    loadState();
-  }, []);
 
   const handleStartStop = () => {
     if (isRunning) {

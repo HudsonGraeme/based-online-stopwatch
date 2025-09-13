@@ -20,7 +20,6 @@ import { useEffect, useRef, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { useNotifications } from "./hooks/useNotifications";
-import { useCountdownPersistence } from "./hooks/usePersistence";
 import { useTimerEffects } from "./hooks/useTimerEffects";
 import { useURLSharing } from "./hooks/useURLSharing";
 import { useWebWorkerTimer } from "./hooks/useWebWorkerTimer";
@@ -35,7 +34,6 @@ const Countdown = () => {
   const [hasRequestedPermission, setHasRequestedPermission] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [tickEachSecond, setTickEachSecond] = useState(false);
-  const { loadValue } = useCountdownPersistence(initialTime, 0, false);
   const { config: urlConfig, hasLoadedFromURL } = useURLSharing("countdown");
 
   const {
@@ -61,18 +59,6 @@ const Countdown = () => {
       }
     },
   });
-
-  // Load persisted state on mount
-  useEffect(() => {
-    const loadState = async () => {
-      const saved = await loadValue();
-      if (saved) {
-        setInitialTime(saved.initialTime);
-        updateValue(saved.time);
-      }
-    };
-    loadState();
-  }, []);
 
   // Load from URL parameters
   useEffect(() => {

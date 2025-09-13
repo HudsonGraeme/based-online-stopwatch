@@ -6,7 +6,6 @@ import {
   SimpleGrid,
   Text,
   VStack,
-  Badge,
   Input,
   Modal,
   ModalBody,
@@ -24,6 +23,7 @@ import { useWebWorkerTimer } from "./hooks/useWebWorkerTimer";
 import { useTimerEffects } from "./hooks/useTimerEffects";
 import { useNotifications } from "./hooks/useNotifications";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
+import { UniversalProgressIndicator } from "./components/UniversalProgressIndicator";
 
 interface ActivityPreset {
   name: string;
@@ -53,56 +53,56 @@ const ClassroomTimers = () => {
         name: t("Reading Time"),
         duration: 15 * 60 * 1000, // 15 minutes
         color: "blue",
-        icon: "📖",
+        icon: "RD",
         description: t("Silent reading period"),
       },
       {
         name: t("Group Work"),
         duration: 20 * 60 * 1000, // 20 minutes
         color: "green",
-        icon: "👥",
+        icon: "GW",
         description: t("Collaborative activity time"),
       },
       {
         name: t("Presentation"),
         duration: 5 * 60 * 1000, // 5 minutes
         color: "purple",
-        icon: "🎤",
+        icon: "PR",
         description: t("Student presentation slot"),
       },
       {
         name: t("Break Time"),
         duration: 10 * 60 * 1000, // 10 minutes
         color: "orange",
-        icon: "☕",
+        icon: "BR",
         description: t("Rest and recharge"),
       },
       {
         name: t("Quiz Time"),
         duration: 30 * 60 * 1000, // 30 minutes
         color: "red",
-        icon: "📝",
+        icon: "WR",
         description: t("Assessment period"),
       },
       {
         name: t("Discussion"),
         duration: 15 * 60 * 1000, // 15 minutes
         color: "teal",
-        icon: "💬",
+        icon: "DI",
         description: t("Class discussion time"),
       },
       {
         name: t("Clean Up"),
         duration: 5 * 60 * 1000, // 5 minutes
         color: "yellow",
-        icon: "🧹",
+        icon: "CL",
         description: t("Tidy up the classroom"),
       },
       {
         name: t("Transition"),
         duration: 3 * 60 * 1000, // 3 minutes
         color: "gray",
-        icon: "🔄",
+        icon: "TR",
         description: t("Move between activities"),
       },
     ],
@@ -207,7 +207,7 @@ const ClassroomTimers = () => {
         name: t("Custom Timer"),
         duration: minutes * 60 * 1000,
         color: "pink",
-        icon: "⚡",
+        icon: "CT",
         description: t("{{minutes}} minute custom activity", { minutes }),
       };
       setSelectedActivity(customActivity);
@@ -268,7 +268,7 @@ const ClassroomTimers = () => {
         {/* Header */}
         <VStack spacing={2}>
           <Text fontSize="3xl" fontWeight="700" color="white">
-            📚 {t("Classroom Timers")}
+            {t("Classroom Timers")}
           </Text>
           <Text color="#9ca3af" fontSize="lg">
             {t("Perfect timing for every classroom activity")}
@@ -337,7 +337,7 @@ const ClassroomTimers = () => {
           }}
         >
           <VStack spacing={1}>
-            <Text fontSize="18px">⚡</Text>
+            <Text fontSize="18px">+</Text>
             <Text fontSize="sm">{t("Custom Timer")}</Text>
           </VStack>
         </Button>
@@ -346,55 +346,29 @@ const ClassroomTimers = () => {
         {selectedActivity && (
           <VStack spacing={6}>
             <VStack spacing={3}>
-              <HStack spacing={3}>
-                <Text fontSize="2xl">{selectedActivity.icon}</Text>
-                <Badge
-                  colorScheme={selectedActivity.color}
-                  fontSize="lg"
-                  px={4}
-                  py={2}
-                  borderRadius="full"
-                >
-                  {selectedActivity.name}
-                </Badge>
-              </HStack>
+              <Text fontSize="2xl" fontWeight="700" color="white">
+                {selectedActivity.name}
+              </Text>
               <Text color="#9ca3af" fontSize="md">
                 {selectedActivity.description}
               </Text>
             </VStack>
 
             {/* Progress Ring */}
-            <Box position="relative" w="200px" h="200px">
-              <Progress
-                value={getProgressPercent()}
-                colorScheme={selectedActivity.color}
-                size="lg"
-                borderRadius="full"
-                w="100%"
-                h="100%"
-                sx={{
-                  "& > div": {
-                    borderRadius: "full",
-                  },
-                }}
-              />
-              <Box
-                position="absolute"
-                top="50%"
-                left="50%"
-                transform="translate(-50%, -50%)"
-                textAlign="center"
+            <UniversalProgressIndicator
+              progress={getProgressPercent()}
+              size={200}
+              color={`${selectedActivity.color}.500`}
+            >
+              <Text
+                fontSize="4xl"
+                fontFamily="monospace"
+                fontWeight="bold"
+                color="white"
               >
-                <Text
-                  fontSize="4xl"
-                  fontFamily="monospace"
-                  fontWeight="bold"
-                  color="white"
-                >
-                  {formatTime(timeRemaining)}
-                </Text>
-              </Box>
-            </Box>
+                {formatTime(timeRemaining)}
+              </Text>
+            </UniversalProgressIndicator>
 
             {/* Controls */}
             <HStack spacing={4}>
@@ -454,7 +428,7 @@ const ClassroomTimers = () => {
           borderColor="whiteAlpha.200"
         >
           <ModalHeader fontSize="lg" fontWeight="600">
-            ⚡ {t("Custom Timer")}
+            {t("Custom Timer")}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>

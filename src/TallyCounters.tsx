@@ -61,7 +61,7 @@ function TallyCounters() {
     <VStack spacing={8} align="center" maxW="1000px" mx="auto">
       <VStack spacing={4} textAlign="center">
         <Text fontSize="4xl" fontWeight="700" color="white">
-          🔢 Tally Counters
+          Tally Counters
         </Text>
         <Text fontSize="lg" color="#9ca3af">
           Keep track of multiple counts simultaneously

@@ -198,21 +198,21 @@ function RandomNumberGenerators() {
                   variant="outline"
                   onClick={() => quickGenerate("coin")}
                 >
-                  🪙 Coin (1-2)
+                  Coin (1-2)
                 </Button>
                 <Button
                   size="sm"
                   variant="outline"
                   onClick={() => quickGenerate("lotto")}
                 >
-                  🎫 Lotto (1-49)
+                  Lotto (1-49)
                 </Button>
                 <Button
                   size="sm"
                   variant="outline"
                   onClick={() => quickGenerate("percent")}
                 >
-                  📊 Percent (0-100)
+                  Percent (0-100)
                 </Button>
               </HStack>
             </VStack>

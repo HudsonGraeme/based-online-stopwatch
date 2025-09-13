@@ -13,11 +13,21 @@ import {
   Image,
   IconButton,
   useToast,
+  Divider,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import localforage from "localforage";
 import { FloatingParticles } from "./FloatingParticles";
+import { triggerProgressIndicatorRefresh } from "../hooks/useProgressIndicator";
+import {
+  CircularProgress,
+  GlowingCircular,
+  MinimalLinear,
+  PulsingCircular,
+  SegmentedCircular,
+  StyledLinear,
+} from "./ProgressIndicators";
 
 interface BackgroundImage {
   id: string;
@@ -40,6 +50,14 @@ const settingsStore = localforage.createInstance({
   storeName: "settings",
 });
 
+type ProgressIndicatorType =
+  | "circular"
+  | "glowing"
+  | "linear"
+  | "pulsing"
+  | "segmented"
+  | "styled";
+
 export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const { t } = useTranslation();
   const toast = useToast();
@@ -47,11 +65,14 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const [selectedBackground, setSelectedBackground] = useState<string | null>(
     null
   );
+  const [selectedProgressIndicator, setSelectedProgressIndicator] =
+    useState<ProgressIndicatorType>("circular");
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     loadBackgrounds();
     loadSelectedBackground();
+    loadProgressIndicatorSetting();
   }, []);
 
   const loadBackgrounds = async () => {
@@ -77,6 +98,18 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       setSelectedBackground(selected);
     } catch (error) {
       console.error("Failed to load selected background:", error);
+    }
+  };
+
+  const loadProgressIndicatorSetting = async () => {
+    try {
+      const saved =
+        await settingsStore.getItem<ProgressIndicatorType>("progressIndicator");
+      if (saved) {
+        setSelectedProgressIndicator(saved);
+      }
+    } catch (error) {
+      console.error("Failed to load progress indicator setting:", error);
     }
   };
 
@@ -199,6 +232,29 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
     }
   };
 
+  const selectProgressIndicator = async (type: ProgressIndicatorType) => {
+    try {
+      await settingsStore.setItem("progressIndicator", type);
+      setSelectedProgressIndicator(type);
+
+      // Trigger refresh for all components using progress indicators
+      triggerProgressIndicatorRefresh();
+
+      toast({
+        title: t("Progress indicator updated"),
+        status: "success",
+        duration: 2000,
+      });
+    } catch (error) {
+      console.error("Failed to save progress indicator:", error);
+      toast({
+        title: t("Failed to update progress indicator"),
+        status: "error",
+        duration: 3000,
+      });
+    }
+  };
+
   const applyBackgroundToPage = (bgData: string | null | undefined) => {
     const existingStyle = document.getElementById("custom-background-style");
     if (existingStyle) {
@@ -273,6 +329,108 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
         />
         <ModalBody pb={8} px={8}>
           <VStack spacing={8} align="stretch">
+            {/* Progress Indicator Section */}
+            <Box>
+              <Text
+                color="rgba(255, 255, 255, 0.7)"
+                fontSize="sm"
+                fontWeight="400"
+                mb={6}
+                textTransform="uppercase"
+                letterSpacing="0.5px"
+              >
+                {t("Progress Indicator Style")}
+              </Text>
+
+              <SimpleGrid columns={{ base: 2, md: 3 }} spacing={4}>
+                {[
+                  {
+                    type: "circular" as ProgressIndicatorType,
+                    name: "Classic Circular",
+                    component: CircularProgress,
+                  },
+                  {
+                    type: "glowing" as ProgressIndicatorType,
+                    name: "Glowing Ring",
+                    component: GlowingCircular,
+                  },
+                  {
+                    type: "pulsing" as ProgressIndicatorType,
+                    name: "Pulsing Circle",
+                    component: PulsingCircular,
+                  },
+                  {
+                    type: "segmented" as ProgressIndicatorType,
+                    name: "Segmented Dots",
+                    component: SegmentedCircular,
+                  },
+                  {
+                    type: "linear" as ProgressIndicatorType,
+                    name: "Minimal Linear",
+                    component: MinimalLinear,
+                  },
+                  {
+                    type: "styled" as ProgressIndicatorType,
+                    name: "Styled Linear",
+                    component: StyledLinear,
+                  },
+                ].map(({ type, name, component: Component }) => (
+                  <Box
+                    key={type}
+                    position="relative"
+                    borderRadius="12px"
+                    border="2px solid"
+                    borderColor={
+                      selectedProgressIndicator === type
+                        ? "#10b981"
+                        : "rgba(255, 255, 255, 0.08)"
+                    }
+                    bg="rgba(255, 255, 255, 0.02)"
+                    p={4}
+                    cursor="pointer"
+                    onClick={() => selectProgressIndicator(type)}
+                    transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+                    _hover={{
+                      borderColor:
+                        selectedProgressIndicator === type
+                          ? "#059669"
+                          : "rgba(255, 255, 255, 0.15)",
+                      bg: "rgba(255, 255, 255, 0.04)",
+                    }}
+                    boxShadow={
+                      selectedProgressIndicator === type
+                        ? "0 0 0 1px #10b981"
+                        : "none"
+                    }
+                  >
+                    <VStack spacing={3}>
+                      <Box transform="scale(0.4)" transformOrigin="center">
+                        <Component progress={65} size={120} color="blue.500">
+                          <Text fontSize="lg" fontWeight="bold" color="white">
+                            12:34
+                          </Text>
+                        </Component>
+                      </Box>
+                      <Text
+                        fontSize="xs"
+                        fontWeight="500"
+                        color={
+                          selectedProgressIndicator === type
+                            ? "#10b981"
+                            : "rgba(255, 255, 255, 0.7)"
+                        }
+                        textAlign="center"
+                      >
+                        {name}
+                      </Text>
+                    </VStack>
+                  </Box>
+                ))}
+              </SimpleGrid>
+            </Box>
+
+            <Divider borderColor="rgba(255, 255, 255, 0.1)" />
+
             <Box>
               <Text
                 color="rgba(255, 255, 255, 0.7)"
@@ -485,5 +643,16 @@ export async function initializeBackground() {
     }
   } catch (error) {
     console.error("Failed to initialize background:", error);
+  }
+}
+
+export async function getProgressIndicatorSetting(): Promise<ProgressIndicatorType> {
+  try {
+    const saved =
+      await settingsStore.getItem<ProgressIndicatorType>("progressIndicator");
+    return saved || "circular";
+  } catch (error) {
+    console.error("Failed to load progress indicator setting:", error);
+    return "circular";
   }
 }

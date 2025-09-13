@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { timerWorkerManager } from "../services/TimerWorkerManager";
 
 interface TimerConfig {
   initialValue?: number;
@@ -21,110 +22,84 @@ export const useWebWorkerTimer = ({
   onComplete,
   config = {},
 }: UseWebWorkerTimerProps) => {
-  const workerRef = useRef<Worker | null>(null);
   const [isRunning, setIsRunning] = useState(false);
   const [value, setValue] = useState(config.initialValue || 0);
-  const isInitialized = useRef(false);
 
   useEffect(() => {
-    if (!workerRef.current && !isInitialized.current) {
-      isInitialized.current = true;
-      workerRef.current = new Worker("/timer-worker.js");
+    const handleMessage = (event: MessageEvent) => {
+      const { type: messageType, value: messageValue } = event.data;
 
-      workerRef.current.addEventListener("message", (event) => {
-        const { type: messageType, id, value: messageValue } = event.data;
-
-        if (id !== timerId) return;
-
-        switch (messageType) {
-          case "TIMER_TICK":
-            setValue(messageValue);
-            onTick?.(messageValue);
-            break;
-          case "TIMER_COMPLETE":
-            setIsRunning(false);
-            onComplete?.();
-            break;
-          case "TIMER_STARTED":
-            setIsRunning(true);
-            break;
-          case "TIMER_STOPPED":
-            setIsRunning(false);
-            break;
-          case "TIMER_RESET":
-            setValue(messageValue);
-            break;
-        }
-      });
-
-      workerRef.current.postMessage({ type: "PING" });
-    }
-
-    return () => {
-      if (workerRef.current) {
-        workerRef.current.postMessage({
-          type: "STOP_TIMER",
-          id: timerId,
-        });
-        workerRef.current.terminate();
-        workerRef.current = null;
-        isInitialized.current = false;
+      switch (messageType) {
+        case "TIMER_TICK":
+          setValue(messageValue);
+          onTick?.(messageValue);
+          break;
+        case "TIMER_COMPLETE":
+          setIsRunning(false);
+          onComplete?.();
+          break;
+        case "TIMER_STARTED":
+          setIsRunning(true);
+          break;
+        case "TIMER_STOPPED":
+          setIsRunning(false);
+          break;
+        case "TIMER_RESET":
+          setValue(messageValue);
+          break;
       }
     };
-  }, []);
+
+    timerWorkerManager.addTimer(timerId, handleMessage);
+
+    return () => {
+      timerWorkerManager.removeTimer(timerId);
+    };
+  }, [timerId]); // Removed onTick and onComplete from dependencies
 
   const start = useCallback(() => {
-    if (workerRef.current) {
-      workerRef.current.postMessage({
-        type: "START_TIMER",
-        id: timerId,
-        timerType: type,
-        config: { ...config, initialValue: value },
-      });
-    }
+    const message = {
+      type: "START_TIMER",
+      id: timerId,
+      timerType: type,
+      config: { ...config, initialValue: value },
+    };
+    timerWorkerManager.postMessage(message);
   }, [timerId, type, config, value]);
 
   const stop = useCallback(() => {
-    if (workerRef.current) {
-      workerRef.current.postMessage({
-        type: "STOP_TIMER",
-        id: timerId,
-      });
-    }
+    timerWorkerManager.postMessage({
+      type: "STOP_TIMER",
+      id: timerId,
+    });
   }, [timerId]);
 
   const reset = useCallback(() => {
-    if (workerRef.current) {
-      workerRef.current.postMessage({
-        type: "RESET_TIMER",
-        id: timerId,
-      });
-    }
+    timerWorkerManager.postMessage({
+      type: "RESET_TIMER",
+      id: timerId,
+    });
   }, [timerId]);
 
   const updateValue = useCallback(
     (newValue: number) => {
       setValue(newValue);
-      if (workerRef.current) {
-        workerRef.current.postMessage({
-          type: "UPDATE_TIMER",
-          id: timerId,
-          updates: { currentValue: newValue },
-        });
-      }
+      timerWorkerManager.postMessage({
+        type: "UPDATE_TIMER",
+        id: timerId,
+        updates: { currentValue: newValue },
+      });
     },
     [timerId]
   );
 
   const updateConfig = useCallback(
     (newConfig: TimerConfig) => {
-      if (workerRef.current) {
-        workerRef.current.postMessage({
-          type: "UPDATE_TIMER",
-          id: timerId,
-          updates: { config: newConfig },
-        });
-      }
+      timerWorkerManager.postMessage({
+        type: "UPDATE_TIMER",
+        id: timerId,
+        updates: { config: newConfig },
+      });
     },
     [timerId]
   );

@@ -18,27 +18,17 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Route, Routes, useLocation, useNavigate } from "react-router";
 import { useFullscreen } from "react-use";
 import { changeLanguage, supportedLanguages } from "./i18n";
 import { theme } from "./theme";
-import Countdown from "./Countdown";
+import { routes } from "./config/routes";
 import ErrorPage from "./ErrorPage";
 import NotFound from "./NotFound";
-import RaceTimers from "./RaceTimers";
 import SEOHead from "./components/SEOHead";
 import StructuredData from "./components/StructuredData";
-import RandomNamePickers from "./RandomNamePickers";
-import RandomNumberGenerators from "./RandomNumberGenerators";
-import Stopwatch from "./Stopwatch";
-import TallyCounters from "./TallyCounters";
-import PomodoroTimer from "./PomodoroTimer";
-import ClassroomTimers from "./ClassroomTimers";
-import ExamTimers from "./ExamTimers";
-import PresentationTimers from "./PresentationTimers";
-import Clocks from "./Clocks";
 import {
   SettingsModal,
   initializeBackground,
@@ -52,30 +42,8 @@ function Navigation() {
   const { t } = useTranslation();
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
-  const navItems = [
-    { name: "Stopwatch", path: "/", icon: "⏱️" },
-    { name: "Countdown", path: "/countdown", icon: "⏳" },
-    { name: "Pomodoro", path: "/pomodoro", icon: "🍅" },
-    { name: "Race Timers", path: "/race-timers", icon: "🏁" },
-    { name: "Classroom Timers", path: "/classroom-timers", icon: "📚" },
-    { name: "Holiday Timers", path: "/holiday-timers", icon: "🎄" },
-    { name: "Random Name Pickers", path: "/random-name-pickers", icon: "🎯" },
-    {
-      name: "Random Number Generators",
-      path: "/random-number-generators",
-      icon: "🎲",
-    },
-    { name: "Sensory Timers", path: "/sensory-timers", icon: "🌈" },
-    { name: "Clocks", path: "/clocks", icon: "🕐" },
-    { name: "Exam Timers", path: "/exam-timers", icon: "📝" },
-    { name: "Chance Games", path: "/chance-games", icon: "🎮" },
-    { name: "Group Generators", path: "/group-generators", icon: "👥" },
-    { name: "Presentation Timers", path: "/presentation-timers", icon: "📊" },
-    { name: "Tally Counters", path: "/tally-counters", icon: "🔢" },
-  ];
-
   const currentItem =
-    navItems.find((item) => item.path === location.pathname) || navItems[0];
+    routes.find((item) => item.path === location.pathname) || routes[0];
 
   return (
     <Flex
@@ -132,7 +100,7 @@ function Navigation() {
         >
           <PopoverBody p={{ base: 3, md: 4 }}>
             <SimpleGrid columns={{ base: 2, sm: 3 }} spacing={3}>
-              {navItems.map((item) => (
+              {routes.map((item) => (
                 <Button
                   key={item.path}
                   variant="ghost"
@@ -261,108 +229,28 @@ function App() {
         <Navigation />
 
         <Box p={{ base: 4, md: 8 }} pb={{ base: 20, md: 8 }} flex="1">
-          <Routes>
-            <Route
-              path="/"
-              element={<Stopwatch />}
-              errorElement={<ErrorPage />}
-            />
-            <Route
-              path="/countdown"
-              element={<Countdown />}
-              errorElement={<ErrorPage />}
-            />
-            <Route
-              path="/pomodoro"
-              element={<PomodoroTimer />}
-              errorElement={<ErrorPage />}
-            />
-            <Route
-              path="/race-timers"
-              element={<RaceTimers />}
-              errorElement={<ErrorPage />}
-            />
-            <Route
-              path="/classroom-timers"
-              element={<ClassroomTimers />}
-              errorElement={<ErrorPage />}
-            />
-            <Route
-              path="/holiday-timers"
-              element={
-                <VStack spacing={4} align="center" py={20}>
-                  <Text fontSize="4xl" color="white">
-                    🎄 {t("Holiday Timers")}
-                  </Text>
-                  <Text color="#9ca3af">{t("Coming soon...")}</Text>
-                </VStack>
-              }
-            />
-            <Route
-              path="/random-name-pickers"
-              element={<RandomNamePickers />}
-              errorElement={<ErrorPage />}
-            />
-            <Route
-              path="/random-number-generators"
-              element={<RandomNumberGenerators />}
-              errorElement={<ErrorPage />}
-            />
-            <Route
-              path="/sensory-timers"
-              element={
-                <VStack spacing={4} align="center" py={20}>
-                  <Text fontSize="4xl" color="white">
-                    🌈 {t("Sensory Timers")}
-                  </Text>
-                  <Text color="#9ca3af">{t("Coming soon...")}</Text>
-                </VStack>
-              }
-            />
-            <Route
-              path="/clocks"
-              element={<Clocks />}
-              errorElement={<ErrorPage />}
-            />
-            <Route
-              path="/exam-timers"
-              element={<ExamTimers />}
-              errorElement={<ErrorPage />}
-            />
-            <Route
-              path="/chance-games"
-              element={
-                <VStack spacing={4} align="center" py={20}>
-                  <Text fontSize="4xl" color="white">
-                    🎮 {t("Chance Games")}
-                  </Text>
-                  <Text color="#9ca3af">{t("Coming soon...")}</Text>
-                </VStack>
-              }
-            />
-            <Route
-              path="/group-generators"
-              element={
-                <VStack spacing={4} align="center" py={20}>
-                  <Text fontSize="4xl" color="white">
-                    👥 {t("Group Generators")}
-                  </Text>
-                  <Text color="#9ca3af">{t("Coming soon...")}</Text>
-                </VStack>
-              }
-            />
-            <Route
-              path="/presentation-timers"
-              element={<PresentationTimers />}
-              errorElement={<ErrorPage />}
-            />
-            <Route
-              path="/tally-counters"
-              element={<TallyCounters />}
-              errorElement={<ErrorPage />}
-            />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Suspense
+            fallback={
+              <Box textAlign="center" py={20}>
+                <Text color="white">Loading...</Text>
+              </Box>
+            }
+          >
+            <Routes>
+              {routes.map((route) => {
+                const Component = route.component;
+                return (
+                  <Route
+                    key={route.path}
+                    path={route.path}
+                    element={<Component />}
+                    errorElement={<ErrorPage />}
+                  />
+                );
+              })}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
         </Box>
 
         {/* Footer */}
@@ -389,7 +277,7 @@ function App() {
             {/* Left side - Coffee emoji and FAQ/Open Source */}
             <HStack spacing={8} flex="1">
               <Text color="rgba(255, 255, 255, 0.6)" fontSize="lg">
-                ☕
+                ●
               </Text>
 
               {/* FAQ and Open Source (hidden on mobile) */}
@@ -442,7 +330,7 @@ function App() {
             <HStack spacing={2}>
               <IconButton
                 aria-label="Settings"
-                icon={<Text fontSize="16px">⚙️</Text>}
+                icon={<Text fontSize="16px">⚙</Text>}
                 size="sm"
                 bg="rgba(255, 255, 255, 0.03)"
                 color="#f9fafb"
@@ -486,7 +374,7 @@ function App() {
                     bg: "rgba(255, 255, 255, 0.12)",
                   }}
                 >
-                  <Box display={{ base: "block", md: "none" }}>🌍</Box>
+                  <Box display={{ base: "block", md: "none" }}>🌐</Box>
                   <Box
                     display={{ base: "none", md: "flex" }}
                     alignItems="center"
