@@ -1,7 +1,8 @@
 import {
   Badge,
   Box,
-  Button,
+  FormControl,
+  FormLabel,
   Grid,
   GridItem,
   HStack,
@@ -10,21 +11,38 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
+  Switch,
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import localforage from "localforage";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { GlassButton } from "./components/ui/GlassButton";
+
+interface GenerationResult {
+  id: string;
+  timestamp: Date;
+  numbers: number[];
+  range: { min: number; max: number };
+  type: string;
+}
 
 function RandomNumberGenerators() {
+  const { t } = useTranslation();
   const [min, setMin] = useState(1);
   const [max, setMax] = useState(100);
   const [count, setCount] = useState(1);
   const [generatedNumbers, setGeneratedNumbers] = useState<number[]>([]);
-  const [history, setHistory] = useState<number[][]>([]);
+  const [history, setHistory] = useState<GenerationResult[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [allowDuplicates, setAllowDuplicates] = useState(false);
 
-  const generateNumbers = () => {
+  const generateNumbers = (type: string = "custom") => {
     if (min >= max) return;
+
+    const range = max - min + 1;
+    if (!allowDuplicates && count > range) return;
 
     setIsGenerating(true);
 
@@ -32,63 +50,110 @@ function RandomNumberGenerators() {
       const numbers: number[] = [];
       const used = new Set<number>();
 
-      for (let i = 0; i < count; i++) {
-        let num: number;
-        let attempts = 0;
-        do {
-          num = Math.floor(Math.random() * (max - min + 1)) + min;
-          attempts++;
-        } while (used.has(num) && attempts < 1000);
+      if (allowDuplicates) {
+        for (let i = 0; i < count; i++) {
+          const num = Math.floor(Math.random() * range) + min;
+          numbers.push(num);
+        }
+      } else {
+        for (let i = 0; i < count; i++) {
+          let num: number;
+          let attempts = 0;
+          do {
+            num = Math.floor(Math.random() * range) + min;
+            attempts++;
+          } while (used.has(num) && attempts < 1000);
 
-        numbers.push(num);
-        used.add(num);
+          numbers.push(num);
+          used.add(num);
+        }
       }
 
-      setGeneratedNumbers(numbers);
-      setHistory((prev) => [numbers, ...prev.slice(0, 9)]); // Keep last 10
+      const result: GenerationResult = {
+        id: `gen-${Date.now()}`,
+        timestamp: new Date(),
+        numbers: numbers.sort((a, b) => a - b),
+        range: { min, max },
+        type,
+      };
+
+      setGeneratedNumbers(result.numbers);
+      setHistory((prev) => [result, ...prev.slice(0, 19)]); // Keep last 20
       setIsGenerating(false);
-    }, 500);
+    }, 300);
   };
 
-  const quickGenerate = (range: string) => {
-    switch (range) {
+  const quickGenerate = (type: string) => {
+    switch (type) {
       case "dice":
         setMin(1);
         setMax(6);
         setCount(1);
+        setAllowDuplicates(true);
         break;
       case "coin":
         setMin(1);
         setMax(2);
         setCount(1);
+        setAllowDuplicates(true);
         break;
       case "lotto":
         setMin(1);
         setMax(49);
         setCount(6);
+        setAllowDuplicates(false);
         break;
       case "percent":
         setMin(0);
         setMax(100);
         setCount(1);
+        setAllowDuplicates(true);
         break;
     }
-    setTimeout(() => generateNumbers(), 100);
+    setTimeout(() => generateNumbers(type), 100);
   };
 
-  const clearHistory = () => {
+  const clearHistory = async () => {
     setHistory([]);
     setGeneratedNumbers([]);
+    await localforage.removeItem("rng-history");
   };
+
+  const copyToClipboard = (numbers: number[]) => {
+    const text = numbers.join(", ");
+    navigator.clipboard.writeText(text);
+  };
+
+  // Load and save history
+  useEffect(() => {
+    const loadHistory = async () => {
+      try {
+        const savedHistory =
+          await localforage.getItem<GenerationResult[]>("rng-history");
+        if (savedHistory) {
+          setHistory(savedHistory);
+        }
+      } catch (error) {
+        console.error("Failed to load RNG history:", error);
+      }
+    };
+    loadHistory();
+  }, []);
+
+  useEffect(() => {
+    if (history.length > 0) {
+      localforage.setItem("rng-history", history);
+    }
+  }, [history]);
 
   return (
     <VStack spacing={8} align="center" maxW="1000px" mx="auto">
       <VStack spacing={4} textAlign="center">
         <Text fontSize="4xl" fontWeight="700" color="white">
-          🎲 Random Number Generators
+          {t("Random Number Generator")}
         </Text>
         <Text fontSize="lg" color="#9ca3af">
-          Generate random numbers for games, decisions, and more
+          {t("Generate random numbers for games, decisions, and more")}
         </Text>
       </VStack>
 
@@ -96,13 +161,13 @@ function RandomNumberGenerators() {
         <GridItem>
           <VStack spacing={6} align="stretch">
             <Text fontSize="lg" fontWeight="600" color="white">
-              Number Range
+              {t("Number Range")}
             </Text>
 
             <HStack spacing={4}>
               <VStack spacing={2} align="stretch" flex={1}>
                 <Text fontSize="sm" color="#9ca3af">
-                  Minimum
+                  {t("Minimum")}
                 </Text>
                 <NumberInput
                   value={min}
@@ -124,7 +189,7 @@ function RandomNumberGenerators() {
 
               <VStack spacing={2} align="stretch" flex={1}>
                 <Text fontSize="sm" color="#9ca3af">
-                  Maximum
+                  {t("Maximum")}
                 </Text>
                 <NumberInput
                   value={max}
@@ -147,7 +212,7 @@ function RandomNumberGenerators() {
 
             <VStack spacing={2} align="stretch">
               <Text fontSize="sm" color="#9ca3af">
-                Number of Results
+                {t("Number of Results")}
               </Text>
               <NumberInput
                 value={count}
@@ -169,51 +234,77 @@ function RandomNumberGenerators() {
               </NumberInput>
             </VStack>
 
-            <VStack spacing={3}>
-              <Button
-                onClick={generateNumbers}
-                disabled={min >= max || isGenerating}
+            <FormControl
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <FormLabel
+                htmlFor="allow-duplicates"
+                mb="0"
+                color="#9ca3af"
+                fontSize="sm"
+              >
+                {t("Allow Duplicates")}
+              </FormLabel>
+              <Switch
+                id="allow-duplicates"
+                isChecked={allowDuplicates}
+                onChange={(e) => setAllowDuplicates(e.target.checked)}
                 colorScheme="blue"
+              />
+            </FormControl>
+
+            <VStack spacing={3}>
+              <GlassButton
+                onClick={() => generateNumbers()}
+                disabled={min >= max || isGenerating}
+                variant="primary"
+                glassLevel="medium"
                 size="lg"
                 w="100%"
                 isLoading={isGenerating}
                 loadingText="Generating..."
               >
-                Generate Numbers
-              </Button>
+                {t("Generate Numbers")}
+              </GlassButton>
 
               <Text fontSize="sm" color="#6b7280" textAlign="center">
-                Quick Generate:
+                {t("Quick Generate:")}
               </Text>
               <HStack spacing={2} wrap="wrap" justify="center">
-                <Button
+                <GlassButton
                   size="sm"
-                  variant="outline"
+                  variant="secondary"
+                  glassLevel="subtle"
                   onClick={() => quickGenerate("dice")}
                 >
-                  🎲 Dice (1-6)
-                </Button>
-                <Button
+                  {t("Dice (1-6)")}
+                </GlassButton>
+                <GlassButton
                   size="sm"
-                  variant="outline"
+                  variant="secondary"
+                  glassLevel="subtle"
                   onClick={() => quickGenerate("coin")}
                 >
-                  Coin (1-2)
-                </Button>
-                <Button
+                  {t("Coin (1-2)")}
+                </GlassButton>
+                <GlassButton
                   size="sm"
-                  variant="outline"
+                  variant="secondary"
+                  glassLevel="subtle"
                   onClick={() => quickGenerate("lotto")}
                 >
-                  Lotto (1-49)
-                </Button>
-                <Button
+                  {t("Lotto (1-49)")}
+                </GlassButton>
+                <GlassButton
                   size="sm"
-                  variant="outline"
+                  variant="secondary"
+                  glassLevel="subtle"
                   onClick={() => quickGenerate("percent")}
                 >
-                  Percent (0-100)
-                </Button>
+                  {t("Percent (0-100)")}
+                </GlassButton>
               </HStack>
             </VStack>
           </VStack>
@@ -223,12 +314,17 @@ function RandomNumberGenerators() {
           <VStack spacing={4} align="stretch">
             <HStack justify="space-between">
               <Text fontSize="lg" fontWeight="600" color="white">
-                Results
+                {t("Results")}
               </Text>
               {history.length > 0 && (
-                <Button size="sm" variant="ghost" onClick={clearHistory}>
-                  Clear History
-                </Button>
+                <GlassButton
+                  size="sm"
+                  variant="danger"
+                  glassLevel="subtle"
+                  onClick={clearHistory}
+                >
+                  {t("Clear History")}
+                </GlassButton>
               )}
             </HStack>
 
@@ -240,10 +336,22 @@ function RandomNumberGenerators() {
                 borderColor="rgba(0, 122, 255, 0.3)"
                 borderRadius="16px"
                 textAlign="center"
+                position="relative"
               >
-                <Text fontSize="sm" color="#9ca3af" mb={4}>
-                  Generated Numbers
-                </Text>
+                <HStack justify="space-between" mb={4}>
+                  <Text fontSize="sm" color="#9ca3af">
+                    {t("Generated Numbers")}
+                  </Text>
+                  <GlassButton
+                    size="xs"
+                    variant="ghost"
+                    glassLevel="subtle"
+                    onClick={() => copyToClipboard(generatedNumbers)}
+                    px={2}
+                  >
+                    {t("Copy")}
+                  </GlassButton>
+                </HStack>
                 <HStack spacing={4} justify="center" wrap="wrap">
                   {generatedNumbers.map((num, index) => (
                     <Badge
@@ -252,6 +360,9 @@ function RandomNumberGenerators() {
                       fontSize="2xl"
                       p={3}
                       borderRadius="12px"
+                      cursor="pointer"
+                      _hover={{ transform: "scale(1.05)" }}
+                      transition="transform 0.1s"
                     >
                       {num}
                     </Badge>
@@ -263,32 +374,73 @@ function RandomNumberGenerators() {
             {history.length > 0 && (
               <VStack spacing={3} align="stretch">
                 <Text fontSize="sm" color="#9ca3af">
-                  Recent Generations
+                  {t("Recent Generations ({{count}})", {
+                    count: history.length,
+                  })}
                 </Text>
-                {history.slice(0, 5).map((numbers, index) => (
-                  <HStack
-                    key={index}
-                    justify="space-between"
-                    p={3}
+                {history.slice(0, 5).map((result) => (
+                  <Box
+                    key={result.id}
+                    p={4}
                     bg="rgba(255, 255, 255, 0.02)"
-                    borderRadius="8px"
+                    border="1px solid"
+                    borderColor="rgba(255, 255, 255, 0.08)"
+                    borderRadius="12px"
+                    _hover={{ bg: "rgba(255, 255, 255, 0.04)" }}
+                    transition="background 0.2s"
+                    cursor="pointer"
+                    onClick={() => copyToClipboard(result.numbers)}
                   >
-                    <HStack spacing={2}>
-                      {numbers.map((num, numIndex) => (
-                        <Badge
-                          key={numIndex}
-                          variant="subtle"
-                          colorScheme="blue"
-                          fontSize="sm"
-                        >
-                          {num}
-                        </Badge>
-                      ))}
-                    </HStack>
-                    <Text fontSize="xs" color="#6b7280">
-                      #{history.length - index}
-                    </Text>
-                  </HStack>
+                    <VStack spacing={2} align="stretch">
+                      <HStack justify="space-between">
+                        <HStack spacing={2}>
+                          <Badge
+                            colorScheme={
+                              result.type === "dice"
+                                ? "orange"
+                                : result.type === "coin"
+                                  ? "yellow"
+                                  : result.type === "lotto"
+                                    ? "purple"
+                                    : result.type === "percent"
+                                      ? "green"
+                                      : "blue"
+                            }
+                            fontSize="xs"
+                            px={2}
+                            py={1}
+                          >
+                            {result.type === "custom"
+                              ? t("Custom")
+                              : t(result.type)}
+                          </Badge>
+                          <Text fontSize="xs" color="#6b7280">
+                            {result.range.min}-{result.range.max}
+                          </Text>
+                        </HStack>
+                        <Text fontSize="xs" color="#6b7280">
+                          {new Date(result.timestamp).toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </Text>
+                      </HStack>
+                      <HStack spacing={2} wrap="wrap">
+                        {result.numbers.map((num, numIndex) => (
+                          <Badge
+                            key={numIndex}
+                            variant="subtle"
+                            colorScheme="blue"
+                            fontSize="sm"
+                            px={2}
+                            py={1}
+                          >
+                            {num}
+                          </Badge>
+                        ))}
+                      </HStack>
+                    </VStack>
+                  </Box>
                 ))}
               </VStack>
             )}

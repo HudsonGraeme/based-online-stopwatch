@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Checkbox,
   Flex,
   Input,
@@ -23,6 +22,9 @@ import { useNotifications } from "./hooks/useNotifications";
 import { useTimerEffects } from "./hooks/useTimerEffects";
 import { useURLSharing } from "./hooks/useURLSharing";
 import { useWebWorkerTimer } from "./hooks/useWebWorkerTimer";
+import { useTimerGestures } from "./hooks/useGestures";
+import { TimerControls } from "./components/TimerControls";
+import { GlassButton } from "./components/ui/GlassButton";
 
 const Countdown = () => {
   const { t } = useTranslation();
@@ -120,6 +122,13 @@ const Countdown = () => {
   useKeyboardShortcuts({
     onStartStop: handleStartStop,
     onReset: handleReset,
+  });
+
+  // Gesture support
+  const gestureHandlers = useTimerGestures({
+    onStartStop: handleStartStop,
+    onReset: handleReset,
+    disabled: false,
   });
 
   const presetTimes = useMemo(
@@ -320,6 +329,7 @@ const Countdown = () => {
     <Box
       textAlign="center"
       px={{ base: 4, md: 0 }}
+      {...gestureHandlers}
       onClick={(e) => {
         // Deselect digit if clicking outside the time display
         if ((e.target as HTMLElement).closest(".time-display") === null) {
@@ -347,31 +357,19 @@ const Countdown = () => {
         {!isRunning && (
           <SimpleGrid columns={{ base: 3, md: 6 }} spacing={2} w="100%">
             {presetTimes.map((preset) => (
-              <Button
+              <GlassButton
                 key={preset.value}
                 h={{ base: "48px", md: "52px" }}
-                variant="outline"
-                bg="rgba(255, 255, 255, 0.02)"
-                borderColor="rgba(255, 255, 255, 0.15)"
-                color="white"
-                _hover={{
-                  bg: "rgba(255, 255, 255, 0.08)",
-                  borderColor: "rgba(255, 255, 255, 0.3)",
-                  transform: "translateY(-2px)",
-                }}
-                _active={{
-                  bg: "rgba(255, 255, 255, 0.12)",
-                  transform: "translateY(0)",
-                }}
+                variant="secondary"
+                glassLevel="subtle"
                 onClick={() => handlePresetClick(preset.value)}
                 isDisabled={isRunning}
-                transition="all 0.2s"
                 borderRadius="lg"
                 fontSize={{ base: "sm", md: "md" }}
                 fontWeight="500"
               >
                 {preset.label}
-              </Button>
+              </GlassButton>
             ))}
           </SimpleGrid>
         )}
@@ -397,36 +395,29 @@ const Countdown = () => {
             </Text>
           )}
         </Box>
-        <Flex justifyContent="center" gap={{ base: 3, md: 4 }} flexWrap="wrap">
-          <Button
-            onClick={handleReset}
-            size={{ base: "md", md: "lg" }}
-            minW={{ base: "80px", md: "auto" }}
-            disabled={time === initialTime}
-          >
-            {t("Reset")}
-          </Button>
-          <Button
-            onClick={handleStartStop}
-            size={{ base: "md", md: "lg" }}
-            minW={{ base: "80px", md: "auto" }}
-            colorScheme={isRunning ? "red" : "green"}
-          >
-            {isRunning ? t("Stop") : t("Start")}
-          </Button>
-
-          <Button
-            onClick={() => setIsSettingsOpen(true)}
-            size={{ base: "md", md: "lg" }}
-            minW={{ base: "80px", md: "auto" }}
-            variant="ghost"
-            _hover={{
-              bg: "rgba(255, 255, 255, 0.1)",
-            }}
-          >
-            {t("Settings")}
-          </Button>
-        </Flex>
+        <TimerControls
+          primaryAction={{
+            label: isRunning ? t("Stop") : t("Start"),
+            onClick: handleStartStop,
+            variant: isRunning ? "danger" : "success",
+            disabled: !isRunning && time <= 0,
+          }}
+          secondaryActions={[
+            {
+              label: t("Reset"),
+              onClick: handleReset,
+              disabled: time === initialTime,
+              variant: "secondary",
+            },
+            {
+              label: t("Settings"),
+              onClick: () => setIsSettingsOpen(true),
+              variant: "ghost",
+            },
+          ]}
+          size="lg"
+          spacing={4}
+        />
 
         {/* Settings Modal */}
         <Modal

@@ -1,14 +1,6 @@
-import {
-  Box,
-  Button,
-  Grid,
-  GridItem,
-  HStack,
-  IconButton,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Grid, GridItem, HStack, Text, VStack } from "@chakra-ui/react";
 import { useState } from "react";
+import { GlassButton } from "./components/ui/GlassButton";
 
 interface TallyCounter {
   id: number;
@@ -83,9 +75,15 @@ function TallyCounters() {
         <Text fontSize="5xl" fontWeight="700" color="white">
           {total}
         </Text>
-        <Button onClick={resetAll} variant="outline" size="sm" mt={4}>
+        <GlassButton
+          onClick={resetAll}
+          variant="danger"
+          glassLevel="subtle"
+          size="sm"
+          mt={4}
+        >
           Reset All
-        </Button>
+        </GlassButton>
       </Box>
 
       <Grid
@@ -122,31 +120,38 @@ function TallyCounters() {
                 </Text>
 
                 <HStack spacing={2}>
-                  <IconButton
-                    aria-label="Decrement"
-                    icon={<Text fontSize="xl">-</Text>}
+                  <GlassButton
                     onClick={() => decrement(counter.id)}
                     size="sm"
-                    variant="outline"
-                    isDisabled={counter.count === 0}
-                  />
-                  <IconButton
-                    aria-label="Increment"
-                    icon={<Text fontSize="xl">+</Text>}
+                    variant="secondary"
+                    glassLevel="subtle"
+                    disabled={counter.count === 0}
+                    minW="auto"
+                    px={3}
+                  >
+                    <Text fontSize="xl">-</Text>
+                  </GlassButton>
+                  <GlassButton
                     onClick={() => increment(counter.id)}
                     size="sm"
-                    colorScheme={counter.color}
-                  />
+                    variant="primary"
+                    glassLevel="medium"
+                    minW="auto"
+                    px={3}
+                  >
+                    <Text fontSize="xl">+</Text>
+                  </GlassButton>
                 </HStack>
 
-                <Button
+                <GlassButton
                   onClick={() => reset(counter.id)}
                   size="xs"
                   variant="ghost"
+                  glassLevel="subtle"
                   color="#9ca3af"
                 >
                   Reset
-                </Button>
+                </GlassButton>
               </VStack>
             </Box>
           </GridItem>

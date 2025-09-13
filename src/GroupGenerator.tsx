@@ -2,20 +2,20 @@ import {
   Box,
   Button,
   HStack,
-  SimpleGrid,
-  Text,
-  VStack,
-  Textarea,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
+  SimpleGrid,
+  Text,
+  Textarea,
+  VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-const GroupGenerators = () => {
+const GroupGenerator = () => {
   const { t } = useTranslation();
   const [participants, setParticipants] = useState("");
   const [groupSize, setGroupSize] = useState(4);
@@ -73,7 +73,7 @@ const GroupGenerators = () => {
         {/* Header */}
         <VStack spacing={2}>
           <Text fontSize="3xl" fontWeight="700" color="white">
-            {t("Group Generators")}
+            {t("Group Generator")}
           </Text>
           <Text color="#9ca3af" fontSize="lg">
             {t("Create random teams and groups automatically")}
@@ -198,4 +198,4 @@ const GroupGenerators = () => {
   );
 };
 
-export default GroupGenerators;
+export default GroupGenerator;

@@ -12,7 +12,7 @@ const Clocks = lazy(() => import("../Clocks"));
 const ExamTimers = lazy(() => import("../ExamTimers"));
 const PresentationTimers = lazy(() => import("../PresentationTimers"));
 const TallyCounters = lazy(() => import("../TallyCounters"));
-const GroupGenerators = lazy(() => import("../GroupGenerators"));
+const GroupGenerator = lazy(() => import("../GroupGenerator"));
 
 export interface RouteConfig {
   name: string;
@@ -94,10 +94,10 @@ export const routes: RouteConfig[] = [
     implemented: true,
   },
   {
-    name: "Group Generators",
+    name: "Group Generator",
     path: "/group-generators",
     icon: "GG",
-    component: GroupGenerators,
+    component: GroupGenerator,
     implemented: true,
   },
   {

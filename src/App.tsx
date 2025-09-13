@@ -1,10 +1,8 @@
 import {
   Box,
-  Button,
   ChakraProvider,
   Flex,
   HStack,
-  IconButton,
   Menu,
   MenuButton,
   MenuItem,
@@ -18,6 +16,8 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
+import { GlassButton } from "./components/ui/GlassButton";
+import { useNavigationGestures } from "./hooks/useGestures";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Route, Routes, useLocation, useNavigate } from "react-router";
@@ -45,6 +45,27 @@ function Navigation() {
   const currentItem =
     routes.find((item) => item.path === location.pathname) || routes[0];
 
+  const navigateToNext = () => {
+    const currentIndex = routes.findIndex(
+      (route) => route.path === location.pathname
+    );
+    const nextIndex = (currentIndex + 1) % routes.length;
+    navigate(routes[nextIndex].path);
+  };
+
+  const navigateToPrevious = () => {
+    const currentIndex = routes.findIndex(
+      (route) => route.path === location.pathname
+    );
+    const prevIndex = currentIndex === 0 ? routes.length - 1 : currentIndex - 1;
+    navigate(routes[prevIndex].path);
+  };
+
+  const navigationGestures = useNavigationGestures({
+    onNavigateNext: navigateToNext,
+    onNavigatePrevious: navigateToPrevious,
+  });
+
   return (
     <Flex
       position="fixed"
@@ -60,6 +81,7 @@ function Navigation() {
       py={4}
       justifyContent="space-between"
       alignItems="center"
+      {...navigationGestures}
     >
       <Popover
         placement="bottom-start"
@@ -67,29 +89,21 @@ function Navigation() {
         onClose={() => setIsPopoverOpen(false)}
       >
         <PopoverTrigger>
-          <Button
-            variant="ghost"
-            color="#ffffff"
-            bg="rgba(255, 255, 255, 0.08)"
-            border="1px solid"
-            borderColor="rgba(255, 255, 255, 0.2)"
+          <GlassButton
+            variant="primary"
+            glassLevel="medium"
             borderRadius="12px"
             px={4}
             py={2}
             fontWeight="600"
             fontSize="14px"
             letterSpacing="0.25px"
-            transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
-            _hover={{
-              bg: "rgba(255, 255, 255, 0.12)",
-              transform: "translateY(-1px)",
-            }}
             leftIcon={<Text fontSize="16px">{currentItem.icon}</Text>}
             rightIcon={<Text fontSize="12px">▼</Text>}
             onClick={() => setIsPopoverOpen(!isPopoverOpen)}
           >
             {t(currentItem.name)}
-          </Button>
+          </GlassButton>
         </PopoverTrigger>
         <PopoverContent
           bg="rgba(10, 10, 10, 0.95)"
@@ -101,24 +115,16 @@ function Navigation() {
           <PopoverBody p={{ base: 3, md: 4 }}>
             <SimpleGrid columns={{ base: 2, sm: 3 }} spacing={3}>
               {routes.map((item) => (
-                <Button
+                <GlassButton
                   key={item.path}
-                  variant="ghost"
+                  variant={
+                    location.pathname === item.path ? "primary" : "ghost"
+                  }
+                  glassLevel={
+                    location.pathname === item.path ? "medium" : "subtle"
+                  }
                   color={
                     location.pathname === item.path ? "#ffffff" : "#9ca3af"
-                  }
-                  bg={
-                    location.pathname === item.path
-                      ? "rgba(255, 255, 255, 0.08)"
-                      : "transparent"
-                  }
-                  border={
-                    location.pathname === item.path ? "1px solid" : "none"
-                  }
-                  borderColor={
-                    location.pathname === item.path
-                      ? "rgba(255, 255, 255, 0.2)"
-                      : "transparent"
                   }
                   borderRadius="8px"
                   p={{ base: 4, md: 3 }}
@@ -127,12 +133,6 @@ function Navigation() {
                   fontWeight="600"
                   fontSize={{ base: "11px", md: "12px" }}
                   letterSpacing="0.25px"
-                  transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
-                  _hover={{
-                    color: "#ffffff",
-                    bg: "rgba(255, 255, 255, 0.05)",
-                    transform: "translateY(-1px)",
-                  }}
                   onClick={() => {
                     navigate(item.path);
                     setIsPopoverOpen(false);
@@ -151,7 +151,7 @@ function Navigation() {
                       {t(item.name)}
                     </Text>
                   </VStack>
-                </Button>
+                </GlassButton>
               ))}
             </SimpleGrid>
           </PopoverBody>
@@ -328,51 +328,36 @@ function App() {
 
             {/* Right side - Settings, Language and Fullscreen controls */}
             <HStack spacing={2}>
-              <IconButton
+              <GlassButton
                 aria-label="Settings"
-                icon={<Text fontSize="16px">⚙</Text>}
+                variant="primary"
+                glassLevel="subtle"
                 size="sm"
-                bg="rgba(255, 255, 255, 0.03)"
-                color="#f9fafb"
-                border="1px solid rgba(255, 255, 255, 0.1)"
                 borderRadius="6px"
                 px={2}
                 py={2}
                 minW="auto"
                 fontWeight="500"
                 onClick={onSettingsOpen}
-                transition="all 0.2s"
                 _hover={{
-                  bg: "rgba(255, 255, 255, 0.08)",
-                  borderColor: "rgba(255, 255, 255, 0.2)",
                   transform: "rotate(90deg)",
                 }}
-                _active={{
-                  bg: "rgba(255, 255, 255, 0.12)",
-                }}
-              />
+              >
+                <Text fontSize="16px">⚙</Text>
+              </GlassButton>
 
               <Menu>
                 <MenuButton
-                  as={Button}
+                  as={GlassButton}
+                  variant="primary"
+                  glassLevel="subtle"
                   size="sm"
-                  bg="rgba(255, 255, 255, 0.03)"
-                  color="#f9fafb"
-                  border="1px solid rgba(255, 255, 255, 0.1)"
                   borderRadius="6px"
                   px={{ base: 2, md: 3 }}
                   py={2}
                   minW="auto"
                   fontWeight="500"
                   fontSize="13px"
-                  transition="all 0.2s"
-                  _hover={{
-                    bg: "rgba(255, 255, 255, 0.08)",
-                    borderColor: "rgba(255, 255, 255, 0.2)",
-                  }}
-                  _active={{
-                    bg: "rgba(255, 255, 255, 0.12)",
-                  }}
                 >
                   <Box display={{ base: "block", md: "none" }}>🌐</Box>
                   <Box
@@ -406,11 +391,10 @@ function App() {
               </Menu>
 
               {!isStandalone && (
-                <Button
+                <GlassButton
+                  variant="primary"
+                  glassLevel="subtle"
                   size="sm"
-                  bg="rgba(255, 255, 255, 0.03)"
-                  color="#f9fafb"
-                  border="1px solid rgba(255, 255, 255, 0.1)"
                   borderRadius="6px"
                   px={{ base: 2, md: 3 }}
                   py={2}
@@ -418,14 +402,6 @@ function App() {
                   fontWeight="500"
                   fontSize="13px"
                   onClick={() => setIsFullscreenEnabled(!isFullscreenEnabled)}
-                  transition="all 0.2s"
-                  _hover={{
-                    bg: "rgba(255, 255, 255, 0.08)",
-                    borderColor: "rgba(255, 255, 255, 0.2)",
-                  }}
-                  _active={{
-                    bg: "rgba(255, 255, 255, 0.12)",
-                  }}
                 >
                   <Box display={{ base: "block", md: "none" }}>
                     {isFullscreen ? "🗙" : "⛶"}
@@ -433,7 +409,7 @@ function App() {
                   <Box display={{ base: "none", md: "block" }}>
                     {t(isFullscreen ? "Exit Fullscreen" : "Go Fullscreen")}
                   </Box>
-                </Button>
+                </GlassButton>
               )}
             </HStack>
           </Flex>

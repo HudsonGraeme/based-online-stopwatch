@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Text,
-  VStack,
-  HStack,
-  Badge,
-} from "@chakra-ui/react";
+import { Box, Text, VStack, HStack, Badge } from "@chakra-ui/react";
 import { format } from "date-fns";
 import { useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
@@ -14,7 +6,9 @@ import { useNotifications } from "./hooks/useNotifications";
 import { useTimerEffects } from "./hooks/useTimerEffects";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { useWebWorkerTimer } from "./hooks/useWebWorkerTimer";
+import { useTimerGestures } from "./hooks/useGestures";
 import { UniversalProgressIndicator } from "./components/UniversalProgressIndicator";
+import { TimerControls } from "./components/TimerControls";
 
 type PomodoroPhase = "work" | "shortBreak" | "longBreak";
 
@@ -168,6 +162,14 @@ const PomodoroTimer = () => {
     onSkip: handleSkipPhase,
   });
 
+  // Gesture support
+  const gestureHandlers = useTimerGestures({
+    onStartStop: handleStartStop,
+    onReset: handleReset,
+    onSecondaryAction: handleSkipPhase,
+    disabled: false,
+  });
+
   const formatTime = (time: number) => {
     try {
       if (time < 0 || !isFinite(time)) return "00:00";
@@ -210,6 +212,7 @@ const PomodoroTimer = () => {
     <Box
       textAlign="center"
       px={{ base: 4, md: 0 }}
+      {...gestureHandlers}
       sx={{
         position: "fixed",
         top: 0,
@@ -301,41 +304,36 @@ const PomodoroTimer = () => {
         </VStack>
 
         {/* Controls */}
-        <Flex justifyContent="center" gap={{ base: 3, md: 4 }} flexWrap="wrap">
-          <Button
-            onClick={handleReset}
-            size={{ base: "md", md: "lg" }}
-            minW={{ base: "80px", md: "auto" }}
-            disabled={
-              timeRemaining === POMODORO_TIMES[session.phase] && !isRunning
-            }
-          >
-            {t("Reset")}
-          </Button>
-          <Button
-            onClick={handleStartStop}
-            size={{ base: "md", md: "lg" }}
-            minW={{ base: "100px", md: "auto" }}
-            colorScheme={isRunning ? "red" : "green"}
-          >
-            {isRunning
+        <TimerControls
+          primaryAction={{
+            label: isRunning
               ? t("Pause")
               : timeRemaining <= 0
                 ? t("Continue")
-                : t("Start")}
-          </Button>
-          <Button
-            onClick={handleSkipPhase}
-            size={{ base: "md", md: "lg" }}
-            minW={{ base: "80px", md: "auto" }}
-            variant="outline"
-            disabled={
-              !isRunning && timeRemaining === POMODORO_TIMES[session.phase]
-            }
-          >
-            {t("Skip")}
-          </Button>
-        </Flex>
+                : t("Start"),
+            onClick: handleStartStop,
+            variant: isRunning ? "danger" : "success",
+            disabled: timeRemaining <= 0 && !isRunning,
+          }}
+          secondaryActions={[
+            {
+              label: t("Reset"),
+              onClick: handleReset,
+              disabled:
+                timeRemaining === POMODORO_TIMES[session.phase] && !isRunning,
+              variant: "secondary",
+            },
+            {
+              label: t("Skip"),
+              onClick: handleSkipPhase,
+              disabled:
+                !isRunning && timeRemaining === POMODORO_TIMES[session.phase],
+              variant: "secondary",
+            },
+          ]}
+          size="lg"
+          spacing={4}
+        />
 
         {/* Instructions */}
         <VStack spacing={2}>

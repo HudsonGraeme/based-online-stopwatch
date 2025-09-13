@@ -1,14 +1,9 @@
 import { useEffect, useState, useCallback } from "react";
 import { timerWorkerManager } from "../services/TimerWorkerManager";
-
-interface TimerConfig {
-  initialValue?: number;
-  phase?: string;
-  cycleCount?: number;
-}
+import type { TimerConfig, TimerType, WorkerResponse } from "../types/worker";
 
 interface UseWebWorkerTimerProps {
-  type: "stopwatch" | "countdown" | "pomodoro";
+  type: TimerType;
   timerId: string;
   onTick?: (value: number) => void;
   onComplete?: () => void;
@@ -26,13 +21,13 @@ export const useWebWorkerTimer = ({
   const [value, setValue] = useState(config.initialValue || 0);
 
   useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      const { type: messageType, value: messageValue } = event.data;
+    const handleMessage = (event: MessageEvent<WorkerResponse>) => {
+      const response = event.data;
 
-      switch (messageType) {
+      switch (response.type) {
         case "TIMER_TICK":
-          setValue(messageValue);
-          onTick?.(messageValue);
+          setValue(response.value);
+          onTick?.(response.value);
           break;
         case "TIMER_COMPLETE":
           setIsRunning(false);
@@ -45,7 +40,10 @@ export const useWebWorkerTimer = ({
           setIsRunning(false);
           break;
         case "TIMER_RESET":
-          setValue(messageValue);
+          setValue(response.value);
+          break;
+        case "TIMER_UPDATED":
+          setValue(response.value);
           break;
       }
     };
@@ -59,7 +57,7 @@ export const useWebWorkerTimer = ({
 
   const start = useCallback(() => {
     const message = {
-      type: "START_TIMER",
+      type: "START_TIMER" as const,
       id: timerId,
       timerType: type,
       config: { ...config, initialValue: value },
@@ -69,14 +67,14 @@ export const useWebWorkerTimer = ({
 
   const stop = useCallback(() => {
     timerWorkerManager.postMessage({
-      type: "STOP_TIMER",
+      type: "STOP_TIMER" as const,
       id: timerId,
     });
   }, [timerId]);
 
   const reset = useCallback(() => {
     timerWorkerManager.postMessage({
-      type: "RESET_TIMER",
+      type: "RESET_TIMER" as const,
       id: timerId,
     });
   }, [timerId]);
@@ -85,7 +83,7 @@ export const useWebWorkerTimer = ({
     (newValue: number) => {
       setValue(newValue);
       timerWorkerManager.postMessage({
-        type: "UPDATE_TIMER",
+        type: "UPDATE_TIMER" as const,
         id: timerId,
         updates: { currentValue: newValue },
       });
@@ -96,7 +94,7 @@ export const useWebWorkerTimer = ({
   const updateConfig = useCallback(
     (newConfig: TimerConfig) => {
       timerWorkerManager.postMessage({
-        type: "UPDATE_TIMER",
+        type: "UPDATE_TIMER" as const,
         id: timerId,
         updates: { config: newConfig },
       });

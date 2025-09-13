@@ -1,9 +1,11 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { usePersisted } from "./hooks/usePersisted";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { useWebWorkerTimer } from "./hooks/useWebWorkerTimer";
+import { useTimerGestures } from "./hooks/useGestures";
+import { TimerControls } from "./components/TimerControls";
 
 const Stopwatch = () => {
   const { t } = useTranslation();
@@ -46,6 +48,14 @@ const Stopwatch = () => {
     onLap: handleLap,
   });
 
+  // Gesture support
+  const gestureHandlers = useTimerGestures({
+    onStartStop: handleStartStop,
+    onReset: handleReset,
+    onSecondaryAction: handleLap,
+    disabled: false,
+  });
+
   const formatTime = (time: number) => {
     return format(new Date(time), "mm:ss.SS");
   };
@@ -54,6 +64,7 @@ const Stopwatch = () => {
     <Box
       textAlign="center"
       px={{ base: 4, md: 0 }}
+      {...gestureHandlers}
       sx={{
         position: "fixed",
         top: 0,
@@ -75,32 +86,29 @@ const Stopwatch = () => {
         >
           {formatTime(time)}
         </Text>
-        <Flex justifyContent="center" gap={{ base: 3, md: 4 }} flexWrap="wrap">
-          <Button
-            onClick={handleReset}
-            size={{ base: "md", md: "lg" }}
-            minW={{ base: "80px", md: "auto" }}
-            disabled={time === 0 && !isRunning}
-          >
-            {t("Reset")}
-          </Button>
-          <Button
-            onClick={handleStartStop}
-            size={{ base: "md", md: "lg" }}
-            minW={{ base: "80px", md: "auto" }}
-            colorScheme={isRunning ? "red" : "green"}
-          >
-            {isRunning ? t("Stop") : t("Start")}
-          </Button>
-          <Button
-            onClick={handleLap}
-            size={{ base: "md", md: "lg" }}
-            minW={{ base: "80px", md: "auto" }}
-            disabled={!isRunning}
-          >
-            {t("Lap")}
-          </Button>
-        </Flex>
+        <TimerControls
+          primaryAction={{
+            label: isRunning ? t("Stop") : t("Start"),
+            onClick: handleStartStop,
+            variant: isRunning ? "danger" : "success",
+          }}
+          secondaryActions={[
+            {
+              label: t("Reset"),
+              onClick: handleReset,
+              disabled: time === 0 && !isRunning,
+              variant: "secondary",
+            },
+            {
+              label: t("Lap"),
+              onClick: handleLap,
+              disabled: !isRunning,
+              variant: "secondary",
+            },
+          ]}
+          size="lg"
+          spacing={4}
+        />
         <Box
           mt={{ base: 6, md: 8 }}
           maxHeight="200px"

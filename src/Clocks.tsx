@@ -1,7 +1,6 @@
 import {
   Badge,
   Box,
-  Button,
   Divider,
   Flex,
   HStack,
@@ -18,6 +17,7 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
+import { GlassButton } from "./components/ui/GlassButton";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import localforage from "localforage";
@@ -428,28 +428,24 @@ const Clocks = () => {
 
           {/* Controls */}
           <HStack spacing={4}>
-            <Button
+            <GlassButton
               onClick={onAddOpen}
-              colorScheme="blue"
+              variant="success"
+              glassLevel="medium"
               size="sm"
               leftIcon={<Text>+</Text>}
             >
               {t("addClock")}
-            </Button>
+            </GlassButton>
 
-            <Button
+            <GlassButton
               onClick={() => setIs24Hour(!is24Hour)}
-              variant="outline"
+              variant="secondary"
+              glassLevel="subtle"
               size="sm"
-              color="white"
-              borderColor="rgba(255, 255, 255, 0.3)"
-              _hover={{
-                bg: "rgba(255, 255, 255, 0.1)",
-                borderColor: "rgba(255, 255, 255, 0.5)",
-              }}
             >
               {t(is24Hour ? "format12Hour" : "format24Hour")}
-            </Button>
+            </GlassButton>
           </HStack>
         </VStack>
 
@@ -570,9 +566,13 @@ const Clocks = () => {
             <Text color="#9ca3af" fontSize="lg">
               {t("noClocksAdded")}
             </Text>
-            <Button onClick={onAddOpen} colorScheme="blue">
+            <GlassButton
+              onClick={onAddOpen}
+              variant="success"
+              glassLevel="medium"
+            >
               {t("addFirstClock")}
-            </Button>
+            </GlassButton>
           </VStack>
         )}
 
@@ -589,16 +589,11 @@ const Clocks = () => {
                 )
                 .slice(0, 8)
                 .map((timezone) => (
-                  <Button
+                  <GlassButton
                     key={timezone.id}
                     size="sm"
-                    variant="outline"
-                    borderColor="rgba(255, 255, 255, 0.2)"
-                    color="white"
-                    _hover={{
-                      bg: "rgba(255, 255, 255, 0.1)",
-                      borderColor: "rgba(255, 255, 255, 0.4)",
-                    }}
+                    variant="secondary"
+                    glassLevel="subtle"
                     onClick={() => {
                       setClocks((prev) => [
                         ...prev,
@@ -610,7 +605,7 @@ const Clocks = () => {
                     }}
                   >
                     {timezone.flag} {t(`city.${timezone.id}`)}
-                  </Button>
+                  </GlassButton>
                 ))}
             </Flex>
           </VStack>
@@ -666,12 +661,18 @@ const Clocks = () => {
               </Select>
 
               <HStack spacing={3} w="100%">
-                <Button onClick={onAddClose} variant="ghost" flex={1}>
+                <GlassButton
+                  onClick={onAddClose}
+                  variant="ghost"
+                  glassLevel="subtle"
+                  flex={1}
+                >
                   {t("cancel")}
-                </Button>
-                <Button
+                </GlassButton>
+                <GlassButton
                   onClick={addClock}
-                  colorScheme="blue"
+                  variant="success"
+                  glassLevel="medium"
                   flex={1}
                   isDisabled={
                     !selectedTimezone ||
@@ -683,7 +684,7 @@ const Clocks = () => {
                   }
                 >
                   {t("addClock")}
-                </Button>
+                </GlassButton>
               </HStack>
             </VStack>
           </ModalBody>
