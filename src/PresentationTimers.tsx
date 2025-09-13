@@ -9,18 +9,11 @@ import {
 import { format } from "date-fns";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import localforage from "localforage";
 import { useWebWorkerTimer } from "./hooks/useWebWorkerTimer";
 import { useTimerEffects } from "./hooks/useTimerEffects";
 import { useNotifications } from "./hooks/useNotifications";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { UniversalProgressIndicator } from "./components/UniversalProgressIndicator";
-
-interface SlideTimings {
-  id: string;
-  title: string;
-  duration: number; // in seconds
-}
 
 interface PresentationPreset {
   name: string;
@@ -198,11 +191,6 @@ const PresentationTimers = () => {
   const getProgressPercent = () => {
     const slideTime = getCurrentSlideTime();
     return ((slideTime - timeRemaining) / slideTime) * 100;
-  };
-
-  const getTotalProgress = () => {
-    if (!selectedPreset) return 0;
-    return ((currentSlide - 1) / selectedPreset.slideCount) * 100;
   };
 
   const getTimeColor = () => {

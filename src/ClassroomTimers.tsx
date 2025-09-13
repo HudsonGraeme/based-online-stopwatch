@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   HStack,
-  Progress,
   SimpleGrid,
   Text,
   VStack,

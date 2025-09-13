@@ -52,7 +52,7 @@ class TimerWorker {
         timer.intervalId = setInterval(() => this.tickPomodoro(id), 1000);
         break;
       default:
-        console.warn(`Unknown timer type: ${type}`);
+        console.warn(`Unknown timer type: ${timerType}`);
         return;
     }
 
@@ -141,7 +141,12 @@ class TimerWorker {
 
   tickPomodoro(id) {
     const timer = this.timers.get(id);
-    if (!timer || !timer.isRunning) return;
+    if (!timer) {
+      return;
+    }
+    if (!timer.isRunning) {
+      return;
+    }
 
     timer.currentValue = Math.max(0, timer.currentValue - 1000);
 

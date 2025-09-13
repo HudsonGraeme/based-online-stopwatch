@@ -5,7 +5,6 @@ import {
   SimpleGrid,
   Text,
   VStack,
-  Input,
   Textarea,
   NumberInput,
   NumberInputField,
