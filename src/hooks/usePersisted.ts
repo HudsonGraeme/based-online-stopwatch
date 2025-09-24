@@ -27,7 +27,10 @@ export const usePersisted = <T>(key: string, initialValue: T) => {
         }
       }
     };
-    loadValue();
+
+    if (!hasLoaded.current) {
+      loadValue();
+    }
   }, [key, initialValue]);
 
   useEffect(() => {
@@ -39,7 +42,7 @@ export const usePersisted = <T>(key: string, initialValue: T) => {
       } catch (error) {
         console.error(`Error saving ${key}:`, error);
       }
-    }, 100); // Debounce saves by 100ms
+    }, 50); // Reduced debounce to 50ms
 
     return () => clearTimeout(timeoutId);
   }, [key, value]);
