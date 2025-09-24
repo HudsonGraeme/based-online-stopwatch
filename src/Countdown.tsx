@@ -243,7 +243,7 @@ const Countdown = () => {
           if (nextPosition > 4) nextPosition = 0; // Wrap around
           setSelectedPosition(nextPosition);
         }
-      } catch (error) {
+      } catch {
         // Invalid time, ignore
       }
     }
@@ -279,7 +279,7 @@ const Countdown = () => {
     try {
       if (time < 0 || !isFinite(time)) return "00:00";
       return format(new Date(time), "mm:ss");
-    } catch (error) {
+    } catch {
       return "00:00";
     }
   };

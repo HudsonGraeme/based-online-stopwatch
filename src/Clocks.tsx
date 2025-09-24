@@ -341,7 +341,7 @@ const Clocks = () => {
         hour12: !is24Hour,
       };
       return time.toLocaleTimeString(locale, options);
-    } catch (error) {
+    } catch {
       return "00:00:00";
     }
   };
@@ -357,7 +357,7 @@ const Clocks = () => {
         day: "numeric",
       };
       return time.toLocaleDateString(locale, options);
-    } catch (error) {
+    } catch {
       return "Invalid Date";
     }
   };
@@ -392,7 +392,7 @@ const Clocks = () => {
       if (hour >= 12 && hour < 17) return periods.afternoon;
       if (hour >= 17 && hour < 20) return periods.evening;
       return periods.night;
-    } catch (error) {
+    } catch {
       return periods.unknown;
     }
   };

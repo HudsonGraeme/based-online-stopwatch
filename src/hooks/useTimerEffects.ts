@@ -118,7 +118,7 @@ export const useTimerEffects = () => {
     activeOscillatorsRef.current.forEach((osc) => {
       try {
         osc.stop();
-      } catch (e) {}
+      } catch {}
     });
     activeOscillatorsRef.current = [];
 
@@ -146,7 +146,7 @@ export const useTimerEffects = () => {
     activeOscillatorsRef.current.forEach((oscillator) => {
       try {
         oscillator.stop();
-      } catch (e) {
+      } catch {
         // Oscillator might already be stopped
       }
     });

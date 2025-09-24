@@ -183,7 +183,7 @@ const PresentationTimers = () => {
     try {
       if (time < 0 || !isFinite(time)) return "00:00";
       return format(new Date(time), "mm:ss");
-    } catch (error) {
+    } catch {
       return "00:00";
     }
   };

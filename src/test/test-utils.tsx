@@ -1,5 +1,5 @@
-import React, { ReactElement } from "react";
-import { render, RenderOptions } from "@testing-library/react";
+import React, { type ReactElement } from "react";
+import { render, type RenderOptions } from "@testing-library/react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n-test";

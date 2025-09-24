@@ -107,7 +107,7 @@ function RaceTimers() {
   useEffect(() => {
     let interval: number;
     if (raceStarted) {
-      interval = setInterval(() => {
+      interval = window.setInterval(() => {
         setLanes((prevLanes) =>
           prevLanes.map((lane) =>
             lane.isRunning && !lane.isFinished

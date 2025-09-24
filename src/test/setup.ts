@@ -15,19 +15,19 @@ Object.defineProperty(window, "matchMedia", {
   })),
 });
 
-global.ResizeObserver = vi.fn().mockImplementation(() => ({
+(global as any).ResizeObserver = vi.fn().mockImplementation(() => ({
   observe: vi.fn(),
   unobserve: vi.fn(),
   disconnect: vi.fn(),
 }));
 
-global.IntersectionObserver = vi.fn().mockImplementation(() => ({
+(global as any).IntersectionObserver = vi.fn().mockImplementation(() => ({
   observe: vi.fn(),
   unobserve: vi.fn(),
   disconnect: vi.fn(),
 }));
 
-global.Worker = vi.fn().mockImplementation(() => ({
+(global as any).Worker = vi.fn().mockImplementation(() => ({
   postMessage: vi.fn(),
   addEventListener: vi.fn(),
   terminate: vi.fn(),

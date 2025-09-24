@@ -111,7 +111,7 @@ export const useURLSharing = (_timerType: string) => {
         document.execCommand("copy");
         document.body.removeChild(textArea);
         return true;
-      } catch (fallbackError) {
+      } catch {
         document.body.removeChild(textArea);
         return false;
       }

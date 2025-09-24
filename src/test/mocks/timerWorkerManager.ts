@@ -11,7 +11,7 @@ interface TimerState {
 
 class MockTimerWorkerManager {
   private timers = new Map<string, TimerState>();
-  private intervals = new Map<string, NodeJS.Timeout>();
+  private intervals = new Map<string, number>();
 
   addTimer(
     id: string,
