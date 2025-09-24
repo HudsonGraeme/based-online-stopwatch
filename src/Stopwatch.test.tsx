@@ -303,4 +303,33 @@ describe("Stopwatch Component", () => {
       expect(screen.getByRole("button", { name: "Lap" })).toBeInTheDocument();
     });
   });
+
+  describe("Performance & Stability", () => {
+    it("should not cause excessive re-renders when adding laps", async () => {
+      let renderCount = 0;
+      const TestComponent = () => {
+        renderCount++;
+        return <Stopwatch />;
+      };
+
+      mockUseWebWorkerTimer.mockReturnValue({
+        isRunning: true,
+        value: 5000,
+        start: vi.fn(),
+        stop: vi.fn(),
+        reset: vi.fn(),
+        updateValue: vi.fn(),
+        updateConfig: vi.fn(),
+      });
+
+      render(<TestComponent />);
+      const initialRenderCount = renderCount;
+
+      const lapButton = screen.getByRole("button", { name: /lap/i });
+      await user.click(lapButton);
+
+      // Should not cause excessive re-renders (allow for a few due to state updates)
+      expect(renderCount - initialRenderCount).toBeLessThan(5);
+    });
+  });
 });

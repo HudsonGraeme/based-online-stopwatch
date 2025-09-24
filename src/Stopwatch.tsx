@@ -1,6 +1,7 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
+import { useMemo } from "react";
 import { usePersisted } from "./hooks/usePersisted";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { useWebWorkerTimer } from "./hooks/useWebWorkerTimer";
@@ -38,7 +39,7 @@ const Stopwatch = () => {
   };
 
   const handleLap = () => {
-    setLaps([...laps, time]);
+    setLaps((prevLaps) => [...prevLaps, time]);
   };
 
   // Keyboard shortcuts
@@ -59,6 +60,40 @@ const Stopwatch = () => {
   const formatTime = (time: number) => {
     return format(new Date(time), "mm:ss.SS");
   };
+
+  const lapList = useMemo(() => {
+    return laps.map((lap, index) => (
+      <Flex
+        key={index}
+        justifyContent="space-between"
+        alignItems="center"
+        py={3}
+        px={2}
+        borderRadius="8px"
+        bg={index % 2 === 0 ? "rgba(255, 255, 255, 0.02)" : "transparent"}
+        _hover={{
+          bg: "rgba(255, 255, 255, 0.05)",
+        }}
+        transition="background-color 0.2s ease"
+      >
+        <Text
+          fontSize={{ base: "sm", md: "md" }}
+          color="rgba(255, 255, 255, 0.8)"
+          fontWeight="500"
+        >
+          {t("Lap")} {index + 1}
+        </Text>
+        <Text
+          fontFamily="monospace"
+          fontSize={{ base: "sm", md: "md" }}
+          color="#ffffff"
+          fontWeight="600"
+        >
+          {formatTime(lap)}
+        </Text>
+      </Flex>
+    ));
+  }, [laps, t]);
 
   return (
     <Box
@@ -132,39 +167,7 @@ const Stopwatch = () => {
               </Text>
             </Flex>
           ) : (
-            laps.map((lap, index) => (
-              <Flex
-                key={index}
-                justifyContent="space-between"
-                alignItems="center"
-                py={3}
-                px={2}
-                borderRadius="8px"
-                bg={
-                  index % 2 === 0 ? "rgba(255, 255, 255, 0.02)" : "transparent"
-                }
-                _hover={{
-                  bg: "rgba(255, 255, 255, 0.05)",
-                }}
-                transition="background-color 0.2s ease"
-              >
-                <Text
-                  fontSize={{ base: "sm", md: "md" }}
-                  color="rgba(255, 255, 255, 0.8)"
-                  fontWeight="500"
-                >
-                  {t("Lap")} {index + 1}
-                </Text>
-                <Text
-                  fontFamily="monospace"
-                  fontSize={{ base: "sm", md: "md" }}
-                  color="#ffffff"
-                  fontWeight="600"
-                >
-                  {formatTime(lap)}
-                </Text>
-              </Flex>
-            ))
+            lapList
           )}
         </Box>
 

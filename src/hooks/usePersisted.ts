@@ -33,14 +33,15 @@ export const usePersisted = <T>(key: string, initialValue: T) => {
   useEffect(() => {
     if (!hasLoaded.current) return;
 
-    const saveValue = async () => {
+    const timeoutId = setTimeout(async () => {
       try {
         await localforage.setItem(key, value);
       } catch (error) {
         console.error(`Error saving ${key}:`, error);
       }
-    };
-    saveValue();
+    }, 100); // Debounce saves by 100ms
+
+    return () => clearTimeout(timeoutId);
   }, [key, value]);
 
   return [value, setValue] as const;
