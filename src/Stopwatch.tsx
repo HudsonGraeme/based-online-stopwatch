@@ -111,25 +111,61 @@ const Stopwatch = () => {
         />
         <Box
           mt={{ base: 6, md: 8 }}
-          maxHeight="200px"
+          height="200px"
+          bg="rgba(255, 255, 255, 0.02)"
+          borderRadius="12px"
+          border="1px solid rgba(255, 255, 255, 0.05)"
+          backdropFilter="blur(20px)"
           overflowY="auto"
-          px={{ base: 2, md: 0 }}
+          px={{ base: 3, md: 4 }}
+          py={3}
         >
-          {laps.map((lap, index) => (
+          {laps.length === 0 ? (
             <Flex
-              key={index}
-              justifyContent="space-between"
-              p={{ base: 3, md: 2 }}
-              borderBottom="1px solid #4a5568"
+              height="100%"
+              alignItems="center"
+              justifyContent="center"
+              opacity={0.4}
             >
-              <Text fontSize={{ base: "sm", md: "md" }}>
-                {t("Lap")} {index + 1}
-              </Text>
-              <Text fontFamily="monospace" fontSize={{ base: "sm", md: "md" }}>
-                {formatTime(lap)}
+              <Text fontSize="sm" color="rgba(255, 255, 255, 0.5)">
+                {t("Lap times will appear here")}
               </Text>
             </Flex>
-          ))}
+          ) : (
+            laps.map((lap, index) => (
+              <Flex
+                key={index}
+                justifyContent="space-between"
+                alignItems="center"
+                py={3}
+                px={2}
+                borderRadius="8px"
+                bg={
+                  index % 2 === 0 ? "rgba(255, 255, 255, 0.02)" : "transparent"
+                }
+                _hover={{
+                  bg: "rgba(255, 255, 255, 0.05)",
+                }}
+                transition="background-color 0.2s ease"
+              >
+                <Text
+                  fontSize={{ base: "sm", md: "md" }}
+                  color="rgba(255, 255, 255, 0.8)"
+                  fontWeight="500"
+                >
+                  {t("Lap")} {index + 1}
+                </Text>
+                <Text
+                  fontFamily="monospace"
+                  fontSize={{ base: "sm", md: "md" }}
+                  color="#ffffff"
+                  fontWeight="600"
+                >
+                  {formatTime(lap)}
+                </Text>
+              </Flex>
+            ))
+          )}
         </Box>
 
         {/* Keyboard shortcuts hint */}

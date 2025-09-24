@@ -219,7 +219,7 @@ function App() {
         ref={ref}
         minHeight="100vh"
         width="100vw"
-        bg="#0a0a0a"
+        bg="transparent"
         pt="80px"
         position="relative"
         display="flex"

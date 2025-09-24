@@ -261,32 +261,38 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       existingStyle.remove();
     }
 
+    // Remove existing fullscreen listeners to prevent duplicates
+    const oldHandlers = (document as any)._bgFullscreenHandlers;
+    if (oldHandlers) {
+      document.removeEventListener("fullscreenchange", oldHandlers.handler);
+      document.removeEventListener(
+        "webkitfullscreenchange",
+        oldHandlers.handler
+      );
+      document.removeEventListener("mozfullscreenchange", oldHandlers.handler);
+      document.removeEventListener("MSFullscreenChange", oldHandlers.handler);
+    }
+
     if (bgData) {
-      const style = document.createElement("style");
-      style.id = "custom-background-style";
-      style.textContent = `
-        #root {
-          background-image: url(${bgData}) !important;
-          background-size: cover !important;
-          background-position: center !important;
-          background-repeat: no-repeat !important;
-          background-attachment: fixed !important;
-        }
-        #root::before {
-          content: "";
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: rgba(0, 0, 0, 0.75);
-          pointer-events: none;
-        }
-        [data-theme="app-container"] {
-          background-color: transparent !important;
-        }
-      `;
-      document.head.appendChild(style);
+      applyBackgroundStyle(bgData);
+
+      // Add fullscreen event listeners to reapply background
+      const handleFullscreenChange = () => {
+        setTimeout(() => applyBackgroundStyle(bgData), 100);
+      };
+
+      document.addEventListener("fullscreenchange", handleFullscreenChange);
+      document.addEventListener(
+        "webkitfullscreenchange",
+        handleFullscreenChange
+      );
+      document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+      document.addEventListener("MSFullscreenChange", handleFullscreenChange);
+
+      // Store handlers for cleanup
+      (document as any)._bgFullscreenHandlers = {
+        handler: handleFullscreenChange,
+      };
     }
   };
 
@@ -608,37 +614,78 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   );
 }
 
+const applyBackgroundStyle = (bgData: string) => {
+  const existingStyle = document.getElementById("custom-background-style");
+  if (existingStyle) {
+    existingStyle.remove();
+  }
+
+  const style = document.createElement("style");
+  style.id = "custom-background-style";
+  style.textContent = `
+    [data-theme="app-container"] {
+      background-image: url(${bgData}) !important;
+      background-size: cover !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+      background-attachment: fixed !important;
+    }
+    [data-theme="app-container"]::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.75);
+      pointer-events: none;
+      z-index: 0;
+    }
+    *:fullscreen {
+      background-image: url(${bgData}) !important;
+      background-size: cover !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+      background-attachment: fixed !important;
+    }
+    *:fullscreen::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.75);
+      pointer-events: none;
+      z-index: 0;
+    }
+  `;
+  document.head.appendChild(style);
+};
+
 export async function initializeBackground() {
   try {
     const selected = await settingsStore.getItem<string>("selectedBackground");
     if (selected) {
       const bgData = await backgroundStore.getItem<string>(selected);
       if (bgData) {
-        const style = document.createElement("style");
-        style.id = "custom-background-style";
-        style.textContent = `
-          #root {
-            background-image: url(${bgData}) !important;
-            background-size: cover !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-            background-attachment: fixed !important;
-          }
-          #root::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.75);
-            pointer-events: none;
-          }
-          [data-theme="app-container"] {
-            background-color: transparent !important;
-          }
-        `;
-        document.head.appendChild(style);
+        applyBackgroundStyle(bgData);
+
+        // Add fullscreen event listeners to reapply background
+        const handleFullscreenChange = () => {
+          setTimeout(() => applyBackgroundStyle(bgData), 100);
+        };
+
+        document.addEventListener("fullscreenchange", handleFullscreenChange);
+        document.addEventListener(
+          "webkitfullscreenchange",
+          handleFullscreenChange
+        );
+        document.addEventListener(
+          "mozfullscreenchange",
+          handleFullscreenChange
+        );
+        document.addEventListener("MSFullscreenChange", handleFullscreenChange);
       }
     }
   } catch (error) {
