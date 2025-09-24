@@ -11,6 +11,7 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { FloatingParticles } from "./FloatingParticles";
 
 interface HotkeyHelpModalProps {
@@ -25,36 +26,86 @@ interface HotkeyItem {
 }
 
 const HotkeyHelpModal = ({ isOpen, onClose }: HotkeyHelpModalProps) => {
+  const { t } = useTranslation();
+
   const hotkeys: HotkeyItem[] = [
     // Navigation
-    { key: "H", description: "Home (Stopwatch)", category: "Navigation" },
-    { key: "T", description: "Timer (Countdown)", category: "Navigation" },
-    { key: "P", description: "Pomodoro", category: "Navigation" },
-    { key: "C", description: "Clocks", category: "Navigation" },
+    {
+      key: "H",
+      description: t("hotkey.navigation.home"),
+      category: t("hotkey.category.navigation"),
+    },
+    {
+      key: "T",
+      description: t("hotkey.navigation.timer"),
+      category: t("hotkey.category.navigation"),
+    },
+    {
+      key: "P",
+      description: t("hotkey.navigation.pomodoro"),
+      category: t("hotkey.category.navigation"),
+    },
+    {
+      key: "C",
+      description: t("hotkey.navigation.clocks"),
+      category: t("hotkey.category.navigation"),
+    },
 
     // Timer Controls
     {
       key: "Space",
-      description: "Start/Stop/Pause",
-      category: "Timer Controls",
+      description: t("hotkey.timer_controls.start_stop_pause"),
+      category: t("hotkey.category.timer_controls"),
     },
-    { key: "R", description: "Reset", category: "Timer Controls" },
-    { key: "L", description: "Lap (Stopwatch)", category: "Timer Controls" },
+    {
+      key: "R",
+      description: t("hotkey.timer_controls.reset"),
+      category: t("hotkey.category.timer_controls"),
+    },
+    {
+      key: "L",
+      description: t("hotkey.timer_controls.lap"),
+      category: t("hotkey.category.timer_controls"),
+    },
     {
       key: "Enter",
-      description: "Skip Phase (Pomodoro)",
-      category: "Timer Controls",
+      description: t("hotkey.timer_controls.skip_phase"),
+      category: t("hotkey.category.timer_controls"),
     },
 
     // Editing
-    { key: "0-9", description: "Edit time digits", category: "Editing" },
-    { key: "Tab", description: "Navigate digits", category: "Editing" },
-    { key: "← →", description: "Move between digits", category: "Editing" },
-    { key: "Esc", description: "Deselect/Close", category: "Editing" },
+    {
+      key: "0-9",
+      description: t("hotkey.editing.edit_digits"),
+      category: t("hotkey.category.editing"),
+    },
+    {
+      key: "Tab",
+      description: t("hotkey.editing.navigate_digits"),
+      category: t("hotkey.category.editing"),
+    },
+    {
+      key: "← →",
+      description: t("hotkey.editing.move_digits"),
+      category: t("hotkey.category.editing"),
+    },
+    {
+      key: "Esc",
+      description: t("hotkey.editing.deselect_close"),
+      category: t("hotkey.category.editing"),
+    },
 
     // View
-    { key: "F11", description: "Toggle Fullscreen", category: "View" },
-    { key: "?", description: "Show keyboard shortcuts", category: "View" },
+    {
+      key: "F11",
+      description: t("hotkey.view.fullscreen"),
+      category: t("hotkey.category.view"),
+    },
+    {
+      key: "?",
+      description: t("hotkey.view.show_shortcuts"),
+      category: t("hotkey.category.view"),
+    },
   ];
 
   const categories = [...new Set(hotkeys.map((h) => h.category))];
@@ -106,7 +157,7 @@ const HotkeyHelpModal = ({ isOpen, onClose }: HotkeyHelpModalProps) => {
           pb={2}
           color="white"
         >
-          Keyboard Shortcuts
+          {t("Keyboard Shortcuts")}
         </ModalHeader>
 
         <ModalBody py={4}>

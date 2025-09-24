@@ -89,7 +89,7 @@ class TimerWorker {
     const timer = this.timers.get(id);
     if (timer) {
       this.stopTimer({ id });
-      timer.currentValue = timer.config.initialValue || 0;
+      timer.currentValue = 0;
       timer.startTime = Date.now();
       timer.lastTick = Date.now();
       this.postMessage({
