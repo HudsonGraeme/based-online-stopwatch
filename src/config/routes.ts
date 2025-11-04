@@ -1,5 +1,23 @@
 import { lazy } from "react";
 import ComingSoon from "../components/ComingSoon";
+import {
+  Timer,
+  TimerReset,
+  Cherry,
+  Flag,
+  GraduationCap,
+  Gift,
+  Shuffle,
+  Hash,
+  Clock,
+  ClipboardCheck,
+  Users,
+  Presentation,
+  Calculator,
+  Radio,
+  Globe,
+  type LucideIcon,
+} from "lucide-react";
 
 const Stopwatch = lazy(() => import("../Stopwatch"));
 const Countdown = lazy(() => import("../Countdown"));
@@ -19,7 +37,7 @@ const GlobalTime = lazy(() => import("../GlobalTime"));
 export interface RouteConfig {
   name: string;
   path: string;
-  icon: string;
+  icon: LucideIcon;
   component: React.ComponentType;
   implemented: boolean;
 }
@@ -28,105 +46,105 @@ export const routes: RouteConfig[] = [
   {
     name: "Stopwatch",
     path: "/",
-    icon: "SW",
+    icon: Timer,
     component: Stopwatch,
     implemented: true,
   },
   {
     name: "Countdown",
     path: "/countdown",
-    icon: "CD",
+    icon: TimerReset,
     component: Countdown,
     implemented: true,
   },
   {
     name: "Pomodoro",
     path: "/pomodoro",
-    icon: "PM",
+    icon: Cherry,
     component: PomodoroTimer,
     implemented: true,
   },
   {
-    name: "Race Timers",
+    name: "Race",
     path: "/race-timers",
-    icon: "RT",
+    icon: Flag,
     component: RaceTimers,
     implemented: true,
   },
   {
-    name: "Classroom Timers",
+    name: "Classroom",
     path: "/classroom-timers",
-    icon: "CT",
+    icon: GraduationCap,
     component: ClassroomTimers,
     implemented: true,
   },
   {
-    name: "Holiday Timers",
+    name: "Holiday",
     path: "/holiday-timers",
-    icon: "HT",
-    component: () => ComingSoon({ title: "Holiday Timers", icon: "HT" }),
+    icon: Gift,
+    component: () => ComingSoon({ title: "Holiday", icon: "🎄" }),
     implemented: false,
   },
   {
-    name: "Random Name Pickers",
+    name: "Name Picker",
     path: "/random-name-pickers",
-    icon: "RN",
+    icon: Shuffle,
     component: RandomNamePickers,
     implemented: true,
   },
   {
-    name: "Random Number Generators",
+    name: "Numbers",
     path: "/random-number-generators",
-    icon: "RG",
+    icon: Hash,
     component: RandomNumberGenerators,
     implemented: true,
   },
   {
     name: "Clocks",
     path: "/clocks",
-    icon: "CL",
+    icon: Clock,
     component: Clocks,
     implemented: true,
   },
   {
-    name: "Exam Timers",
+    name: "Exam",
     path: "/exam-timers",
-    icon: "ET",
+    icon: ClipboardCheck,
     component: ExamTimers,
     implemented: true,
   },
   {
-    name: "Group Generator",
+    name: "Groups",
     path: "/group-generators",
-    icon: "GG",
+    icon: Users,
     component: GroupGenerator,
     implemented: true,
   },
   {
-    name: "Presentation Timers",
+    name: "Presentation",
     path: "/presentation-timers",
-    icon: "PT",
+    icon: Presentation,
     component: PresentationTimers,
     implemented: true,
   },
   {
-    name: "Tally Counters",
+    name: "Tally",
     path: "/tally-counters",
-    icon: "TC",
+    icon: Calculator,
     component: TallyCounters,
     implemented: true,
   },
   {
-    name: "Remote Timer",
+    name: "Remote",
     path: "/remote-timer",
-    icon: "RM",
+    icon: Radio,
     component: RemoteTimer,
     implemented: true,
   },
   {
-    name: "Global Time",
+    name: "World",
     path: "/global-time",
-    icon: "GT",
+    icon: Globe,
     component: GlobalTime,
     implemented: true,
   },

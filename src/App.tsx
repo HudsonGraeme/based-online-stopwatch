@@ -35,15 +35,41 @@ import {
 } from "./components/SettingsModal";
 import { useGlobalKeyboardShortcuts } from "./hooks/useGlobalKeyboardShortcuts";
 import HotkeyHelpModal from "./components/HotkeyHelpModal";
+import localforage from "localforage";
 
 function Navigation() {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [visitedRoutes, setVisitedRoutes] = useState<string[]>([
+    location.pathname,
+  ]);
 
   const currentItem =
     routes.find((item) => item.path === location.pathname) || routes[0];
+
+  useEffect(() => {
+    localforage.getItem<string[]>("visitedRoutes").then((saved) => {
+      if (saved && saved.length > 0) {
+        setVisitedRoutes(saved);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    setVisitedRoutes((prev) => {
+      if (prev[prev.length - 1] === location.pathname) return prev;
+
+      const filtered = prev.filter((path) => path !== location.pathname);
+      const newVisited = [...filtered, location.pathname];
+      return newVisited.slice(-3);
+    });
+  }, [location.pathname]);
+
+  useEffect(() => {
+    localforage.setItem("visitedRoutes", visitedRoutes);
+  }, [visitedRoutes]);
 
   const navigateToNext = () => {
     const currentIndex = routes.findIndex(
@@ -78,95 +104,262 @@ function Navigation() {
       borderBottom="1px solid"
       borderColor="rgba(255, 255, 255, 0.1)"
       px={6}
-      py={4}
+      pt={4}
+      pb={0}
+      h="72px"
       justifyContent="space-between"
-      alignItems="center"
+      alignItems="flex-end"
       {...navigationGestures}
     >
-      <Popover
-        placement="bottom-start"
-        isOpen={isPopoverOpen}
-        onClose={() => setIsPopoverOpen(false)}
-      >
-        <PopoverTrigger>
-          <GlassButton
-            variant="primary"
-            glassLevel="medium"
-            borderRadius="12px"
-            px={4}
-            py={2}
-            fontWeight="600"
-            fontSize="14px"
-            letterSpacing="0.25px"
-            leftIcon={<Text fontSize="16px">{currentItem.icon}</Text>}
-            rightIcon={<Text fontSize="12px">▼</Text>}
-            onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+      <Flex gap={4} flex="1" h="full">
+        <Flex alignItems="center" h="full">
+          <Popover
+            placement="bottom-start"
+            isOpen={isPopoverOpen}
+            onClose={() => setIsPopoverOpen(false)}
           >
-            {t(currentItem.name)}
-          </GlassButton>
-        </PopoverTrigger>
-        <PopoverContent
-          bg="rgba(10, 10, 10, 0.95)"
-          borderColor="rgba(255, 255, 255, 0.1)"
-          backdropFilter="blur(20px)"
-          maxW={{ base: "320px", sm: "400px", md: "600px" }}
-          w={{ base: "320px", sm: "400px", md: "600px" }}
+            <PopoverTrigger>
+              <GlassButton
+                variant="primary"
+                glassLevel="medium"
+                borderRadius="12px"
+                px={4}
+                py={2}
+                minW={{ base: "auto", md: "12rem" }}
+                fontWeight="600"
+                fontSize="14px"
+                letterSpacing="-0.01em"
+                leftIcon={<currentItem.icon size={16} strokeWidth={2.5} />}
+                rightIcon={
+                  <Text
+                    fontSize="10px"
+                    transition="transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
+                    transform={
+                      isPopoverOpen ? "rotate(180deg)" : "rotate(0deg)"
+                    }
+                  >
+                    ▼
+                  </Text>
+                }
+                onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+                transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
+              >
+                {t(currentItem.name)}
+              </GlassButton>
+            </PopoverTrigger>
+            <PopoverContent
+              bg="rgba(18, 18, 18, 0.92)"
+              borderColor="rgba(255, 255, 255, 0.08)"
+              backdropFilter="blur(40px) saturate(150%)"
+              boxShadow="0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05)"
+              borderRadius="16px"
+              maxW={{ base: "320px", sm: "400px", md: "600px" }}
+              w={{ base: "320px", sm: "400px", md: "600px" }}
+              overflow="hidden"
+            >
+              <PopoverBody p={{ base: 4, md: 6 }}>
+                <SimpleGrid
+                  columns={{ base: 2, sm: 3 }}
+                  spacing={{ base: 2, md: 3 }}
+                >
+                  {routes.map((item, index) => (
+                    <GlassButton
+                      key={item.path}
+                      variant={
+                        location.pathname === item.path ? "primary" : "ghost"
+                      }
+                      glassLevel="subtle"
+                      bg={
+                        location.pathname === item.path
+                          ? "rgba(255, 255, 255, 0.12)"
+                          : "rgba(255, 255, 255, 0.02)"
+                      }
+                      color={
+                        location.pathname === item.path
+                          ? "#ffffff"
+                          : "rgba(255, 255, 255, 0.7)"
+                      }
+                      borderRadius="12px"
+                      border="1px solid"
+                      borderColor={
+                        location.pathname === item.path
+                          ? "rgba(255, 255, 255, 0.15)"
+                          : "rgba(255, 255, 255, 0.06)"
+                      }
+                      p={{ base: 4, md: 4 }}
+                      h="auto"
+                      minH={{ base: "80px", md: "90px" }}
+                      fontWeight="500"
+                      fontSize={{ base: "13px", md: "13px" }}
+                      letterSpacing="-0.01em"
+                      onClick={() => {
+                        navigate(item.path);
+                        setIsPopoverOpen(false);
+                      }}
+                      transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
+                      _hover={{
+                        bg:
+                          location.pathname === item.path
+                            ? "rgba(255, 255, 255, 0.15)"
+                            : "rgba(255, 255, 255, 0.06)",
+                        borderColor: "rgba(255, 255, 255, 0.2)",
+                        transform: "translateY(-2px)",
+                        boxShadow: "0 4px 16px rgba(0, 0, 0, 0.2)",
+                      }}
+                      _active={{
+                        transform: "scale(0.98)",
+                      }}
+                      opacity={0}
+                      animation={
+                        isPopoverOpen
+                          ? `fadeInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.03}s forwards`
+                          : undefined
+                      }
+                      sx={{
+                        "@keyframes fadeInUp": {
+                          "0%": {
+                            opacity: 0,
+                            transform: "translateY(8px)",
+                          },
+                          "100%": {
+                            opacity: 1,
+                            transform: "translateY(0)",
+                          },
+                        },
+                      }}
+                    >
+                      <VStack spacing={3}>
+                        <Box
+                          color={
+                            location.pathname === item.path
+                              ? "rgba(255, 255, 255, 0.95)"
+                              : "rgba(255, 255, 255, 0.6)"
+                          }
+                          transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
+                        >
+                          <item.icon size={28} strokeWidth={1.5} />
+                        </Box>
+                        <Text
+                          fontSize={{ base: "12px", md: "13px" }}
+                          textAlign="center"
+                          lineHeight="1.3"
+                          noOfLines={2}
+                          fontWeight={
+                            location.pathname === item.path ? "600" : "500"
+                          }
+                          opacity={location.pathname === item.path ? 1 : 0.85}
+                        >
+                          {t(item.name)}
+                        </Text>
+                      </VStack>
+                    </GlassButton>
+                  ))}
+                </SimpleGrid>
+              </PopoverBody>
+            </PopoverContent>
+          </Popover>
+        </Flex>
+
+        <Flex
+          h="full"
+          alignItems="flex-end"
+          display={{ base: "none", md: "flex" }}
         >
-          <PopoverBody p={{ base: 3, md: 4 }}>
-            <SimpleGrid columns={{ base: 2, sm: 3 }} spacing={3}>
-              {routes.map((item) => (
-                <GlassButton
-                  key={item.path}
-                  variant={
-                    location.pathname === item.path ? "primary" : "ghost"
+          <HStack spacing={0.5}>
+            {visitedRoutes.map((routePath, index) => {
+              const routeItem = routes.find((r) => r.path === routePath);
+              if (!routeItem) return null;
+
+              const isActive = routePath === location.pathname;
+
+              return (
+                <Flex
+                  key={`${routePath}-${index}`}
+                  bg={
+                    isActive
+                      ? "rgba(255, 255, 255, 0.1)"
+                      : "rgba(255, 255, 255, 0.04)"
                   }
-                  glassLevel={
-                    location.pathname === item.path ? "medium" : "subtle"
-                  }
-                  color={
-                    location.pathname === item.path ? "#ffffff" : "#9ca3af"
-                  }
-                  borderRadius="8px"
-                  p={{ base: 4, md: 3 }}
-                  h="auto"
-                  minH={{ base: "60px", md: "auto" }}
-                  fontWeight="600"
-                  fontSize={{ base: "11px", md: "12px" }}
-                  letterSpacing="0.25px"
-                  onClick={() => {
-                    navigate(item.path);
-                    setIsPopoverOpen(false);
+                  borderTop="1px solid"
+                  borderLeft="1px solid"
+                  borderRight="1px solid"
+                  borderColor="rgba(255, 255, 255, 0.08)"
+                  px={3}
+                  py={2}
+                  alignItems="center"
+                  gap={2}
+                  minW="120px"
+                  maxW="160px"
+                  position="relative"
+                  transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
+                  _hover={{
+                    bg: isActive
+                      ? "rgba(255, 255, 255, 0.12)"
+                      : "rgba(255, 255, 255, 0.06)",
+                  }}
+                  _before={{
+                    content: '""',
+                    position: "absolute",
+                    bottom: "-1px",
+                    left: 0,
+                    right: 0,
+                    height: "1px",
+                    bg: isActive ? "rgba(10, 10, 10, 0.95)" : "transparent",
+                    zIndex: 2,
                   }}
                 >
-                  <VStack spacing={1}>
-                    <Text fontSize={{ base: "20px", md: "18px" }}>
-                      {item.icon}
-                    </Text>
-                    <Text
-                      fontSize={{ base: "10px", md: "11px" }}
-                      textAlign="center"
-                      lineHeight="1.2"
-                      noOfLines={2}
-                    >
-                      {t(item.name)}
-                    </Text>
-                  </VStack>
-                </GlassButton>
-              ))}
-            </SimpleGrid>
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
-
-      <Text
-        fontSize={{ base: "xs", md: "sm" }}
-        color="#6b7280"
-        fontFamily="system-ui, -apple-system, sans-serif"
-        opacity={0.7}
-        display={{ base: "none", sm: "block" }}
-      >
-        {t("Based Online Stopwatch")}
-      </Text>
+                  <Box
+                    color={
+                      isActive
+                        ? "rgba(255, 255, 255, 0.9)"
+                        : "rgba(255, 255, 255, 0.5)"
+                    }
+                    transition="color 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
+                    cursor="pointer"
+                    onClick={() => navigate(routePath)}
+                  >
+                    <routeItem.icon size={14} strokeWidth={2} />
+                  </Box>
+                  <Text
+                    fontSize="12px"
+                    fontWeight={isActive ? "600" : "500"}
+                    color={
+                      isActive
+                        ? "rgba(255, 255, 255, 0.9)"
+                        : "rgba(255, 255, 255, 0.5)"
+                    }
+                    letterSpacing="-0.01em"
+                    noOfLines={1}
+                    flex="1"
+                    cursor="pointer"
+                    onClick={() => navigate(routePath)}
+                  >
+                    {t(routeItem.name)}
+                  </Text>
+                  <Box
+                    color="rgba(255, 255, 255, 0.4)"
+                    cursor="pointer"
+                    transition="color 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
+                    _hover={{
+                      color: "rgba(255, 255, 255, 0.8)",
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setVisitedRoutes((prev) =>
+                        prev.filter((p) => p !== routePath)
+                      );
+                    }}
+                    fontSize="10px"
+                    lineHeight="1"
+                  >
+                    ✕
+                  </Box>
+                </Flex>
+              );
+            })}
+          </HStack>
+        </Flex>
+      </Flex>
     </Flex>
   );
 }
