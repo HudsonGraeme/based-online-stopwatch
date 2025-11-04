@@ -13,6 +13,8 @@ const ExamTimers = lazy(() => import("../ExamTimers"));
 const PresentationTimers = lazy(() => import("../PresentationTimers"));
 const TallyCounters = lazy(() => import("../TallyCounters"));
 const GroupGenerator = lazy(() => import("../GroupGenerator"));
+const RemoteTimer = lazy(() => import("../RemoteTimer"));
+const GlobalTime = lazy(() => import("../GlobalTime"));
 
 export interface RouteConfig {
   name: string;
@@ -112,6 +114,20 @@ export const routes: RouteConfig[] = [
     path: "/tally-counters",
     icon: "TC",
     component: TallyCounters,
+    implemented: true,
+  },
+  {
+    name: "Remote Timer",
+    path: "/remote-timer",
+    icon: "RM",
+    component: RemoteTimer,
+    implemented: true,
+  },
+  {
+    name: "Global Time",
+    path: "/global-time",
+    icon: "GT",
+    component: GlobalTime,
     implemented: true,
   },
 ];
